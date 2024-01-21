@@ -5,7 +5,7 @@ import {Footer} from '../components/Footer.jsx'
 function Home(){
     return(
         <div className="Home_Container">
-            <Header/> {/* Header and footer is still empty, complete it first in components */}
+            <Header/> {/* Header and footer are still empty, complete it first in components */}
                 <div className="Home_Body">
                     {/*Put the contents here*/}
 

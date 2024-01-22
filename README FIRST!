@@ -1,0 +1,27 @@
+// once you cloned the repository,
+// open terminal in vscode and 
+// enter this one by one to start
+// the development;
+
+ cd LRS_Web_Application
+ npm run dev
+
+// cuz no need to re-install npm as i 
+// already configured the node modules needed
+// and necessary library
+
+some commands necessary for us for git in terminal
+(must have installed git first)
+
+ git add {filename} or git add . 
+(period is to add everything) 
+ - this command will stage files to ready it 
+   for commiting.
+ 
+ git commit -m "message here - context of what has been modified"
+ - this command will ready it for pushing(publishing) to github repository
+
+ git push
+ - to publish the changes created.
+
+

@@ -1,7 +1,10 @@
 // once you cloned the repository,
 // open terminal in vscode and 
 // enter this one by one to start
-// the development;
+// the development; always do this 
+// when going to modify the code so 
+// you can see the changes through 
+// the port it will provide 
 
  cd LRS_Web_Application
  npm run dev

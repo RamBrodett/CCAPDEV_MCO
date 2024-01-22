@@ -11,6 +11,7 @@ export function Home(){
                         {/*Put the contents here*/}
                         {/* We put real images of dlsu's computer lab */}
                         {/*then add texts about computer lab and features(capability) */}
+                        
                     </div>
                 <Footer />
             </div>

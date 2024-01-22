@@ -9,8 +9,8 @@ export function Home(){
                 <Header /> {/* Header and footer are still empty, complete it first in components */}
                     <div className="Home_Body">
                         {/*Put the contents here*/}
-                        <h1>Home</h1>
-
+                        {/* We put real images of dlsu's computer lab */}
+                        {/*then add texts about computer lab and features(capability) */}
                     </div>
                 <Footer />
             </div>

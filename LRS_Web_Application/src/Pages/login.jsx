@@ -27,11 +27,11 @@ export function Login(){
                                     <p>Need an account?</p>
                                     <Link id='link' to='/register'> Sign up </Link>
                                 </div>
-                                <input type='email' name='email' id='email'/>
+                                <input type='email' name='email' id='email' required placeholder='example@email.com'/>
                             </div>
                             <div className='passwordform'>
                                 <label htmlFor='password'>Password</label>
-                                <input type='password' name='password' id='password'/>
+                                <input type='password' name='password' id='password' required/>
                             </div>
                         </div>
                         <div id='Bottom'>

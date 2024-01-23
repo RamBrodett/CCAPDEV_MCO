@@ -1,5 +1,6 @@
 import './Component.css'
 import Icon from '../assets/Icon.png'
+import { Link } from 'react-router-dom'
 
 export function Header(){
     return(
@@ -9,9 +10,9 @@ export function Header(){
             <h2 id="HeaderTitle">Computer Lab Reservation System</h2>
             </div>
             <div className="NavMenu">
-                <a href='#'>Home</a>
-                <a href='#'>Book</a>
-                <a id='credStat' href='#'>Sign in</a> {/*Turns into logout when logged in*/}
+                <Link to='/'> Home </Link>
+                <Link to='/Booking'> Book </Link>
+                <Link to='/login'> Log in </Link> {/*Turns into logout when logged in*/}
                 {/* <div classname='Account'>
                     <UserIcon/>
                     <UserName>

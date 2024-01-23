@@ -3,6 +3,11 @@
 *{
     margin: 0px;
     box-sizing: border-box;
+    font-family: 'Roboto Slab', serif;
+}
+
+p,h1,h2,h3,h4{
+    cursor: default;
 }
 
 body {
@@ -11,6 +16,7 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: #93A8AC;
+    overflow-x: hidden;
     
 }
 
@@ -70,12 +76,38 @@ body {
     text-wrap: nowrap;
 }
 
-.Home_Container {
+.Home_Container{
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-color: white;
+}
+
+.Login_Blackground{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    min-height: 100vh;
+    background: url('../assets/LoginBackground.png'), lightgray 50%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.LoginContent{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
 }
 
 .Footer{
@@ -95,5 +127,124 @@ body {
     font-family: 'Roboto Slab', serif;
     font-weight: 400;
     font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
 
 }
+.Note #cred1{
+    margin-right: 10px;
+}
+.LoginBody{
+    padding: 8%;
+}
+
+.Login_form{
+    position: relative;
+    border-radius: 11px;
+    z-index: 3;
+    margin:auto;
+    width: 771px;
+    height: 623px;
+    flex-shrink: 0;
+    background-color: white;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Login_form #Top{
+    display: flex;
+    flex-direction: row;
+}
+
+.Login_form #Top h2{
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 32px;
+    margin-left: 38px;
+    cursor:default;
+}
+
+#exitLogin{
+    margin-left: auto;
+}
+
+.Login_form #Top img{
+   width: 30px;
+   height: 30px;
+}
+
+.Login_form #Center{
+    margin-top: auto;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.emailform, .passwordform{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+
+}
+#Center #email-signup{
+    display: flex;
+    flex-direction: row;
+}
+
+#email-signup p{
+    margin-left: auto;
+    font-weight: 400;
+    color: #646464;
+    cursor:default;
+}
+
+#email-signup #link{
+    margin-left: 10px;
+    margin-right: 5px;
+    font-weight: 500;
+    color: #00AF5E;
+    text-decoration: none;
+}
+#email-signup #link:hover{
+    color: #006435;
+}
+
+.Login_form #Center input{
+    width: 623px;
+    height: 62px;
+    border-radius: 11px;
+    border: 1px solid gray;
+    font-size: 28px;
+    margin-top: 10px;
+    padding-left: 20px;
+
+}
+.Login_form #Center label{
+    font-size: large;
+    font-weight: 500;
+    color: #252525;
+
+}
+
+
+.Login_form #Bottom{
+    margin: auto;
+}
+
+.Login_form #Bottom button{
+    width: 623px;
+    height: 62px;
+    border-radius: 30px;
+    background: #00AF5E;
+    border: none;
+    color: white;
+    font-size: large;
+}
+
+.Login_form #Bottom button:active{
+    background: #006435;;
+}
+

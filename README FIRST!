@@ -36,4 +36,5 @@ Backend - Node js
 Database - MongoDb
 
 dont edit Master branch without permission, it is for final agreed changes
+create a branch for your edit then we'll merge it once there is no conflicts
 

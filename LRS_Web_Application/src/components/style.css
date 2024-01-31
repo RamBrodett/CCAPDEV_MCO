@@ -84,7 +84,7 @@ body {
     background-color: white;
 }
 
-.Login_Blackground{
+.Login_Background, .Register_Background{
     position: fixed;
     left: 0;
     right: 0;
@@ -98,7 +98,7 @@ body {
     -ms-filter: blur(5px);
     filter: blur(5px);
 }
-.LoginContent{
+.LoginContent, .RegisterContent{
     position: fixed;
     left: 0;
     right: 0;
@@ -138,8 +138,11 @@ body {
 .LoginBody{
     padding: 8%;
 }
+.RegisterBody{
+    padding: 3%;
+}
 
-.Login_form{
+.Login_form, .Register_form{
     position: relative;
     border-radius: 11px;
     z-index: 3;
@@ -154,12 +157,16 @@ body {
     flex-direction: column;
 }
 
-.Login_form #Top{
+.Register_form{
+    height: 800px;
+}
+
+.Login_form #Top, .Register_form #Top{
     display: flex;
     flex-direction: row;
 }
 
-.Login_form #Top h2{
+.Login_form #Top h2, .Register_form #Top h2{
     margin-top: 30px;
     font-weight: 600;
     font-size: 32px;
@@ -169,18 +176,23 @@ body {
 
 #exitLogin{
     margin-left: auto;
+    border: none;
 }
 
-.Login_form #Top img{
+.Login_form #Top img, .Register_form #Top img{
    width: 30px;
    height: 30px;
+   border: none;
 }
 
-.Login_form #Center{
+.Login_form #Center, .Register_form #Center{
     margin-top: auto;
     margin: auto;
     display: flex;
     flex-direction: column;
+}
+.Register_form #Center{
+    margin-top: 30px;
 }
 
 .emailform, .passwordform{
@@ -189,6 +201,17 @@ body {
     flex-direction: column;
 
 }
+
+.error-message{
+    margin:auto;
+    margin-top: 20px;
+    color: red;
+}
+
+#passwordReg1Label{
+    margin-top: 40px;
+}
+
 #Center #email-signup{
     display: flex;
     flex-direction: row;
@@ -212,7 +235,7 @@ body {
     color: #006435;
 }
 
-.Login_form #Center input{
+.Login_form #Center input, .Register_form #Center input{
     width: 623px;
     height: 62px;
     border-radius: 11px;
@@ -222,7 +245,7 @@ body {
     padding-left: 20px;
 
 }
-.Login_form #Center label{
+.Login_form #Center label, .Register_form #Center label{
     font-size: large;
     font-weight: 500;
     color: #252525;
@@ -230,11 +253,11 @@ body {
 }
 
 
-.Login_form #Bottom{
+.Login_form #Bottom, .Register_form #Bottom{
     margin: auto;
 }
 
-.Login_form #Bottom button{
+.Login_form #Bottom button, .Register_form #Bottom button{
     width: 623px;
     height: 62px;
     border-radius: 30px;
@@ -244,7 +267,8 @@ body {
     font-size: large;
 }
 
-.Login_form #Bottom button:active{
+.Login_form #Bottom button:active, .Register_form #Bottom button:active{
     background: #006435;;
 }
+
 

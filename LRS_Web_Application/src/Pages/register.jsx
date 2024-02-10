@@ -6,6 +6,8 @@ import { BFooter } from '../components/basicFooter'
 
 export function Register(){
     const [formData, setFormData] = useState({
+        fname: '',
+        lname: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -48,6 +50,33 @@ export function Register(){
                             <Link id='exitLogin' to='/'><img src={XIcon}/></Link>
                         </div>
                         <div id='Center'> 
+                            <div className="nameform">
+                                <div className='FirstName'>
+                                    <label htmlFor="firstname">First Name</label>
+                                    <input
+                                        type='text'
+                                        name='fname'
+                                        id='fname'
+                                        value={formData.fname}
+                                        onChange={handleInputChange}
+                                        required
+                                        placeholder='First Name'
+                                    />
+
+                                </div>
+                                <div className="LastName">
+                                    <label htmlFor="lastname">Last Name</label>
+                                    <input
+                                        type='text'
+                                        name='lname'
+                                        id='lname'
+                                        value={formData.lname}
+                                        onChange={handleInputChange}
+                                        required
+                                        placeholder='Last Name'
+                                    />
+                                </div>
+                            </div>
                             <div className='emailform'>
                                 <div id='email-signup'>
                                     <label htmlFor='email'>Email</label>

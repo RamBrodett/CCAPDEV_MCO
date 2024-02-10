@@ -61,19 +61,26 @@ body {
 }
 
 .Header .NavMenu{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
     position: relative;
     top: 25%;
     margin-left: auto;
-    margin-right: 70px;
+    margin-right: 10px;
 }
+
 .Header .NavMenu a{
-    margin: 10px;
     color: #192a38;
     font-family: 'Roboto Slab', serif;
     font-weight: 500;
     font-size: 20px;
     text-decoration: none;
     text-wrap: nowrap;
+}
+
+.NavElem{
+    margin-left: 10px;
 }
 
 .Home_Container{
@@ -245,6 +252,7 @@ body {
     padding-left: 20px;
 
 }
+
 .Login_form #Center label, .Register_form #Center label{
     font-size: large;
     font-weight: 500;
@@ -271,4 +279,21 @@ body {
     background: #006435;;
 }
 
+.nameform{
+    display: flex;
+    flex-direction: row;
+}
+.FirstName,.LastName{
+    display: flex;
+    flex-direction: column;
+}
 
+.LastName{
+    margin-left: 30px;
+}
+
+.Register_form #Center .nameform input {
+    width: 295px;
+    height: 62px;
+
+}

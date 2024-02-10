@@ -1,0 +1,24 @@
+
+.accDisp{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+}
+#AccLogo{
+    background-image: url('../assets/UserIcon.png');
+    background-size: 45px 45px;
+    background-position: .1px;
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: -7px;
+}
+#AccDisplayName{
+    color: #192a38;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+    text-wrap: nowrap;
+}

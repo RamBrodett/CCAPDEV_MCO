@@ -21,7 +21,6 @@ body {
 }
 
 .Header{
-    
     height: 80px;
     width: 100vw;
     display: flex;
@@ -106,6 +105,7 @@ body {
     filter: blur(5px);
 }
 .LoginContent, .RegisterContent{
+    flex: 1;
     position: fixed;
     left: 0;
     right: 0;
@@ -296,4 +296,59 @@ body {
     width: 295px;
     height: 62px;
 
+}
+
+.LocationContainer{
+    background-color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#locationContent{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+}
+
+#campusmap{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#labsmap{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#campusmap h1, #labsmap h1{
+    color: #00703c;
+    white-space: nowrap;
+    font-weight: 900;
+}
+
+#campusmapimg{
+    position: relative;
+    left: -30px;
+    background-image: url('../assets/campus-map.jpg');
+    background-size: 1121px 700px;
+    width: 1121px;
+    height: 680px;
+    cursor: zoom-in;
+
+    transition: transform 0.3s ease-in-out;
+}
+
+#campusmapimg:hover {
+    transform: scale(1.2); 
+    overflow: hidden;
+  }
+
+#labsmap h1{
+    margin-left: 2vw;
 }

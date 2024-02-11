@@ -8,7 +8,7 @@ export function Header(){
     /* this is temporary have to fix the backend for the username retrieval */
     const[username] =  useState('temp');
     /* this is temporary have to fix the backend for the login check */
-    const[IsLoggedIn, setIsLoggedIn] = useState(false);
+    const[IsLoggedIn, setIsLoggedIn] = useState(true);
     const handleLogOut = () =>{
         //process logout backend mechanism
         setIsLoggedIn(false)

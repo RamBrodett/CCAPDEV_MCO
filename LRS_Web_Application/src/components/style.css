@@ -337,7 +337,7 @@ body {
     left: -30px;
     background-image: url('../assets/campus-map.jpg');
     background-size: 1121px 700px;
-    width: 1121px;
+    width: 1100px;
     height: 680px;
     cursor: zoom-in;
 
@@ -349,6 +349,60 @@ body {
     overflow: hidden;
   }
 
-#labsmap h1{
-    margin-left: 2vw;
+#labsmap{
+    margin-left: 3vw;
+}
+
+#gokslabs, #stlslabs, #brandrewlabs{
+    display: flex;
+    flex-direction: column;
+}
+
+#gokslabs{
+    margin-top: 60px;
+}
+
+#stlslabs{
+    margin-top: 30px;
+}
+
+#brandrewlabs{
+    margin-top: 40px;
+}
+
+
+
+#gokslabs h4, #stlslabs h4, #brandrewlabs h4{
+    color: #00703c;
+}
+
+
+#goksdetails, #stlsdetails,#brandrewdetails{
+    display: flex;
+    flex-direction: row;
+}
+
+#goksdetails span{
+    margin-top: 20px;
+    background-image: url('../assets/GokongweiHall.png');
+    background-size: 80px 160px;
+    width: 80px;
+    height: 160px;
+}
+
+#stlsdetails span{
+    margin-top: 40px;
+    background-image: url('../assets/St_LaSalleHall.png');
+    background-size: 200px 100px;
+    width: 200px;
+    height: 95px;
+}
+
+#brandrewdetails span{
+    margin-top: 20px;
+    background-image: url('../assets/br_andrewHall.png');
+    background-size: 80px 170px;
+    background-position: 0px -8px;
+    width: 80px;
+    height: 160px;
 }

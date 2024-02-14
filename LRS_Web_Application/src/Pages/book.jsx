@@ -804,7 +804,7 @@ export function Book(){
                                 <div className="dates">
                                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
                                         <label className={`dates-item ${selectedDay === day ? 'selected' : ''}`} key={day}>
-                                            <input
+                                            <input className='radioInput'
                                                 type="radio"
                                                 value={day}
                                                 checked={selectedDay === day}
@@ -818,7 +818,7 @@ export function Book(){
                                 <div className="times">
                                     {['11:00', '14:30', '18:00', '21:30'].map((time) => (
                                         <label className={`time ${selectedTime === time ? 'selected' : ''}`} key={time}>
-                                            <input
+                                            <input className='radioInput'
                                                 type="radio"
                                                 value={time}
                                                 checked={selectedTime === time}

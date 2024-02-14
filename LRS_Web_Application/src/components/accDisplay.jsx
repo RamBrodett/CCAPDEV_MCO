@@ -1,3 +1,6 @@
+/*
+Author: Ram David Brodett
+*/
 import './ADStyle.css'
 import PropTypes from 'prop-types';
 

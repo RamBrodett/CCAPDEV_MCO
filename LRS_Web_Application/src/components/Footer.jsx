@@ -1,3 +1,7 @@
+/*
+Author: Ram David Brodett
+*/
+
 import './style.css'
 export function Footer(){
     return(

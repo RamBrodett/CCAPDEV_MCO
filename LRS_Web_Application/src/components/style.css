@@ -23,7 +23,7 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: #ffffff;
-    
+    overflow-x: hidden;
     
 }
 
@@ -546,6 +546,31 @@ body {
     border-radius: 16px;
     background-color: #00703C;
     flex-shrink: 0;
+    text-align: center;
+
+}
+
+#bookIcon{
+    width: 80px;
+    height: 80px;
+    margin-left: -5px;
+    margin-top: 6px;
+}
+
+#mapIcon{
+
+    width: 100px;
+    height: 130px;
+    margin-top: -10px;
+
+}
+#guideIcon{
+
+    width: 140px;
+    height: 160px;
+    margin-top: -20px;
+    margin-left: -8px;
+
 }
 
 #topShortcut h1 {
@@ -564,6 +589,7 @@ body {
     background-color: #00703C;
     border-radius: 100px;
     flex-shrink: 0;
+    text-align: center;
 }
 #rightbotShortcut div{
     width: 128px;
@@ -571,6 +597,7 @@ body {
     background-color: #00703C;
     border-radius: 100px;
     flex-shrink: 0;
+    text-align: center;
 }
 
 /* ----------  Booking page style ----------*/

@@ -5,6 +5,9 @@ Author: Ram David Brodett
 import {Header} from '../components/Header.jsx'
 import {Footer} from '../components/Footer.jsx'
 import { Link } from 'react-router-dom'
+import Booking_icon from '../assets/Booking_Icon.png'
+import Location_icon from '../assets/Map_Icon.png'
+import Guide_icon from '../assets/Guide_Icon.png'
 
 export function Home(){
     return(
@@ -32,25 +35,25 @@ export function Home(){
                             <div id="shortcuts">
                                 <div id="topShortcut">
                                     <Link to='/book'>
-                                        <div>
-                                            {/*svg logo of booking icon*/}
+                                         <div>
+                                            <img id='bookIcon' src={Booking_icon}/>
                                         </div>
                                     </Link>
+                                    
                                     <h1>SEAT BOOKING</h1>
                                 </div>
                                 <div id="botShortcut">
                                     <div id="leftbotShortcut" onClick={Location}>
                                         <Link to='/locations'>
                                             <div>
-                                                {/*svg logo of map icon*/}
-
+                                                <img id='mapIcon' src={Location_icon}/>
                                             </div>
                                         </Link>
                                         <h1>LOCATIONS</h1>
                                     </div>
                                     <div id="rightbotShortcut">
                                         <Link to='/guide'><div>
-                                             {/*svg logo of guide icon*/}
+                                                <img id='guideIcon' src={Guide_icon}/>
                                             </div></Link>
                                         <h1>GUIDE</h1>
                                     </div>

@@ -6,14 +6,15 @@
 }
 #AccLogo{
     background-image: url('../assets/UserIcon.png');
-    background-size: 45px 45px;
+    background-size: 41px 40px;
     background-position: .1px;
-    width: 45px;
-    height: 45px;
+    width: 41.2px;
+    height: 40.2px;
     display: inline-block;
     margin-right: 10px;
     margin-top: -7px;
 }
+
 #AccDisplayName{
     color: #ffffff;
     font-family: 'Roboto Slab', serif;
@@ -21,4 +22,5 @@
     font-size: 20px;
     text-decoration: none;
     text-wrap: nowrap;
+    cursor:default;
 }

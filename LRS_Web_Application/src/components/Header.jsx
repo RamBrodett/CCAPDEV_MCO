@@ -1,3 +1,7 @@
+/*
+Author: Ram David Brodett
+*/
+
 import './style.css'
 import Icon from '../assets/Icon.png'
 import { Link } from 'react-router-dom'

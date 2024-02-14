@@ -1,3 +1,6 @@
+/*
+Author: Ram David Brodett
+*/
 import Icon from '../assets/Icon.png'
 
 export function BHeader(){

@@ -1,3 +1,7 @@
+/*
+Author: Ram David Brodett
+*/
+
 import {useState} from 'react'
 import XIcon from '../assets/x_icon.png'
 import { Link } from 'react-router-dom'

@@ -1,3 +1,6 @@
+/*
+Author: Ram David Brodett
+*/
 
 export function BFooter(){
     return(

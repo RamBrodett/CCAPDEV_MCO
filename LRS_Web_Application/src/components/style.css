@@ -109,12 +109,10 @@ body {
     filter: blur(5px);
 }
 .LoginContent, .RegisterContent{
-    flex: 1;
     position: fixed;
     left: 0;
     right: 0;
     z-index: 2;
-    flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -666,9 +664,6 @@ body {
     margin-top: 20px;
     position: relative;
 }
-input {
-    display: none;
-}
 .timings {
     width: 100%;
     display: flex;
@@ -741,6 +736,10 @@ input {
     opacity: 0;
     width: 15px;
     height: 15px;
+}
+
+.radioInput{
+    display: none;
 }
 
 /* ----------  Guide page style ----------*/

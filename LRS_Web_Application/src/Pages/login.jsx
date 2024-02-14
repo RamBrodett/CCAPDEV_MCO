@@ -4,8 +4,8 @@ Author: Ram David Brodett
 import {useState} from 'react'
 import XIcon from '../assets/x_icon.png'
 import { Link } from 'react-router-dom'
-import { BHeader } from '../components/basicHeader'
-import { BFooter } from '../components/basicFooter'
+import { BHeader } from '../components/basicHeader.jsx'
+import { BFooter } from '../components/basicFooter.jsx'
 
 export function Login(){
 

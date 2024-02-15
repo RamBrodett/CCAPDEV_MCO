@@ -27,9 +27,24 @@ export function Home(){
                         <div className="bottomContent">
                             <div id="contact">
                                 <h3>CONTACT INFORMATION</h3>
-                                <p></p>
-                                <p></p>
-                                <p></p>
+                                <p id='IT-INFO'>ITS Help Desk @ the Manila Campus</p>
+                                <p className='text'>Room 305, Gokongwei Hall
+                                <br/>De La Salle University
+                                <br/>2401 Taft Avenue
+                                <br/>1004 Manila, Philippines
+                                </p>
+                                <p id='emailIT'>Email:
+                                <br /> <a href='mailto:itservices@dlsu.edu.ph'>itservices@dlsu.edu.ph</a></p>
+                                <p id='contactIT'>Contact Numbers:
+                                <br/><span className='text'>SMS/Viber:   </span>
+                                (+ 632) 917 - 587 - 3364
+                                <br />(+ 632) 8524 - 4611 to 26 local 316 and 466
+                                <br />(+ 632) 8526 - 4242 (Direct Line)
+                                
+
+                    
+
+                                </p>
                             </div>
                             <div id="image2"></div>
                             <div id="shortcuts">

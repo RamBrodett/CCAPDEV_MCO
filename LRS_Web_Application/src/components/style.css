@@ -363,7 +363,7 @@ body {
     margin-left: 3vw;
 }
 
-#gokslabs, #stlslabs, #brandrewlabs{
+#gokslabs, #stlslabs, #velascolabs{
     display: flex;
     flex-direction: column;
 }
@@ -376,34 +376,34 @@ body {
     margin-top: 30px;
 }
 
-#brandrewlabs{
+#velascolabs{
     margin-top: 40px;
 }
 
 
 
-#gokslabs h4, #stlslabs h4, #brandrewlabs h4{
+#gokslabs h4, #stlslabs h4, #velascolabs h4{
     color: #00703c;
 }
 
 
-#goksdetails, #stlsdetails,#brandrewdetails{
+#goksdetails, #stlsdetails,#velascodetails{
     display: flex;
     flex-direction: row;
 }
 
-#goksdetails table, #stlsdetails table,#brandrewdetails table{
+#goksdetails table, #stlsdetails table,#velascodetails table{
     margin-left: 40px;
     width: 400px;
     border: 2px solid black;
     margin-top: 20px;
 }
 
-#goksdetails th, #stlsdetails th,#brandrewdetails th{
+#goksdetails th, #stlsdetails th,#velascodetails th{
     border: .5px solid black;
 }
 
-#goksdetails td, #stlsdetails td,#brandrewdetails td{
+#goksdetails td, #stlsdetails td,#velascodetails td{
     border: .5px solid black;
     text-align: center;
 }
@@ -424,13 +424,13 @@ body {
     height: 95px;
 }
 
-#brandrewdetails span{
+#velascodetails span{
     margin-top: 20px;
-    background-image: url('../assets/br_andrewHall.png');
-    background-size: 80px 170px;
-    background-position: 0px -8px;
+    background-image: url('../assets/VelascoHall.png');
+    background-size: 85px 190px;
+    background-position: 0px -5px;
     width: 80px;
-    height: 160px;
+    height: 175px;
 }
 
 /* ------ Home page style ------- */
@@ -507,8 +507,45 @@ body {
 #contact h3{
     text-align: center;
     color: white;
-    font-weight: 400;
+    font-weight: 400px;
 }
+
+ .text{
+    color: rgb(240, 240, 240);
+    font-size: 14px;
+    cursor: auto;
+}
+
+#IT-INFO{
+    margin-top: 30px;
+    font-weight:bolder;
+    color:white;
+    font-size: 18px;
+    cursor: auto;
+}
+
+#emailIT{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    cursor: auto;
+}
+#emailIT a{
+    color: white;
+}
+
+#contactIT{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    cursor: auto;
+
+}
+
+#contactIT span{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    
+}
+
 
 #image2{
     margin-left: 130px;

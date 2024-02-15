@@ -88,6 +88,11 @@ body {
     cursor: pointer;
 }
 
+.Header .NavMenu a:hover{
+    color: #ffffff;
+    
+}
+
 .NavElem{
     margin-left: 10px;
 }
@@ -465,11 +470,14 @@ body {
 .topContent span{
 
     /*replace background color to an image later*/
-    background-color: #D9D9D9;
+    background-image: url('../assets/Computers.jpg');
+    background-size: 800px 450px;
+    background-position: 0px -25px;
     width: 800px;
     height: 350px;
     border-radius: 37px;
     flex-shrink: 0;
+    box-shadow: 0px 0px 3px black;
     
 }
 
@@ -504,12 +512,14 @@ body {
 
 #image2{
     margin-left: 130px;
-    /*replace background color to an image later*/
     width: 690px;
     height: 379px;
     flex-shrink: 0;
     border-radius: 33px;
-    background: #D9D9D9;
+    background-image: url('../assets/computerLab.jpg');
+    background-size: 690px 450px;
+    background-position: 0px -70px;
+    box-shadow: 0px 0px 3px black;
 }
 
 #shortcuts{
@@ -547,6 +557,10 @@ body {
     background-color: #00703C;
     flex-shrink: 0;
     text-align: center;
+}
+
+#topShortcut div:hover{
+   background-color: #00AF5E;
 
 }
 
@@ -591,6 +605,11 @@ body {
     flex-shrink: 0;
     text-align: center;
 }
+
+#leftbotShortcut div:hover{
+    background-color:#00AF5E;
+}
+
 #rightbotShortcut div{
     width: 128px;
     height: 122px;
@@ -598,6 +617,9 @@ body {
     border-radius: 100px;
     flex-shrink: 0;
     text-align: center;
+}
+#rightbotShortcut div:hover{
+    background-color:#00AF5E;
 }
 
 /* ----------  Booking page style ----------*/

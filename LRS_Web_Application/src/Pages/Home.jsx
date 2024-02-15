@@ -39,7 +39,6 @@ export function Home(){
                                             <img id='bookIcon' src={Booking_icon}/>
                                         </div>
                                     </Link>
-                                    
                                     <h1>SEAT BOOKING</h1>
                                 </div>
                                 <div id="botShortcut">

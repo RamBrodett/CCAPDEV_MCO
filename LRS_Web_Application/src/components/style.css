@@ -507,8 +507,45 @@ body {
 #contact h3{
     text-align: center;
     color: white;
-    font-weight: 400;
+    font-weight: 400px;
 }
+
+ .text{
+    color: rgb(240, 240, 240);
+    font-size: 14px;
+    cursor: auto;
+}
+
+#IT-INFO{
+    margin-top: 30px;
+    font-weight:bolder;
+    color:white;
+    font-size: 18px;
+    cursor: auto;
+}
+
+#emailIT{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    cursor: auto;
+}
+#emailIT a{
+    color: white;
+}
+
+#contactIT{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    cursor: auto;
+
+}
+
+#contactIT span{
+    margin-top: 10px;
+    color:  rgb(240, 240, 240);
+    
+}
+
 
 #image2{
     margin-left: 130px;

@@ -55,20 +55,20 @@ export function Location(){
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td className="RoomNo"></td>
-                                                <td className="FloorLoc"></td>
+                                                <td className="RoomNo">212</td>
+                                                <td className="FloorLoc" rowSpan={2}>Second Floor St. La Salle Hall</td>
                                             </tr>
                                             <tr>
-                                                <td className="RoomNo"></td>
-                                                <td className="FloorLoc"></td>
+                                                <td className="RoomNo">229</td>
+                                                
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div id="brandrewlabs">
-                                <h4>Br. Andrew Gonzales Hall Computer Laboratory</h4>
-                                <div id="brandrewdetails">
+                            <div id="velascolabs">
+                                <h4>Velasco Hall Computer Laboratory</h4>
+                                <div id="velascodetails">
                                     <span></span>
                                     <table>
                                         <thead>
@@ -79,12 +79,12 @@ export function Location(){
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td className="RoomNo"></td>
-                                                <td className="FloorLoc"></td>
+                                                <td className="RoomNo">205</td>
+                                                <td className="FloorLoc" rowSpan={2}>Second Floor Velasco Hall</td>
                                             </tr>
                                             <tr>
-                                                <td className="RoomNo"></td>
-                                                <td className="FloorLoc"></td>
+                                                <td className="RoomNo">206</td>
+                                                
                                             </tr>
                                         </tbody>
                                     </table>

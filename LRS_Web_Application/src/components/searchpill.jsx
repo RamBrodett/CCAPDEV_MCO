@@ -15,7 +15,7 @@ export function Search_Field() {
 
     const searchWords = text.toLowerCase().split(/\s+/);
     const filteredUsers = dummyUsers.filter(user =>
-      searchWords.every(word => user.name.toLowerCase().includes(word))
+      searchWords.every(word => user.Fname.toLowerCase().includes(word))
     );
 
     setMatchingUsers(filteredUsers);
@@ -65,7 +65,7 @@ export function Search_Field() {
                   onClick={() => redirectToProfile(user.id)}
                   style={{ cursor: 'pointer' }} // Ensure the cursor is a pointer
                 >
-                  {user.name}
+                  {user.Fname}
                 </li>
               ))}
             </ul>

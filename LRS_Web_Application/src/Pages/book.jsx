@@ -11,7 +11,7 @@ import  generateTable from '../components/generateTable';
 export function Book(){
     const [selectedDay, setSelectedDay] = useState('Sun');
     const [selectedTime, setSelectedTime] = useState('11:00');
-    const [btnColor] = useState('rgb(28, 185, 120)');
+
     const handleDayChange = (day) => {
         setSelectedDay(day);
     };
@@ -21,14 +21,36 @@ export function Book(){
     };
 
     const handleCellClick = (event) => {
+        // COLOR CHANGE ONCLICK + CREATE/REMOVE DIV
         if (event.target.style.backgroundColor === 'rgb(220, 53, 69)') {
-            event.target.style.backgroundColor = ''; // Revert to default or set another color
-            event.target.style.color = ''; // Revert to default or set another color
+            event.target.style.backgroundColor = '';
+            event.target.style.color = '';
+            const infoDiv = document.getElementById(`infoDiv-${event.target.value}`);
+            if (infoDiv) {
+                infoDiv.remove();
+            }
         } else {
             event.target.style.backgroundColor = 'rgb(220, 53, 69)';
             event.target.style.color = 'white';
+            const infoDiv = document.createElement('div');
+            infoDiv.id = `infoDiv-${event.target.value}`;
+            infoDiv.classList.add('infoDiv');
+            infoDiv.textContent = event.target.value;
+    
+            // temp, change to proper image icon 
+            const closeIcon = document.createElement('span');
+            closeIcon.textContent = '  x';
+            closeIcon.classList.add('closeIcon');
+            closeIcon.addEventListener('click', () => {
+                infoDiv.remove();
+            });
+    
+            infoDiv.appendChild(closeIcon);
+    
+            document.getElementById("selectedSeatsContainer").appendChild(infoDiv);
         }
     };
+    
 
     // Sample tables for specific day-time combinations
     const sampleTables = {
@@ -778,6 +800,7 @@ export function Book(){
             </table>
         ),
     };
+    
     return(
         <body>
         <div className="Booking">
@@ -799,6 +822,7 @@ export function Book(){
                                 {sampleTables[`${selectedDay}-${selectedTime}`]}
                             </div>
                         </div>
+                            <div className="selectedSeats" id="selectedSeatsContainer"> </div>
                             <div className="timings">
                                 {/* Day selection */}
                                 <div className="dates">
@@ -829,6 +853,7 @@ export function Book(){
                                     ))}
                                 </div>
                             </div>
+                            <div className="checkout">Checkout</div>
                         </div>
                     </div>
                 </div>

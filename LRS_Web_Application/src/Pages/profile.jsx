@@ -21,7 +21,7 @@ export function Profile() {
     } else {
       console.error(`User with userId ${userId} not found`);
     }
-  }, [userId]);
+  }, [dummyUsers, userId]);
 
   return (
     <div id='profile_Container'>

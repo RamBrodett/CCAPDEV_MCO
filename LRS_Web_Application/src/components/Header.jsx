@@ -7,15 +7,25 @@ import Icon from '../assets/Icon.png'
 import { Link } from 'react-router-dom'
 import { AccDisplay } from './accDisplay'
 import { useState } from 'react'
+import {SidePanel} from './sidePanel'
 
 export function Header(){
     /* this is temporary have to fix the backend for the username retrieval */
     const[username] =  useState('ram david');
+    const[isSpVisible , setIsSpVisible] = useState(false);
     /* this is temporary have to fix the backend for the login check */
     const[IsLoggedIn, setIsLoggedIn] = useState(true);
     const handleLogOut = () =>{
         //process logout backend mechanism
         setIsLoggedIn(false)
+    }
+
+    const toggleSidePanel = () => {
+        console.log(isSpVisible)
+        console.log('Toggle Side Panel clicked');
+        setIsSpVisible(prevState => !prevState);
+        console.log(isSpVisible)
+
     }
 
     return(
@@ -32,7 +42,10 @@ export function Header(){
                     ):(
                     <Link className='NavElem' to='/login'>Log in</Link>
                 )}
-                <AccDisplay className='NavElem' name={username} accLoggedIn={IsLoggedIn}/>
+                <div onClick={toggleSidePanel}>
+                    <AccDisplay className='NavElem' name={username} accLoggedIn={IsLoggedIn}/>
+                </div>
+                <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} />
             </div>
 
         </div>

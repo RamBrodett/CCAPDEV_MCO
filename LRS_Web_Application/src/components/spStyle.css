@@ -1,0 +1,32 @@
+.sidepanelContainer{
+    position: fixed;
+    top: 80px;
+    right: -190px;
+    width: 190px;
+    height: 100%;
+    background-color: #8da1a5;
+    transition: right 0.3s ease-in-out;
+    text-align: center;
+}
+
+.sidepanelContainer button{
+    margin-right: -100px;
+    margin-bottom: 35px;
+}
+
+.sidepanelContainer a{
+    margin-top: 15px;
+    text-decoration: underline;
+}
+
+
+
+#sidepanelContent{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidepanelContainer.active{
+    right: 0;
+}

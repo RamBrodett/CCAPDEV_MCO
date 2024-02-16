@@ -986,13 +986,16 @@ body {
 
 .step1imagebox {
     background-image: url ("../assets/guideimage1.jpg");
-    background-size: 100px 100px;
    
     width: 375px;
     height: 150px;
     align-items: center;
     margin: auto;
     box-shadow: 0px 0px 3px black;
+}
+
+#step1imagebox span {
+    background-image: url ("../assets/guideimage1.jpg");
 }
 
 .step2imagebox {

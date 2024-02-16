@@ -69,6 +69,11 @@ body {
     }
 }
 
+#SearchHeader{
+    margin-left: 350px;
+    margin-top: 15px;
+}
+
 .Header .NavMenu{
     display: flex;
     flex-direction: row;
@@ -266,6 +271,24 @@ body {
     font-size: large;
     font-weight: 500;
     color: #252525;
+
+}
+
+.rememberMeCheckbox{
+    display: flex;
+    flex-direction: row;
+    margin:auto;
+}
+
+.rememberMeCheckbox input{
+    width: 20px;
+    height: 20px;
+}
+
+.rememberMeCheckbox label{
+ margin-left: 10px;
+ color: #646464;
+ margin-top: -2px;
 
 }
 
@@ -867,4 +890,9 @@ body {
 #profile_Container{
     display: flex;
     flex-direction: column;
+    height: 100vh;
+}
+
+#profile_body{
+    
 }

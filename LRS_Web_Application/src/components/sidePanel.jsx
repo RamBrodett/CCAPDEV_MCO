@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './spStyle.css'
 
-export const SidePanel=({visibility, onClose}) => {
+export const SidePanel=({visibility, onClose, userId}) => {
 
     const containerClassName = `sidepanelContainer ${visibility ? 'active' : ''}`;
 
@@ -12,7 +12,7 @@ export const SidePanel=({visibility, onClose}) => {
                 <div id="sidepanelClose">
                     <button onClick={onClose}>close</button>
                 </div>
-                <Link to='/profile'>Profile</Link>
+                <Link to={`/profile/${userId}`}>Profile</Link>
                 <Link to='/settings'>Settings</Link>
             </div>
         </div>
@@ -22,4 +22,5 @@ export const SidePanel=({visibility, onClose}) => {
 SidePanel.propTypes = {
     onClose: PropTypes.func,
     visibility: PropTypes.bool,
+    userId: PropTypes.number,
 }

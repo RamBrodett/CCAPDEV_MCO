@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export function LabSelect() {
-    const [selectedLab, setSelectedLab] = useState('');
-    const [selectRow, setSelectRow] = useState('');
-    const [selectCol, setSelectCol] = useState('');
-
     const navigate = useNavigate();
 
     const handleSelectChange = (event) => {
@@ -17,17 +13,14 @@ export function LabSelect() {
             navigate(`/book`);
         }
         setSelectedLab(selectedLab);
-        // Set selectRow and selectCol based on the selected laboratory
+        //
         if (selectedLab === 'Velasco-205-206') {
-            setSelectRow(8);
-            setSelectCol(3);
+
         } else if (selectedLab === 'LS-Hall-229') {
-            setSelectRow(9);
-            setSelectCol(3);
+
         } else {
-            // Reset selectRow and selectCol for other laboratories
-            setSelectRow('');
-            setSelectCol('');
+            //
+            
         }
     };
     return (

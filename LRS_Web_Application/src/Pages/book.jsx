@@ -4,13 +4,13 @@ Author: John Paul Carney
 
 import {Header} from '../components/Header.jsx'
 import {Footer} from '../components/Footer.jsx'
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
+import { Link } from 'react-router-dom';
 import  generateTable from '../components/generateTable';
-import { useParams } from 'react-router-dom';
+import Cross_icon from '../assets/cross_icon.png'
 export function Book(){
-    const { selectRow, selectCol } = useParams();
     const [selectedDay, setSelectedDay] = useState('Sun');
-    const [selectedTime, setSelectedTime] = useState('11:00');
+    const [selectedTime, setSelectedTime] = useState('8:00');
 
     const handleDayChange = (day) => {
         setSelectedDay(day);    
@@ -33,28 +33,37 @@ export function Book(){
     };
 
     const handleCellClick = (event) => {
+        // Retrieve the cell element
+        const cell = event.target;
+        
         // COLOR CHANGE ONCLICK + CREATE/REMOVE DIV
-        if (event.target.style.backgroundColor === 'rgb(220, 53, 69)') {
-            event.target.style.backgroundColor = '';
-            event.target.style.color = '';
-            const infoDiv = document.getElementById(`infoDiv-${event.target.value}`);
+        if (cell.style.backgroundColor === 'rgb(220, 53, 69)') {
+            cell.style.backgroundColor = '';
+            cell.style.color = '';
+            const infoDiv = document.getElementById(`infoDiv-${cell.value}`);
             if (infoDiv) {
                 infoDiv.remove();
             }
         } else {
-            event.target.style.backgroundColor = 'rgb(220, 53, 69)';
-            event.target.style.color = 'white';
+            cell.style.backgroundColor = 'rgb(220, 53, 69)';
+            cell.style.color = 'white';
             const infoDiv = document.createElement('div');
-            infoDiv.id = `infoDiv-${event.target.value}`;
+            infoDiv.id = `infoDiv-${cell.value}`;
             infoDiv.classList.add('infoDiv');
-            infoDiv.textContent = event.target.value;
+            infoDiv.textContent = cell.value;
     
             // temp, change to proper image icon 
             const closeIcon = document.createElement('span');
-            closeIcon.textContent = '  x';
+            const img = document.createElement('img');
+            img.src = Cross_icon;
+            img.alt = 'Close';
+            closeIcon.appendChild(img);
             closeIcon.classList.add('closeIcon');
             closeIcon.addEventListener('click', () => {
                 infoDiv.remove();
+                // Restore the original background color when the infoDiv is removed
+                cell.style.backgroundColor = '';
+                cell.style.color = '';
             });
     
             infoDiv.appendChild(closeIcon);
@@ -72,39 +81,179 @@ export function Book(){
 
     // Sample tables for specific day-time combinations
     const sampleTables = {
-        'Sun-11:00': (
-            <div key="Sun-11:00">
-                {generateTable('D1T1', handleCellClick, [], [], {selectRow}, {selectCol})}
+        'Sun-8:00': (
+            <div key="Sun-8:00">
+                {generateTable('D1T1', handleCellClick, [], [], 3, 8)}
             </div>
         ),
-        'Mon-11:00': (
-            <div key="Mon-11:00">
+        'Sun-8:30': (
+            <div key="Sun-8:00">
+                {generateTable('D1T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sun-9:00': (
+            <div key="Sun-8:00">
+                {generateTable('D1T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sun-9:30': (
+            <div key="Sun-8:00">
+                {generateTable('D1T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sun-10:00': (
+            <div key="Sun-8:00">
+                {generateTable('D1T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Mon-8:00': (
+            <div key="Mon-8:00">
                 {generateTable('D2T1', handleCellClick, bookedSeats, [], 3, 8)}
             </div>
         ),
-        'Tue-11:00': (
-            <div key="Tue-11:00">
+        'Mon-8:30': (
+            <div key="Mon-8:30">
+                {generateTable('D2T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Mon-9:00': (
+            <div key="Mon-9:00">
+                {generateTable('D2T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Mon-9:30': (
+            <div key="Mon-9:30">
+                {generateTable('D2T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Mon-10:00': (
+            <div key="Mon-10:00">
+                {generateTable('D2T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Tue-8:00': (
+            <div key="Tue-8:00">
                 {generateTable('D3T1', handleCellClick, [], [], 3, 8)}
             </div>
         ),
-        'Wed-11:00': (
-            <div key="Wed-11:00">
-                {generateTable('D4T1', handleCellClick, [], [], 3, 8)}
+        'Tue-8:30': (
+            <div key="Tue-8:30">
+                {generateTable('D3T2', handleCellClick, bookedSeats, [], 3, 8)}
             </div>
         ),
-        'Thu-11:00': (
-            <div key="Thu-11:00">
+        'Tue-9:00': (
+            <div key="Tue-9:00">
+                {generateTable('D3T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Tue-9:30': (
+            <div key="Tue-9:30">
+                {generateTable('D3T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Tue-10:00': (
+            <div key="Tue-10:00">
+                {generateTable('D3T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Wed-8:00': (
+            <div key="Wed-8:00">
+                {generateTable('D4T1', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Wed-8:30': (
+            <div key="Wed-8:30">
+                {generateTable('D4T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Wed-9:00': (
+            <div key="Wed-9:00">
+                {generateTable('D4T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Wed-9:30': (
+            <div key="Wed-9:30">
+                {generateTable('D4T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Wed-10:00': (
+            <div key="Wed-10:00">
+                {generateTable('D4T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Thu-8:00': (
+            <div key="Thu-8:00">
                 {generateTable('D5T1', handleCellClick, bookedSeats, [], 3, 8)}
             </div>
         ),
-        'Fri-11:00': (
-            <div key="Fri-11:00">
+        'Thu-8:30': (
+            <div key="Thu-8:30">
+                {generateTable('D5T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Thu-9:00': (
+            <div key="Thu-9:00">
+                {generateTable('D5T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Thu-9:30': (
+            <div key="Thu-9:30">
+                {generateTable('D5T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Thu-10:00': (
+            <div key="Thu-10:00">
+                {generateTable('D5T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Fri-8:00': (
+            <div key="Fri-8:00">
                 {generateTable('D6T1', handleCellClick, bookedSeats, [], 3, 8)}
             </div>
         ),
-        'Sat-11:00': (
-            <div key="Sat-11:00">
+        'Fri-8:30': (
+            <div key="Fri-8:30">
+                {generateTable('D6T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Fri-9:00': (
+            <div key="Fri-9:00">
+                {generateTable('D6T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Fri-9:30': (
+            <div key="Fri-9:30">
+                {generateTable('D6T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Fri-10:00': (
+            <div key="Fri-10:00">
+                {generateTable('D6T5', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sat-8:00': (
+            <div key="Sat-8:00">
                 {generateTable('D7T1', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sat-8:30': (
+            <div key="Sat-8:30">
+                {generateTable('D7T2', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sat-9:00': (
+            <div key="Sat-9:00">
+                {generateTable('D7T3', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sat-9:30': (
+            <div key="Sat-9:30">
+                {generateTable('D7T4', handleCellClick, bookedSeats, [], 3, 8)}
+            </div>
+        ),
+        'Sat-10:00': (
+            <div key="Sat-10:00">
+                {generateTable('D7T5', handleCellClick, bookedSeats, [], 3, 8)}
             </div>
         ),
     };
@@ -112,7 +261,6 @@ export function Book(){
     return(
         <div className="bookBody">
             <Header />
-            <p>{selectRow}, {selectCol}</p>
             <div className="Booking">
                 <div className="center">
                     <div className="tickets">
@@ -149,7 +297,7 @@ export function Book(){
                                     </div>
                                     {/* Time selection */}
                                     <div className="times">
-                                        {['11:00', '14:30', '18:00', '21:30'].map((time) => (
+                                        {['8:00', '8:30', '9:00', '9:30', '10:00'].map((time) => (
                                             <label className={`time ${selectedTime === time ? 'selected' : ''}`} key={time}>
                                                 <input className='radioInput'
                                                     type="radio"
@@ -162,7 +310,7 @@ export function Book(){
                                         ))}
                                     </div>
                                 </div>
-                                <div className="checkout">Checkout</div>
+                                <Link to="/checkout" className="checkout">Checkout</Link>
                             </div>
                         </div>
                     </div>

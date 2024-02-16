@@ -3,10 +3,16 @@ import {Footer} from '../components/Footer.jsx'
 
 export function Checkout(){
     return(
-        <div className="checkoutContainer">
-            <Header/>
-            <div className="checkoutBody">
-                {/* checking out leads to login page with option at the bottom to reserver anonymously*/}
+        <div className="bookBody">  
+            <Header />
+            <div className="booking">
+                <div className="center">
+                    <div className="tickets" id="checkoutContainer"> 
+                        <div id="checkoutBox">
+                            dwdw
+                        </div>
+                    </div>
+                </div>
             </div>
             <Footer />
         </div>

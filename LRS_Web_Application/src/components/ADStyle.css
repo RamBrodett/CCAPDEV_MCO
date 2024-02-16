@@ -2,14 +2,14 @@
 Author: Ram David Brodett
 */
 .accDisp{
-    margin-left: 10px;
+    margin-left: 15px;
     display: flex;
     flex-direction: row;
     width: auto;
     height: auto;
     background-color: #93A8AC;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 6px;

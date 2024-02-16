@@ -37,6 +37,7 @@ body {
     padding: 15px;
     background-color: #93A8AC;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
 }
 
 .Header .LRS-Banner{
@@ -66,6 +67,11 @@ body {
     .Header #HeaderTitle {
         margin-right: 50px; 
     }
+}
+
+#SearchHeader{
+    margin-left: 350px;
+    margin-top: 15px;
 }
 
 .Header .NavMenu{
@@ -133,6 +139,7 @@ body {
     padding: 10px;
     background-color: #93A8AC;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
 }
 
 .Footer .Note{
@@ -264,6 +271,24 @@ body {
     font-size: large;
     font-weight: 500;
     color: #252525;
+
+}
+
+.rememberMeCheckbox{
+    display: flex;
+    flex-direction: row;
+    margin:auto;
+}
+
+.rememberMeCheckbox input{
+    width: 20px;
+    height: 20px;
+}
+
+.rememberMeCheckbox label{
+ margin-left: 10px;
+ color: #646464;
+ margin-top: -2px;
 
 }
 
@@ -869,6 +894,7 @@ body {
 
 /* ----------  Guide page style ----------*/
 
+
 /* ----------  Lab selection page style ----------*/
 
 .labSelectContainer {
@@ -891,4 +917,14 @@ body {
 #labSelectDropdown {
     margin-top: 5px;
     font-size: 28px;
+}
+
+/* ---------- Profile page style ---------*/
+#profile_Container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#profile_body{
 }

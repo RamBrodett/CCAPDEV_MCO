@@ -40,10 +40,6 @@ export function Home(){
                                 (+ 632) 917 - 587 - 3364
                                 <br />(+ 632) 8524 - 4611 to 26 local 316 and 466
                                 <br />(+ 632) 8526 - 4242 (Direct Line)
-                                
-
-                    
-
                                 </p>
                             </div>
                             <div id="image2"></div>
@@ -72,7 +68,6 @@ export function Home(){
                                         <h1>GUIDE</h1>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

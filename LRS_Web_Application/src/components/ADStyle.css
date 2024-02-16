@@ -5,20 +5,34 @@ Author: Ram David Brodett
     margin-left: 10px;
     display: flex;
     flex-direction: row;
+    width: auto;
+    height: auto;
+    background-color: #93A8AC;
+    align-items: center;
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+    margin-top: -25px;
 }
+
+.accDisp:hover{
+    background-color:  #728285;
+}
+
 #AccLogo{
     background-image: url('../assets/UserIcon.png');
     background-size: 41px 40px;
     background-position: .1px;
-    width: 41.2px;
-    height: 40.2px;
+    width: 41px;
+    height: 40px;
     display: inline-block;
     margin-right: 10px;
-    margin-top: -7px;
+    margin-top: 3px;
 }
 
 #AccDisplayName{
-    color: #ffffff;
+    color: #192a38;
     font-family: 'Roboto Slab', serif;
     font-weight: 500;
     font-size: 20px;

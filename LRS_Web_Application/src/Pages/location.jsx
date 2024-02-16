@@ -60,7 +60,6 @@ export function Location(){
                                             </tr>
                                             <tr>
                                                 <td className="RoomNo">229</td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>
@@ -84,7 +83,6 @@ export function Location(){
                                             </tr>
                                             <tr>
                                                 <td className="RoomNo">206</td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>

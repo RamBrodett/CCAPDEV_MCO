@@ -20,7 +20,7 @@ function generateTable(titleString, handleCellClick, bookedCells = [], emptyCell
       if (isBooked(row, col)) {
         return (
           <td key={col}>
-            <button className="booked" disabled></button>
+            <button className="booked" title="View who booked this seat.." disabled></button>
           </td>
         );
       } else if (isEmpty(row, col)) {

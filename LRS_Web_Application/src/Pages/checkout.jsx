@@ -9,7 +9,7 @@ export function Checkout(){
                 <div className="center">
                     <div className="tickets" id="checkoutContainer"> 
                         <div id="checkoutBox">
-                            dwdw
+                            
                         </div>
                     </div>
                 </div>

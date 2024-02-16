@@ -44,6 +44,9 @@ export function Checkout(){
             <div className="booking">
                 <div className="center">
                         <div id="checkoutBox">
+                            
+                        </div>
+                    </div>
                                     <div className='Login_form' id="checkout_form">
                                         <div id='Top' >
                                             <h2>Log in</h2> 

@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 export function Header(){
     /* this is temporary have to fix the backend for the username retrieval */
-    const[username] =  useState('temp');
+    const[username] =  useState('ram david');
     /* this is temporary have to fix the backend for the login check */
     const[IsLoggedIn, setIsLoggedIn] = useState(true);
     const handleLogOut = () =>{
@@ -25,12 +25,12 @@ export function Header(){
             <h2 id="HeaderTitle">Computer Lab Reservation System</h2>
             </div>
             <div className="NavMenu">
-                <Link className='NavElem' to='/'> Home </Link>
-                <Link className='NavElem' to='/book'> Book </Link>
+                <Link className='NavElem' to='/'>Home</Link>
+                <Link className='NavElem' to='/book'>Book</Link>
                 {IsLoggedIn?(
                     <a className='NavElem' onClick={handleLogOut}>Log out</a>
                     ):(
-                    <Link className='NavElem' to='/login'> Log in </Link>
+                    <Link className='NavElem' to='/login'>Log in</Link>
                 )}
                 <AccDisplay className='NavElem' name={username} accLoggedIn={IsLoggedIn}/>
             </div>

@@ -1,0 +1,132 @@
+/* ---------- Settings Profile page style ---------*/
+#profile_Container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  #profile_body {
+    width: 100%;
+  }
+  
+  #UserProfileDetails {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  #UserProfileDetails h2 {
+    color: #00af5e;
+    margin-left: 30px;
+    margin-bottom: 10px;
+  }
+  
+  #topProfileDetails {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  #editableProfileInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #profileImageEdit {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  
+  #profileImageEdit label {
+    color: #00af5e;
+  }
+  
+  #profileImageInput {
+    margin-top: 5px;
+  }
+  
+  #profileNameTextEdit {
+    margin-left: 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #profileNameTextEdit label {
+    color: #00af5e;
+    margin-top: 10px;
+  }
+  
+  #firstNameInput,
+  #lastNameInput {
+    margin-top: 5px;
+  }
+  
+  #bioEdit {
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+  
+  #bioEdit label {
+    color: #00af5e;
+    margin-top: 10px;
+  }
+  
+  #bioTextarea {
+    margin-top: 5px;
+    width: 300px;
+    height: 100px;
+  }
+  
+  #userProfileImage {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; 
+    object-fit: cover;
+  }
+  
+  #profileNameText {
+    margin-left: 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  #profileNameText h1 {
+    color: #192a38;
+    font-size: 58px;
+  }
+  
+  #bio {
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+  
+  #bio h1 {
+    color: #00af5e;
+  }
+  
+  #bio p {
+    background-color: rgb(216, 216, 216);
+    width: auto;
+    max-width: 700px;
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 7px;
+    box-shadow: 0 0 1px black;
+  }
+  
+  button {
+    background-color: #00af5e;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 40px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #00703c;
+  }
+  

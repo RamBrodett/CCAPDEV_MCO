@@ -13,7 +13,7 @@ export const SidePanel=({visibility, onClose, userId}) => {
                     <button onClick={onClose}>close</button>
                 </div>
                 <Link to={`/profile/${userId}`}>Profile</Link>
-                <Link to='/settings'>Settings</Link>
+                <Link to={`/settings/${userId}`}>Settings</Link>
             </div>
         </div>
     )

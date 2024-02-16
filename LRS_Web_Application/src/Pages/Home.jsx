@@ -46,7 +46,7 @@ export function Home(){
                             <div id="image2"></div>
                             <div id="shortcuts">
                                 <div id="topShortcut">
-                                    <Link to='/book'>
+                                    <Link to='/labSelect'>
                                          <div>
                                             <img id='bookIcon' src={Booking_icon}/>
                                         </div>

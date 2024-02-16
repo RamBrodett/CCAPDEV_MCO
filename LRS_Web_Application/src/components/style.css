@@ -69,6 +69,11 @@ body {
     }
 }
 
+#SearchHeader{
+    margin-left: 350px;
+    margin-top: 15px;
+}
+
 .Header .NavMenu{
     display: flex;
     flex-direction: row;
@@ -885,4 +890,9 @@ body {
 #profile_Container{
     display: flex;
     flex-direction: column;
+    height: 100vh;
+}
+
+#profile_body{
+    
 }

@@ -9,10 +9,14 @@ import { AccDisplay } from './accDisplay'
 import { useState } from 'react'
 import {SidePanel} from './sidePanel'
 import { Search_Field } from './searchpill'
+import { useUser } from '../UserProvider'
 
 export function Header(){
+    const dummyUsers = useUser();
+    
     /* this is temporary have to fix the backend for the username retrieval */
     const[username] =  useState('david');
+    const[userId] =
     const[isSpVisible , setIsSpVisible] = useState(false);
     /* this is temporary have to fix the backend for the login check */
     const[IsLoggedIn, setIsLoggedIn] = useState(true);
@@ -49,7 +53,7 @@ export function Header(){
                 <div onClick={toggleSidePanel}>
                     <AccDisplay className='NavElem' name={username} accLoggedIn={IsLoggedIn}/>
                 </div>
-                <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} />
+                <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} userId={} />
             </div>
 
         </div>

@@ -9,6 +9,7 @@ import { LabSelect } from './Pages/labSelect.jsx'
 import { Book } from './Pages/book.jsx'
 import { Checkout } from './Pages/checkout.jsx'
 import {Profile} from './Pages/profile.jsx'
+import{SettingsProfile} from './Pages/settings.jsx'
 import { UserProvider } from './UserProvider.jsx'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                     <Route path='/checkout' element={<Checkout />}/>
                     <Route path='/book' element={<Book />}/>
                     <Route path='/profile/:userId' element={<Profile />}/>
+                    <Route path='/settings/:userId' element={<SettingsProfile />}/>
                 </Routes>
             </Router>
         </UserProvider>

@@ -20,8 +20,9 @@ export function Home(){
                             <div className='topText'>
                                 <h1>Features</h1>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit blanditiis enim modi eligendi explicabo unde.
-                                Veniam eum adipisci illum ratione ipsum, corrupti vero consequatur dolorum tempora sed ab est deserunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Distinctio repellendus optio repudiandae? Excepturi, non officia quidem ipsam fugit recusandae voluptates, nihil doloribus omnis voluptas vel blanditiis neque totam aliquid cupiditate!</p>
+                                Veniam eum adipisci illum ratione ipsum, corrupti vero consequatur dolorum tempora sed ab est deserunt. Lorem ipsum 
+                                dolor sit amet consectetur adipisicing elit. Distinctio repellendus optio repudiandae? Excepturi, non officia quidem 
+                                ipsam fugit recusandae voluptates, nihil doloribus omnis voluptas vel blanditiis neque totam aliquid cupiditate!</p>
                             </div>
                         </div>
                         <div className="bottomContent">

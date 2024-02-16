@@ -1027,27 +1027,53 @@ body {
     font-size: 28px;
 }
 
-/* ---------- Checkout page ---------*/
-#checkoutContainer {
-    width: 1050px;
+/* ---------- Profile page style ---------*/
+#profile_Container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
-#checkout_form {
-    width: 771px;
-    height: 623px;
-    height: fit-content;
-    border: 0.4mm solid rgba(0, 0, 0, 0.08);
-    border-radius: 3mm;
-    box-sizing: border-box;
-    padding: 30px;
-    font-family: poppins;
-    max-height: 96vh;
-    overflow: auto;
-    background: white;
-    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+#profile_body{
+    width:100%;
 }
 
 #checkoutAnon {
     padding:20px;
 }
 
+/* ---------- reservation style ---------*/
+
+.ReservationContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.Reservation_Body{
+    display: flex;
+    flex-direction: column;
+}
+
+.seeBox {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+.editBox {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+.removeBox {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin-left: 40px;
+}

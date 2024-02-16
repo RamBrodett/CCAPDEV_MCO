@@ -13,6 +13,7 @@
 // already configured the node modules needed
 // and necessary library
 
+* if going to use github through terminal*
 some commands necessary for us for git in terminal
 (must have installed git first)
 
@@ -33,3 +34,7 @@ editor - VS CODE, MongoDBCompass
 Frontend - React, Html, Css
 Backend - Node js
 Database - MongoDb
+
+dont edit Master branch without permission, it is for final agreed changes
+create a branch for your edit then we'll merge it once there is no conflicts
+

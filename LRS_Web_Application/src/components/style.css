@@ -37,6 +37,7 @@ body {
     padding: 15px;
     background-color: #93A8AC;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
 }
 
 .Header .LRS-Banner{
@@ -66,6 +67,11 @@ body {
     .Header #HeaderTitle {
         margin-right: 50px; 
     }
+}
+
+#SearchHeader{
+    margin-left: 350px;
+    margin-top: 15px;
 }
 
 .Header .NavMenu{
@@ -133,6 +139,7 @@ body {
     padding: 10px;
     background-color: #93A8AC;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
 }
 
 .Footer .Note{
@@ -264,6 +271,24 @@ body {
     font-size: large;
     font-weight: 500;
     color: #252525;
+
+}
+
+.rememberMeCheckbox{
+    display: flex;
+    flex-direction: row;
+    margin:auto;
+}
+
+.rememberMeCheckbox input{
+    width: 20px;
+    height: 20px;
+}
+
+.rememberMeCheckbox label{
+ margin-left: 10px;
+ color: #646464;
+ margin-top: -2px;
 
 }
 
@@ -661,6 +686,15 @@ body {
 
 /* ----------  Booking page style ----------*/
 
+.bookBody{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
 .Booking {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -828,7 +862,38 @@ body {
     display: none;
 }
 
+.selectedSeats {
+    display:flex;
+}
+
+.infoDiv {
+    background-color: salmon;
+    color: black;
+    padding: 5px;
+    margin:2px;
+    border-radius: 8px;
+  }
+
+.checkout {
+    font-size: 16px;
+    width: fit-content;
+    padding: 7px 14px;
+    margin-top:20px;
+    margin-left: auto; 
+    margin-right: 0;
+    background: rgb(233, 233, 233);
+    border-radius: 2mm;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.checkout:hover {
+    background: rgb(28, 185, 120);
+}
+
+
 /* ----------  Guide page style ----------*/
+<<<<<<< HEAD
 .GuideContainer{
     flex: 1;
     display: flex;
@@ -838,10 +903,24 @@ body {
 }
 
 .Guide_Body{
+=======
+
+
+/* ----------  Lab selection page style ----------*/
+
+.labSelectContainer {
+    margin:auto;
+}
+#labSelectorBoxBox{
+    width:800px;
+}
+#labSelectorBox{
+>>>>>>> 1bfc534ff7c987b92c254f55e6cc20bc5dd95288
     display: flex;
     flex-direction: column;
 }
 
+<<<<<<< HEAD
 .topPortion {
     display: flex;
     flex-direction: column;
@@ -916,4 +995,25 @@ body {
     height: 150px;
     margin: auto;
     box-shadow: 0px 0px 3px black;
+=======
+#selectorHeader{
+    margin-top:10px;
+    font-size: 24px;
+    font-weight:200;
+}
+
+#labSelectDropdown {
+    margin-top: 5px;
+    font-size: 28px;
+}
+
+/* ---------- Profile page style ---------*/
+#profile_Container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#profile_body{
+>>>>>>> 1bfc534ff7c987b92c254f55e6cc20bc5dd95288
 }

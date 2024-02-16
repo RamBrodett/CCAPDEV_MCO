@@ -269,6 +269,24 @@ body {
 
 }
 
+.rememberMeCheckbox{
+    display: flex;
+    flex-direction: row;
+    margin:auto;
+}
+
+.rememberMeCheckbox input{
+    width: 20px;
+    height: 20px;
+}
+
+.rememberMeCheckbox label{
+ margin-left: 10px;
+ color: #646464;
+ margin-top: -2px;
+
+}
+
 
 .Login_form #Bottom, .Register_form #Bottom{
     margin: auto;

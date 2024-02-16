@@ -11,14 +11,15 @@ export function Login(){
 
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '',
+        rememberMe: false
     });
 
     const handleInputChange = (e) =>{
-        const {name , value} = e.target;
-        setFormData((prevData) =>({
+        const { name, value, type, checked } = e.target;
+        setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
     };
 
@@ -68,6 +69,16 @@ export function Login(){
                                 required/>
                             </div>
                         </div>
+                        <div className='rememberMeCheckbox'>
+                                <input
+                                    type='checkbox'
+                                    name='rememberMe'
+                                    id='rememberMe'
+                                    checked={formData.rememberMe}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor='rememberMe'>Remember Me</label>
+                            </div>
                         <div id='Bottom'>
                             <button id='LoginButton' onClick={handleFormSubmit}>Log in</button>
                         </div>

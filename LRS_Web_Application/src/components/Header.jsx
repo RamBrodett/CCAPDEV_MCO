@@ -26,7 +26,7 @@ export function Header(){
             </div>
             <div className="NavMenu">
                 <Link className='NavElem' to='/'>Home</Link>
-                <Link className='NavElem' to='/book'>Book</Link>
+                <Link className='NavElem' to='/labSelect'>Book</Link>
                 {IsLoggedIn?(
                     <a className='NavElem' onClick={handleLogOut}>Log out</a>
                     ):(

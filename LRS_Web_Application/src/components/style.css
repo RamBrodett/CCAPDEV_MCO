@@ -661,6 +661,15 @@ body {
 
 /* ----------  Booking page style ----------*/
 
+.bookBody{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
 .Booking {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -859,3 +868,27 @@ body {
 
 
 /* ----------  Guide page style ----------*/
+
+/* ----------  Lab selection page style ----------*/
+
+.labSelectContainer {
+    margin:auto;
+}
+#labSelectorBoxBox{
+    width:800px;
+}
+#labSelectorBox{
+    display: flex;
+    flex-direction: column;
+}
+
+#selectorHeader{
+    margin-top:10px;
+    font-size: 24px;
+    font-weight:200;
+}
+
+#labSelectDropdown {
+    margin-top: 5px;
+    font-size: 28px;
+}

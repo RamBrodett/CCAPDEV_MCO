@@ -1023,14 +1023,3 @@ body {
     margin-top: 5px;
     font-size: 28px;
 }
-
-/* ---------- Profile page style ---------*/
-#profile_Container{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-#profile_body{
-    width:100%;
-}

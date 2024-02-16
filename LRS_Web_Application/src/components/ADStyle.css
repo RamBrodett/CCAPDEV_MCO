@@ -17,7 +17,7 @@ Author: Ram David Brodett
 }
 
 .accDisp:hover{
-    background-color:  #728285;
+    background-color:  #879a9e;
 }
 
 #AccLogo{
@@ -32,7 +32,7 @@ Author: Ram David Brodett
 }
 
 #AccDisplayName{
-    color: #192a38;
+    color: rgb(240, 240, 240);
     font-family: 'Roboto Slab', serif;
     font-weight: 500;
     font-size: 20px;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './searchPillStyle.css';
+import '../Styles/searchPillStyle.css';
 import { useUser } from '../UserProvider';
 
 export function Search_Field() {

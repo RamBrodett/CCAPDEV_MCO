@@ -2,6 +2,8 @@
 Author: Ram David Brodett
 */
 
+import '../Styles/Header_Footer.css'
+
 export function BFooter(){
     return(
         <div className="Footer">

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import './spStyle.css'
+import '../Styles/sidePanelStyle.css'
 
 export const SidePanel=({visibility, onClose, userId}) => {
 

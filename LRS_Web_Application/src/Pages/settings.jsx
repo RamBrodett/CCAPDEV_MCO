@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUser } from '../UserProvider';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import tempUserIcon from '../assets/UserIcon.png';
-import './settings.css';
+import { Header } from '../Components/Header';
+import { Footer } from '../Components/Footer';
+import tempUserIcon from '../Assets/UserIcon.png';
+import '../Styles/settings.css';
 
 export function SettingsProfile() {
   const { userId } = useParams();

@@ -2,7 +2,7 @@
 Author: Ram David Brodett
 */
 
-import './style.css'
+import '../Styles/Header_Footer.css'
 import Icon from '../assets/Icon.png'
 import { Link } from 'react-router-dom'
 import { AccDisplay } from './accDisplay'

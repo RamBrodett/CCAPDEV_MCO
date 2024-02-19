@@ -2,10 +2,11 @@
 Author: Ram David Brodett
 */
 import {useState} from 'react'
-import XIcon from '../assets/x_icon.png'
 import { Link } from 'react-router-dom'
-import { BHeader } from '../components/basicHeader.jsx'
-import { BFooter } from '../components/basicFooter.jsx'
+import XIcon from '../Assets/x_icon.png'
+import { BHeader } from '../Components/basicHeader.jsx'
+import { BFooter } from '../Components/basicFooter.jsx'
+import '../Styles/Log_Reg.css'
 
 export function Login(){
 

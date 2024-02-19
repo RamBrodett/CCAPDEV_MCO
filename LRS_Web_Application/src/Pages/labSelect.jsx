@@ -1,8 +1,9 @@
 import React,{ useState } from "react";
-import { Header } from '../components/Header.jsx';
-import { Footer } from '../components/Footer.jsx';
+import { Header } from '../Components/Header.jsx';
+import { Footer } from '../Components/Footer.jsx';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import '../Styles/labselect.css'
 
 export function LabSelect() {
     const navigate = useNavigate();

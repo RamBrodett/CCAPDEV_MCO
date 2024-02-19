@@ -1,7 +1,8 @@
 /*
 Author: Ram David Brodett
 */
-import Icon from '../assets/Icon.png'
+import Icon from '../Assets/Icon.png'
+import '../Styles/Header_Footer.css'
 
 export function BHeader(){
     return(

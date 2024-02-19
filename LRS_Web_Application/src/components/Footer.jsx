@@ -2,7 +2,7 @@
 Author: Ram David Brodett
 */
 
-import './style.css'
+import '../Styles/Header_Footer.css'
 export function Footer(){
     return(
         <div className="Footer" >

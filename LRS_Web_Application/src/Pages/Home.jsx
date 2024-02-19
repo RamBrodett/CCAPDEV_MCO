@@ -2,12 +2,13 @@
 Author: Ram David Brodett
 */
 
-import {Header} from '../components/Header.jsx'
-import {Footer} from '../components/Footer.jsx'
+import {Header} from '../Components/Header.jsx'
+import {Footer} from '../Components/Footer.jsx'
 import { Link } from 'react-router-dom'
-import Booking_icon from '../assets/Booking_Icon.png'
-import Location_icon from '../assets/Map_Icon.png'
-import Guide_icon from '../assets/Guide_Icon.png'
+import Booking_icon from '../Assets/Booking_Icon.png'
+import Location_icon from '../Assets/Map_Icon.png'
+import Guide_icon from '../Assets/Guide_Icon.png'
+import '../Styles/Home.css'
 
 export function Home(){
     return(

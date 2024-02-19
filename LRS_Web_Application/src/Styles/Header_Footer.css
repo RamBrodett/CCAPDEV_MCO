@@ -1,0 +1,102 @@
+/* ------------- Header and Footer component display ------------- */
+
+.Header{
+    height: 80px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: #93A8AC;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
+}
+
+.Header .LRS-Banner{
+    display: flex;
+    flex-direction: row;
+}
+
+ #LRS_Header-Icon{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+
+.Header #HeaderTitle{
+    position: relative;
+    top: 15%;
+    color: #192a38;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+    font-size: 26px;
+    text-wrap: nowrap;
+}
+
+@media screen and (max-width: 800px) {
+    .Header #HeaderTitle {
+        margin-right: 50px; 
+    }
+}
+
+#SearchHeader{
+    margin-left: 350px;
+    margin-top: 15px;
+}
+
+.Header .NavMenu{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    position: relative;
+    top: 25%;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.Header .NavMenu a{
+    color: #192a38;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.Header .NavMenu a:hover{
+    color: #ffffff;
+    
+}
+
+.NavElem{
+    margin-left: 10px;
+}
+
+.Footer{
+    margin-top: auto;
+    height: 40px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    background-color: #93A8AC;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.363);
+    z-index: 999;
+}
+
+.Footer .Note{
+    margin-left: auto;
+    color: #192a38;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+
+}
+.Note #cred1{
+    margin-right: 10px;
+}

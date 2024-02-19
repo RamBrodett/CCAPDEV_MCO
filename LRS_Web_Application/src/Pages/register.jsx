@@ -3,10 +3,11 @@ Author: Ram David Brodett
 */
 
 import {useState} from 'react'
-import XIcon from '../assets/x_icon.png'
+import XIcon from '../Assets/x_icon.png'
 import { Link } from 'react-router-dom'
-import { BHeader } from '../components/basicHeader'
-import { BFooter } from '../components/basicFooter'
+import { BHeader } from '../Components/basicHeader'
+import { BFooter } from '../Components/basicFooter'
+import '../Styles/Log_Reg.css'
 
 export function Register(){
     const [formData, setFormData] = useState({

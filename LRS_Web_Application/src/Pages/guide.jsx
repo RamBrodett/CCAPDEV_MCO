@@ -2,8 +2,9 @@
 Author: Chantal Sia
 */
 
-import {Header} from '../components/Header.jsx'
-import {Footer} from '../components/Footer.jsx'
+import {Header} from '../Components/Header.jsx'
+import {Footer} from '../Components/Footer.jsx'
+import '../Styles/guide.css'
 
 export function Guide(){
     return(
@@ -46,9 +47,8 @@ export function Guide(){
                         <div className = "step3imagebox">
                         </div>
                         <div className='steptextbox'>
-                            Choose among the green available seats and click on the seat you would like to book. the
-                            box should turn red once it's reserved.
-                
+                           {` Choose among the green available seats and click on the seat you would like to book. the
+                            box should turn red once it's reserved.`}
                         </div>
                     </div>
             

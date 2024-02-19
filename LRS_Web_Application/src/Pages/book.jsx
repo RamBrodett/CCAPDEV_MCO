@@ -1,13 +1,16 @@
 /*
-Author: John Paul Carney
+Authors: 
+John Paul Carney
+Chantal Sia
 */
-
-import {Header} from '../components/Header.jsx'
-import {Footer} from '../components/Footer.jsx'
 import { useState} from 'react'
 import { Link } from 'react-router-dom';
-import  generateTable from '../components/generateTable';
-import Cross_icon from '../assets/cross_icon.png'
+import {Header} from '../Components/Header.jsx'
+import {Footer} from '../Components/Footer.jsx'
+import  generateTable from '../Components/generateTable';
+import Cross_icon from '../Assets/cross_icon.png'
+import '../Styles/booking.css'
+
 export function Book(){
     const [selectedDay, setSelectedDay] = useState('Sun');
     const [selectedTime, setSelectedTime] = useState('8:00');
@@ -25,7 +28,7 @@ export function Book(){
     const removeAllInfoDivs = () => {
         const selectedSeatsContainer = document.getElementById("selectedSeatsContainer");
         if (selectedSeatsContainer) {
-            const infoDivs = selectedSeatsContainer.getElementsByClassName('infoDiv');;
+            const infoDivs = selectedSeatsContainer.getElementsByClassName('infoDiv');
             while (infoDivs.length > 0) {
                 infoDivs[0].remove();
             }

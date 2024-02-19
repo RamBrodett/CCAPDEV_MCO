@@ -1,7 +1,7 @@
 /*
 Author: Ram David Brodett
 */
-import './ADStyle.css'
+import '../Styles/ADStyle.css'
 import PropTypes from 'prop-types';
 
 export function AccDisplay(props){

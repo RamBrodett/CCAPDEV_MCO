@@ -1,5 +1,7 @@
 # LRS Web Application Project For APDEV Course
 
+-- project still on early phase -- 
+
 ## Getting Started
 
 After cloning the repository, follow these steps to start development:

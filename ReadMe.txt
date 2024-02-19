@@ -1,4 +1,4 @@
-# LRS Web Application
+# LRS Web Application Project For APDEV Course
 
 ## Getting Started
 

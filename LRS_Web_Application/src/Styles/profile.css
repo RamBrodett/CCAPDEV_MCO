@@ -87,7 +87,7 @@
 #botProfileDetails{
     display: flex;
     flex-direction: column;
-    margin-left: 35px;
+    margin-left: 25px;
     margin-top: 30px;
 }
 

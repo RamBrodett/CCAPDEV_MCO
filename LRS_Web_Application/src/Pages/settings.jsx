@@ -38,13 +38,17 @@ export function SettingsProfile() {
     setIsEditing(false);
   };
 
+  const handleCancelChanges = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div id="profile_Container">
       <Header />
       <div id="profile_body">
         {userData ? (
           <div id="UserProfileDetails">
-            <h2>{`${userData.Fname} ${userData.Lname}'s Profile`}</h2>
+            <h2>{`${userData.Fname} ${userData.Lname}'s Settings`}</h2>
             <hr />
             <div id="topProfileDetails">
               <div id="editableProfileInfo">
@@ -96,15 +100,6 @@ export function SettingsProfile() {
                         onChange={handleInputChange}
                       />
                     </div>
-                    <div id="bioEdit">
-                      <label htmlFor="bioTextarea">Biography:</label>
-                      <textarea
-                        id="bioTextarea"
-                        name="biography"
-                        value={editedUserData.biography || ''}
-                        onChange={handleInputChange}
-                      />
-                    </div>
                   </>
                 ) : (
                   <div id='topProfileDetails'>
@@ -121,20 +116,46 @@ export function SettingsProfile() {
                                 </div>
                             </div>
                         </div>
-    
-                        <div id="bio">
-                        <h1>Biography</h1>
-                        <p>{editedUserData.biography || 'Nothing yet...'}</p>
-                        </div>
                   </div>
                 )}
               </div>
             </div>
-            {isEditing ? (
-              <button onClick={handleSaveChanges}>Save Changes</button>
-            ) : (
-              <button onClick={handleEditToggle}>Edit Profile</button>
-            )}
+            <div className='botProfileDetails'>
+              { isEditing ? (
+                <>
+                  <div id="bioEdit">
+                    <label htmlFor="bioTextarea">Biography:</label>
+                    <textarea
+                      id="bioTextarea"
+                      name="biography"
+                      value={editedUserData.biography || ''}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  </>
+              ):(
+                <>
+                  <div id="bio">
+                    <h1>Biography</h1>
+                    <p>{editedUserData.biography || 'Nothing yet...'}</p>
+                </div>
+                </>
+              )}
+
+            </div>
+            <div id="buttons">
+              {isEditing ? (
+                <>
+                <button id='cancelButt' onClick={handleCancelChanges}>Cancel Editing</button>
+                <button id='saveButt' onClick={handleSaveChanges}>Save Changes</button>
+                </>
+              ) : (
+                <>
+                  <button onClick={handleEditToggle}>Edit Profile</button>
+                  <button id='deleteAccButt'>Delete Account</button>
+                </>
+              )}
+            </div>
           </div>
         ) : (
           <div id="errorProfile"></div>

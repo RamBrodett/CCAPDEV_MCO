@@ -51,9 +51,9 @@ export function SettingsProfile() {
             <h2>{`${userData.Fname} ${userData.Lname}'s Settings`}</h2>
             <hr />
             <div id="topProfileDetails">
-              <div id="editableProfileInfo">
-                {isEditing ? (
-                  <>
+              {isEditing ? (
+                <>
+                  <div id="editableProfileInfo">
                     <div id="profileImageEdit">
                       <label htmlFor="profileImageInput">Change Profile Image:</label>
                       <input
@@ -83,24 +83,41 @@ export function SettingsProfile() {
                       />
                     </div>
                     <div id="contactEdit">
-                      <label htmlFor="emailInput">Email:</label>
-                      <input
-                        type="email"
-                        id="emailInput"
-                        name="email"
-                        value={editedUserData.email}
-                        onChange={handleInputChange}
-                      />
-                      <label htmlFor="numberInput">Number:</label>
-                      <input
-                        type="tel"
-                        id="numberInput"
-                        name="number"
-                        value={editedUserData.number}
-                        onChange={handleInputChange}
-                      />
+                      <label htmlFor='contactanchor' id='contacts'>Contacts</label>
+                      <>
+                        <label htmlFor="emailInput" id="contactanchor">Email:</label>
+                        <input
+                          type="email"
+                          id="emailInput"
+                          name="email"
+                          placeholder='sample@email.com'
+                          value={editedUserData.email}
+                          onChange={handleInputChange}
+                        />
+                      </>
+                      <>
+                        <label htmlFor="numberInput">Number:</label>
+                        <input
+                          type="tel"
+                          id="numberInput"
+                          name="number"
+                          value={editedUserData.number}
+                          onChange={handleInputChange}
+                          placeholder='10 digit phone number(omit 0)'
+                        />
+                      </>
                     </div>
-                  </>
+                      <div id="bioEdit">
+                        <label htmlFor="bioTextarea">Biography:</label>
+                        <textarea
+                          id="bioTextarea"
+                          name="biography"
+                          value={editedUserData.biography || ''}
+                          onChange={handleInputChange}
+                        />
+                    </div>
+                  </div>
+                </>
                 ) : (
                   <div id='topProfileDetails'>
                         <img id="userProfileImage" src={tempUserIcon} alt="User Icon" />
@@ -118,28 +135,16 @@ export function SettingsProfile() {
                         </div>
                   </div>
                 )}
-              </div>
             </div>
             <div className='botProfileDetails'>
-              { isEditing ? (
+              { !isEditing ? (
                 <>
-                  <div id="bioEdit">
-                    <label htmlFor="bioTextarea">Biography:</label>
-                    <textarea
-                      id="bioTextarea"
-                      name="biography"
-                      value={editedUserData.biography || ''}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  </>
-              ):(
-                <>
-                  <div id="bio">
-                    <h1>Biography</h1>
-                    <p>{editedUserData.biography || 'Nothing yet...'}</p>
+                <div id="bio">
+                  <h1>Biography</h1>
+                  <p>{editedUserData.biography || 'Nothing yet...'}</p>
                 </div>
-                </>
+              </>
+              ):(null
               )}
 
             </div>

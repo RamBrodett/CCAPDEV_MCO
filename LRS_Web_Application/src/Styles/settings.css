@@ -25,57 +25,6 @@
     flex-direction: row;
   }
   
-  #editableProfileInfo {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #profileImageEdit {
-    margin-top: 20px;
-    margin-left: 20px;
-  }
-  
-  #profileImageEdit label {
-    color: #00af5e;
-  }
-  
-  #profileImageInput {
-    margin-top: 5px;
-  }
-  
-  #profileNameTextEdit {
-    margin-left: 40px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #profileNameTextEdit label {
-    color: #00af5e;
-    margin-top: 10px;
-  }
-  
-  #firstNameInput,
-  #lastNameInput {
-    margin-top: 5px;
-  }
-  
-  #bioEdit {
-    margin-left: 40px;
-    margin-top: 20px;
-  }
-  
-  #bioEdit label {
-    color: #00af5e;
-    margin-top: 10px;
-  }
-  
-  #bioTextarea {
-    margin-top: 5px;
-    width: 300px;
-    height: 100px;
-  }
-  
   #userProfileImage {
     margin-top: 20px;
     margin-left: 20px;
@@ -132,6 +81,7 @@
   #buttons{
     margin-left: 25px;
     margin-top: 20px;
+
   }
 
   button{
@@ -143,6 +93,10 @@
     background-color: rgb(172, 172, 172);
   }
 
+  #saveButt{
+    margin-left: 20px;
+
+  }
   #saveButt:active{
     background-color: #38ac75;
   }
@@ -158,4 +112,83 @@
     margin-left: 25px;
     margin-top: 30px;
 }
-  
+
+#editableProfileInfo {
+  display: flex;
+  flex-direction: column;
+  background-color: gainsboro;
+  margin-left: 25px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 3px .2px black;
+}
+
+#profileImageEdit {
+  display: flex;
+  flex-direction: column;
+}
+
+#profileImageEdit label {
+  color: #00af5e;
+}
+
+#profileImageInput {
+  margin-top: 5px;
+}
+
+#profileNameTextEdit {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+#profileNameTextEdit label, #bioEdit label{
+  color: #00af5e;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#firstNameInput,
+#lastNameInput {
+  margin-top: 5px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+#contactEdit{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#contacts{
+  color: #00af5e;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#contactEdit input{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+#bioEdit {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+#bioTextarea {
+  margin-top: 8px;
+  min-width: 400px;
+  min-height: 80px;
+  padding: 10px;
+  border: none;
+}

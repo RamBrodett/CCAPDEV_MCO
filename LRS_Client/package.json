@@ -1,5 +1,5 @@
 {
-  "name": "lrs_web_app",
+  "name": "lrs_client",
   "private": true,
   "version": "0.0.0",
   "type": "module",

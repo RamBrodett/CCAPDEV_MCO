@@ -7,14 +7,11 @@
 After cloning the repository, follow these steps to start development:
 
 1. Open the terminal in VS Code.
-2. Navigate to the project directory:
-
-    cd LRS_Web_Application
-    
-
-3. Run the development server:
-
+2. Navigate to CCAPDEV_MCO.
+3. Run the development server for both LRS_API and LRS_Client:
     npm run dev
+
+    //it will run a script to npm run dev for both API AND Client at once.
     
 
 Always execute these commands when making code modifications to visualize the changes through the provided port.

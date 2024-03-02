@@ -4,7 +4,7 @@ Author: Ram David Brodett
 
 import {useState} from 'react'
 import XIcon from '../Assets/x_icon.png'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { BHeader } from '../Components/basicHeader'
 import { BFooter } from '../Components/basicFooter'
 import '../Styles/Log_Reg.css'
@@ -19,6 +19,7 @@ export function Register(){
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleInputChange = (e) =>{
         const {name , value} = e.target;
@@ -37,6 +38,7 @@ export function Register(){
         }
 
         setErrorMessage('');
+        setSuccessMessage('');
 
         try{
             const response = await fetch('http://localhost:3000/api/register',{
@@ -48,7 +50,19 @@ export function Register(){
             });
             if(response.ok){
                 const result = await response.json();
-                console.log(result.success);
+                setFormData({
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                });
+
+                setSuccessMessage(result.success);
+                setTimeout(() => {
+                    setSuccessMessage('');
+                  }, 3000);
+                
             }else{
                 const errorMessage = await response.json();
                 console.log(errorMessage.data);
@@ -134,7 +148,12 @@ export function Register(){
                                     onChange={handleInputChange}
                                     required/>
                             </div>
-                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                            {errorMessage ? 
+                                ( <div className="error-message">{errorMessage}</div>
+                                ):(
+                                  successMessage && <div className="success-message">{successMessage}</div> 
+                                )}
+                            
                         </div>
                         <div id='Bottom'>
                             <button id='RegButton' onClick={handleFormSubmit}>Sign up</button>

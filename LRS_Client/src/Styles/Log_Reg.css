@@ -25,7 +25,6 @@
 
 }
 
-
 .LoginBody{
     padding: 8%;
 }
@@ -96,7 +95,14 @@
 .error-message{
     margin:auto;
     margin-top: 20px;
+    font-weight: bold;
     color: red;
+}
+.success-message{
+    margin:auto;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #00AF5E;
 }
 
 #passwordReg1Label{

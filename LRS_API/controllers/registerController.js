@@ -10,7 +10,7 @@ const handleNewUser = async (req, res) => {
     //find email duplicates
     const userDuplicate = await User.findOne({email: email}).exec();
 
-    if(userDuplicate) return res.status(409); // conflict 
+    if(userDuplicate) return res.status(409).json({'message': 'Email already used.'}); // conflict 
 
     try{
         // get last userId for assignment
@@ -33,7 +33,7 @@ const handleNewUser = async (req, res) => {
         //checker if it was registered
         console.log(result);
 
-        res.status(201).json({ 'success' : `New user ${fname} created!`});
+        res.status(201).json({ 'success' : `New user created!`});
 
     } catch( error){
         res.status(500).json({'message': error.message});

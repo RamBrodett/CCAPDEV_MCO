@@ -42,7 +42,7 @@ export function Register(){
             const response = await fetch('http://localhost:3000/api/register',{
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'registration/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
             });
@@ -51,6 +51,7 @@ export function Register(){
                 console.log(result.success);
             }else{
                 const errorMessage = await response.json();
+                console.log(errorMessage.data);
                 setErrorMessage(errorMessage.message || 'Registration failed');
             }
         } catch(error){

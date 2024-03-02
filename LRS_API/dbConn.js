@@ -1,8 +1,10 @@
-const mongoose = require('mongoose')
+require('dotenv');
+const mongoose = require('mongoose');
+const uri = "mongodb+srv://admin:APDEV12345@lrscluster0.ob9xhvt.mongodb.net/LRS_DB?retryWrites=true&w=majority&appName=LRSCluster0"
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.DATABASE_URI, {
+        await mongoose.connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

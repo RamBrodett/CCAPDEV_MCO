@@ -28,9 +28,8 @@ export function Register(){
         }));
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        {/*PUT LOGIC FOR FORM SUBMISSION*/}
 
         if(formData.password !== formData.confirmPassword){
             setErrorMessage('Passwords do not match!');
@@ -38,6 +37,25 @@ export function Register(){
         }
 
         setErrorMessage('');
+
+        try{
+            const response = await fetch('http://localhost:3000/api/register',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'registration/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if(response.ok){
+                const result = await response.json();
+                console.log(result.success);
+            }else{
+                const errorMessage = await response.json();
+                setErrorMessage(errorMessage.message || 'Registration failed');
+            }
+        } catch(error){
+            console.error('Error during registration:', error);
+        }
 
         console.log('Form submitted: ', formData); {/*TESTING THE DATA*/}
     }

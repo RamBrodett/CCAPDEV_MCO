@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const connectDB = require('./dbConn');
 const cors = require('cors');
+const { handleNewUser } = require('./controllers/registerController');
 const app = express();
 
 connectDB();
@@ -11,8 +12,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-app.get((req, res) => {
-});
+//testing will fix routing later
+app.post('/api/register', handleNewUser);
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {
@@ -21,6 +22,8 @@ mongoose.connection.once('open', () => {
         console.log(`Server running on port ${PORT}`)
     });
 })
+
+
 
 // http://localhost:3000/
 

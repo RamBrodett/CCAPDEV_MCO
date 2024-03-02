@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.DATABASE_URI,{
+        await mongoose.connect(process.env.DATABASE_URI, {
+            useNewUrlParser: true,
             useUnifiedTopology: true,
-            useNewURLParser: true
         });
     } catch(error){
         console.error(error);
@@ -12,4 +12,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = connectDB 
+module.exports = connectDB;

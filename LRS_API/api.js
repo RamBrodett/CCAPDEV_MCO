@@ -11,6 +11,8 @@ app.use(express.json());
 app.get((req, res) => {
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
 });
+
+// http://localhost:3000/
 

@@ -41,7 +41,7 @@ export function Register(){
         setSuccessMessage('');
 
         try{
-            const response = await fetch('http://localhost:3000/api/register',{
+            const response = await fetch('http://localhost:3000/userManagement/register',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,15 +64,22 @@ export function Register(){
                   }, 3000);
                 
             }else{
+                
                 const errorMessage = await response.json();
+                if(errorMessage.problem === "email"){
+                    setFormData((prevData) =>({
+                        ...prevData,
+                        email: '',
+                        password: '',
+                        confirmPassword: ''
+                    }));
+                }
                 console.log(errorMessage.data);
                 setErrorMessage(errorMessage.message || 'Registration failed');
             }
         } catch(error){
             console.error('Error during registration:', error);
         }
-
-        console.log('Form submitted: ', formData); {/*TESTING THE DATA*/}
     }
 
     return(

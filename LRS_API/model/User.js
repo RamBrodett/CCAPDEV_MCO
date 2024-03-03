@@ -28,8 +28,9 @@ const userSchema = new Schema({
     },
     role:{
         type: String,
-        enum: ['admin', 'student'],
-        required: false //implement later
+        enum: ['admin', 'student'], //implement later
+        default: 'student',
+        required: true
     }
 })
 

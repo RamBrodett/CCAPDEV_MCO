@@ -4,16 +4,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const connectDB = require('./dbConn');
 const cors = require('cors');
-const { handleNewUser } = require('./controllers/registerController');
 const app = express();
+const useRouter = require('./routes/registerRoute');
 
 connectDB();
 
 app.use(cors());
 app.use(express.json());
 
-//testing will fix routing later
-app.post('/api/register', handleNewUser);
+//routing for user management related
+app.use('/userManagement', useRouter);
+
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {

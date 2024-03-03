@@ -25,6 +25,11 @@ const userSchema = new Schema({
     contactnum:{
         type: Number,
         required: false
+    },
+    role:{
+        type: String,
+        enum: ['admin', 'student'],
+        required: false //implement later
     }
 })
 

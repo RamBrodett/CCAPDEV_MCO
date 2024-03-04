@@ -14,13 +14,11 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
         }
         
         const accesTokenOptions = { expiresIn: '30m'};
-        const refreshAccessTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
-    
+        const refreshTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
         const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
-    
-        const refreshAccessToken = jwt.sign(refreshPayload, secretKey, refreshAccessTokenOptions);
-    
-        return {accessToken, refreshAccessToken};
+        
+        const refreshToken = jwt.sign(refreshPayload, secretKey, refreshTokenOptions);
+        return {accessToken, refreshToken};
     }catch(error){
         console.log(error)
     }

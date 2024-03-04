@@ -26,33 +26,38 @@ const handleUserLogin = async (req, res) => {
        
 
         //it made it here, thus passwords are equal. Generate tokens 
-        const tokens = authMiddleware.generateCredentialToken(user,rememberMe); // error here
+        const {accessToken,refreshToken} = authMiddleware.generateCredentialToken(user,rememberMe); // error here
         
+        /**
         const accessToken = tokens.accessToken;
-        const refreshAccessToken = tokens.refreshAccessToken;
+        const refreshToken = tokens.refreshToken;
+         */
         
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
             secure: false, //change to true later before deployment
             expires: new Date(Date.now() +  1800000), 
             // + (min in milliseconds) to get the min value
+            path: '/'
         })
         
 
         if(rememberMe){
-            res.cookie('refreshToken', refreshAccessToken, {
+            res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: false, //change to true later before deployment
                 expires: new Date(Date.now() + 3 * 7 * 24 * 3600000), 
                 // + (number of weeks we want) * (days in a week) * 
                 // (hours in a day) * (min in milliseconds) to get the week value
+                path: '/'
             });
         } else{
-            res.cookie('refreshToken', refreshAccessToken, {
+            res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: false, //change to true later before deployment
                 expires: new Date(Date.now() +  24 * 3600000), 
                 // + (hours in a day) * (min in milliseconds) to get the day value
+                path: '/'
             });
 
         }

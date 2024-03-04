@@ -27,8 +27,9 @@ function App() {
                 });
 
                 if (response.ok){
+                    const { user } = await response.json()
                     console.log('LOGGED IN')
-                    setLoggedIn();
+                    setLoggedIn(user);
                 }
 
             }catch(error){

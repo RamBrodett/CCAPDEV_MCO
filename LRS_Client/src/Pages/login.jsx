@@ -48,7 +48,6 @@ export function Login(){
             console.error('Error submitting form:', error);
         }
         
-        console.log('Form submitted: ', formData, " "); {/*TESTING THE DATA*/}
     };
 
     return(

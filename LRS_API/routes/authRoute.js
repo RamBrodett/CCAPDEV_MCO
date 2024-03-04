@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', emailValidatorMiddleWare, handleUserLogin);
 router.get('/check', jwtAuth.authenticateJWT, (req, res)=>{
-    res.status(200)
+    res.status(200).json({user: req.user});
 });
 
 

@@ -14,28 +14,30 @@ const handleUserLogin = async (req, res) => {
 
     try{
         const user = await User.findOne({email});
+        
         if (!user){
-            return res.status(401).json({message: 'Invalid username or password'});
+            return res.status(401).json({message: 'Invalid email or password'});
         }
-
+        
         const isPasswordValid = await bcrypt.compare(password, user.password);
-
         if(!isPasswordValid){
-            return res.status(401).json({message: 'Invalid username or password'})
+            return res.status(401).json({message: 'Invalid email or password'})
         }
+       
 
         //it made it here, thus passwords are equal. Generate tokens 
-        const tokens = authMiddleware.generateCredentialToken(user,rememberMe);
-
+        const tokens = authMiddleware.generateCredentialToken(user,rememberMe); // error here
+        
         const accessToken = tokens.accessToken;
         const refreshAccessToken = tokens.refreshAccessToken;
-
+        
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
             secure: false, //change to true later before deployment
             expires: new Date(Date.now() +  1800000), 
             // + (min in milliseconds) to get the min value
         })
+        
 
         if(rememberMe){
             res.cookie('refreshToken', refreshAccessToken, {
@@ -54,9 +56,9 @@ const handleUserLogin = async (req, res) => {
             });
 
         }
+        
 
-
-        res.status(200).json({success: 'Login successful'});
+        res.status(200).json({success: 'Login successful', userData : user.firstname});
 
     }catch (error){
 
@@ -66,3 +68,5 @@ const handleUserLogin = async (req, res) => {
 
     
 }
+
+module.exports = {handleUserLogin};

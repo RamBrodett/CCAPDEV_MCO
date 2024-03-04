@@ -7,9 +7,10 @@ import XIcon from '../Assets/x_icon.png'
 import { BHeader } from '../Components/basicHeader.jsx'
 import { BFooter } from '../Components/basicFooter.jsx'
 import '../Styles/Log_Reg.css'
+import { useAuth} from '../AuthContext.jsx'
 
 export function Login(){
-
+    const {setLoggedIn} = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -26,8 +27,28 @@ export function Login(){
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        try{
+            const response = await fetch('http://localhost:3000/login',{
+                method : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+
+            });
+
+            if (response.ok){
+                const { success, userData } = await response.json();
+                console.log(success, userData);
+                setLoggedIn(userData)
+
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
         
-        console.log('Form submitted: ', formData); {/*TESTING THE DATA*/}
+        console.log('Form submitted: ', formData, " "); {/*TESTING THE DATA*/}
     };
 
     return(

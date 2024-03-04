@@ -1,22 +1,26 @@
-require('dotenv').config
-const PORT = process.env.PORT || 3000;
+require('dotenv').config();
+const PORT = process.env.PORT;
 const express = require('express');
 const mongoose = require('mongoose');
 const connectDB = require('./dbConn');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
-const useRouter = require('./routes/registerRoute');
-const cookieParser = require('cookie-parser');
+const registerRoute = require('./routes/registerRoute');
+const loginRoute = require('./routes/authRoute');
 
 connectDB();
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    credentials: true,
+  }));
 app.use(express.json());
 app.use(cookieParser());
 
 //routing for user management related
-app.use('/userManagement', useRouter);
+app.use('/userManagement', registerRoute);
+app.use('/login', loginRoute);
 
 
 // function to make user we only listen when db connection is secured.

@@ -3,16 +3,18 @@ Author: Ram David Brodett
 */
 import '../Styles/ADStyle.css'
 import PropTypes from 'prop-types';
+import { useAuth } from '../AuthContext.jsx';
 
-export function AccDisplay(props){
-    const {name,accLoggedIn} = props;
+export function AccDisplay(){
+    const {user} = useAuth();
 
-    if(!accLoggedIn) return null;
+    if(!user.isLoggedIn){
+        return null;}
 
     return(
         <div className="accDisp">
             <span id='AccLogo'></span>
-            <span id='AccDisplayName'>{name}</span>
+            <span id='AccDisplayName'>{user.fname}</span>
         </div>
 
     )
@@ -21,5 +23,4 @@ export function AccDisplay(props){
 
 AccDisplay.propTypes = {
     name: PropTypes.string,
-    accLoggedIn: PropTypes.bool.isRequired,
 };

@@ -9,25 +9,21 @@ import { AccDisplay } from './accDisplay'
 import { useState } from 'react'
 import {SidePanel} from './sidePanel'
 import { Search_Field } from './searchpill'
+import { useAuth} from '../AuthContext.jsx'
 
 export function Header(){
+    const {user, setLoggedOut} = useAuth();
     /* this is temporary have to fix the backend for the username retrieval */
-    const[username] =  useState('david');
     const[userId] = useState(3);
     const[isSpVisible , setIsSpVisible] = useState(false);
     /* this is temporary have to fix the backend for the login check */
-    const[IsLoggedIn, setIsLoggedIn] = useState(true);
     const handleLogOut = () =>{
         //process logout backend mechanism
-        setIsLoggedIn(false)
+        setLoggedOut();
     }
 
     const toggleSidePanel = () => {
-        console.log(isSpVisible)
-        console.log('Toggle Side Panel clicked');
         setIsSpVisible(prevState => !prevState);
-        console.log(isSpVisible)
-
     }
 
     return(
@@ -42,13 +38,13 @@ export function Header(){
             <div className="NavMenu">
                 <Link className='NavElem' to='/'>Home</Link>
                 <Link className='NavElem' to='/labSelect'>Book</Link>
-                {IsLoggedIn?(
+                {user.isLoggedIn?(
                     <a className='NavElem' onClick={handleLogOut}>Log out</a>
                     ):(
                     <Link className='NavElem' to='/login'>Log in</Link>
                 )}
                 <div onClick={toggleSidePanel}>
-                    <AccDisplay className='NavElem' name={username} accLoggedIn={IsLoggedIn}/>
+                    <AccDisplay className='NavElem' />
                 </div>
                 <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} userId={userId} />
             </div>

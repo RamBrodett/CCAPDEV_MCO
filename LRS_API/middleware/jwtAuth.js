@@ -3,21 +3,27 @@ const User = require('../model/User');
 const secretKey = process.env.JWT_SECRET_KEY;
 
 const generateCredentialToken = (user,isRememberMeToggled) =>{
-    const payload = {
-        userId: user.userID,
-        email: user.email,
+    try{
+        const payload = {
+            userId: user.userID,
+            email: user.email,
+            fname: user.fname,
+        }
+        const refreshPayload = {
+            userId: user.userID,
+        }
+        
+        const accesTokenOptions = { expiresIn: '30m'};
+        const refreshAccessTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
+    
+        const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
+    
+        const refreshAccessToken = jwt.sign(refreshPayload, secretKey, refreshAccessTokenOptions);
+    
+        return {accessToken, refreshAccessToken};
+    }catch(error){
+        console.log(error)
     }
-    const refreshPayload = {
-        userId: user.userID,
-    }
-
-    const accesTokenOptions = { expiresIn: '30m'};
-    const refreshAccessTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
-
-    const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
-    const refreshAccessToken = jwt.sign(refreshPayload, secretKey, refreshAccessTokenOptions);
-
-    return {accessToken, refreshAccessToken};
 
 };
 
@@ -25,6 +31,7 @@ const generateNewToken = (user) =>{
     const payload = {
         userId: user.userID,
         email: user.email,
+        fname: user.fname,
     }
 
     const accesTokenOptions = { expiresIn: '30m'};

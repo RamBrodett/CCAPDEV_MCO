@@ -4,13 +4,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const connectDB = require('./dbConn');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 const useRouter = require('./routes/registerRoute');
+const cookieParser = require('cookie-parser');
 
 connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 //routing for user management related
 app.use('/userManagement', useRouter);

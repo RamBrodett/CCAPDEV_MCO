@@ -24,10 +24,9 @@ export function Login(){
         }));
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-
-        {/*PUT LOGIC FOR FORM SUBMISSION*/}
+        
         console.log('Form submitted: ', formData); {/*TESTING THE DATA*/}
     };
 

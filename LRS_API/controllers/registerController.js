@@ -22,14 +22,13 @@ const handleNewUser = async (req, res) => {
 
         const hashedPass = await bcrypt.hash(password,10);
 
-        const result = await User.create({
+        await User.create({
             userID: newUserID,
             email: email,
             password: hashedPass,
             firstname: fname,
             lastname: lname
         });
-        //checker if it was registered
 
         res.status(201).json({ 'success' : `New user created!`});
 

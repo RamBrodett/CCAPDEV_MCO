@@ -29,7 +29,7 @@ export function Login(){
         e.preventDefault();
 
         try{
-            const response = await fetch('http://localhost:3000/login',{
+            const response = await fetch('http://localhost:3000/auth/login',{
                 method : 'POST',
                 credentials: 'include',
                 headers: {
@@ -41,8 +41,7 @@ export function Login(){
             });
 
             if (response.ok){
-                const { success, userData } = await response.json();
-                console.log(success, userData);
+                const {  userData } = await response.json();
                 setLoggedIn(userData)
 
             }

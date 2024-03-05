@@ -20,8 +20,7 @@ app.use(cookieParser());
 
 //routing for user management related
 app.use('/userManagement', registerRoute);
-app.use('/login', loginRoute);
-
+app.use('/auth', loginRoute);
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {

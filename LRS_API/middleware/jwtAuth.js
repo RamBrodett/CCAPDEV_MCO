@@ -13,7 +13,8 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
             userId: user.userID,
         }
         
-        const accesTokenOptions = { expiresIn: '30m'};
+        //const accesTokenOptions = { expiresIn: '30m'};
+        const accesTokenOptions = { expiresIn: '30s'};
         const refreshTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
         const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
         
@@ -25,13 +26,14 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
 
 };
 
-const generateNewToken = async (user) => {
+const generateNewToken = (user) => {
     const payload = {
         userId: user.userID,
         email: user.email,
         fname: user.firstname,
     }
-    const accesTokenOptions = { expiresIn: '30m'};
+    //const accesTokenOptions = { expiresIn: '30m'};
+    const accesTokenOptions = { expiresIn: '30s'};
     const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
     return accessToken;
 
@@ -50,7 +52,6 @@ const verifyJWT = (token) => {
 const getUserFromToken = async (decodedToken) => {
     if (decodedToken && decodedToken.userId) {
         const userId = decodedToken.userId;
-
         try {
             const user = await User.findOne({userID: userId});
             return user;
@@ -76,20 +77,25 @@ const authenticateJWT = async (req, res, next) =>{
     let decodedUserToken;
 
     if(accessToken){
+        
         decodedUserToken = verifyJWT(accessToken);
     } 
 
     if(!decodedUserToken){
+        
         decodedUserToken = verifyJWT(refreshToken);
-
+        
         if(decodedUserToken){
+            
             const user = await getUserFromToken(decodedUserToken);
+            
             const newAccessToken = generateNewToken(user);
-            console.log(newAccessToken)
+            
             res.cookie('accessToken', newAccessToken, {
                 httpOnly: true,
                 secure: false,
-                expires: new Date(Date.now() +  1800000),
+                //expires: new Date(Date.now() +  1800000),
+                expires: new Date(Date.now() +  30000),
             });
             req.user = user;
             return next();

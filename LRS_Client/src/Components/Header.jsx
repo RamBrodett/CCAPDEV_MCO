@@ -17,8 +17,20 @@ export function Header(){
     const[userId] = useState(3);
     const[isSpVisible , setIsSpVisible] = useState(false);
     /* this is temporary have to fix the backend for the login check */
-    const handleLogOut = () =>{
-        //process logout backend mechanism
+    const handleLogOut = async () =>{
+        /*
+        const response = await fetch('http://localhost:3000/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include', // Include credentials (cookies) in the request
+        });
+        
+        if (response.ok){
+            setLoggedOut();
+        }
+        */
         setLoggedOut();
     }
 

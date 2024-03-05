@@ -32,8 +32,9 @@ const handleUserLogin = async (req, res) => {
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
             secure: false, //change to true later before deployment
-            expires: new Date(Date.now() +  1800000), 
+            //expires: new Date(Date.now() +  1800000), 
             // + (min in milliseconds) to get the min value
+            expires: new Date(Date.now() +  30000),
             path: '/'
         })
         
@@ -68,7 +69,22 @@ const handleUserLogin = async (req, res) => {
     }
     
 }
+/*
+const handleUserLogout = (req, res) =>{
+    deleteCookies(res);
+    res.status(200).json({success: 'Logout successful'})
+}
 
+function deleteCookies(res) {
+    var cookies = res.getHeader('Set-Cookie');
+    if (cookies) {
+        cookies = Array.isArray(cookies) ? cookies : [cookies];
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].split(';')[0];
+            res.setHeader('Set-Cookie', cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/');
+        }
+    }
+}
+*/
 
-
-module.exports = {handleUserLogin};
+module.exports = {handleUserLogin}//, handleUserLogout};

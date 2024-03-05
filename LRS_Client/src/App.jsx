@@ -27,9 +27,8 @@ function App() {
                 });
 
                 if (response.ok){
-                    const { user } = await response.json()
-                    console.log('LOGGED IN')
-                    setLoggedIn(user);
+                    const { userData } = await response.json()
+                    setLoggedIn(userData);
                 }
 
             }catch(error){
@@ -41,7 +40,7 @@ function App() {
 
         checkAndLoginUser();
 
-    }, []);
+    },[]);
 
     if (isLoading) {
         // loading indicator or spinner while checking login status

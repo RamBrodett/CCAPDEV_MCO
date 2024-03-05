@@ -7,7 +7,7 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
         const payload = {
             userId: user.userID,
             email: user.email,
-            fname: user.fname,
+            fname: user.firstname,
         }
         const refreshPayload = {
             userId: user.userID,
@@ -25,16 +25,14 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
 
 };
 
-const generateNewToken = (user) =>{
+const generateNewToken = async (user) => {
     const payload = {
         userId: user.userID,
         email: user.email,
-        fname: user.fname,
+        fname: user.firstname,
     }
-
     const accesTokenOptions = { expiresIn: '30m'};
     const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
-
     return accessToken;
 
 };
@@ -48,12 +46,13 @@ const verifyJWT = (token) => {
     }
 
 };
-const getUserFromToken = async (token) => {
-    if (decodedRefreshToken && decodedRefreshToken.userId) {
-        const userId = decodedRefreshToken.userId;
+
+const getUserFromToken = async (decodedToken) => {
+    if (decodedToken && decodedToken.userId) {
+        const userId = decodedToken.userId;
 
         try {
-            const user = await User.findOne({userID: userId})
+            const user = await User.findOne({userID: userId});
             return user;
         } catch (error) {
             console.error('Error fetching user from data store:', error);
@@ -65,7 +64,7 @@ const getUserFromToken = async (token) => {
 
 }
 
-const authenticateJWT = (req, res, next) =>{
+const authenticateJWT = async (req, res, next) =>{
 
     const accessToken = req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
@@ -75,14 +74,18 @@ const authenticateJWT = (req, res, next) =>{
     }
 
     let decodedUserToken;
-    if(accessToken) decodedUserToken = verifyJWT(accessToken);
+
+    if(accessToken){
+        decodedUserToken = verifyJWT(accessToken);
+    } 
 
     if(!decodedUserToken){
         decodedUserToken = verifyJWT(refreshToken);
 
         if(decodedUserToken){
-            const user = getUserFromToken(decodedUserToken);
+            const user = await getUserFromToken(decodedUserToken);
             const newAccessToken = generateNewToken(user);
+            console.log(newAccessToken)
             res.cookie('accessToken', newAccessToken, {
                 httpOnly: true,
                 secure: false,

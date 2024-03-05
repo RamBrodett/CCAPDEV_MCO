@@ -28,10 +28,6 @@ const handleUserLogin = async (req, res) => {
         //it made it here, thus passwords are equal. Generate tokens 
         const {accessToken,refreshToken} = authMiddleware.generateCredentialToken(user,rememberMe); // error here
         
-        /**
-        const accessToken = tokens.accessToken;
-        const refreshToken = tokens.refreshToken;
-         */
         
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
@@ -70,8 +66,9 @@ const handleUserLogin = async (req, res) => {
         res.status(500).json({message : error.message});
 
     }
-
     
 }
+
+
 
 module.exports = {handleUserLogin};

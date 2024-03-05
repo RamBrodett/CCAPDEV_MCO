@@ -29,8 +29,30 @@ export function Register(){
         }));
     };
 
+    function capitalizeEachWord(name) {
+        var words = name.split(' ');
+
+        for (var i = 0; i < words.length; i++) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+        }
+
+        const newName = words.join(' ')
+        return newName;
+    }
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        const fname = formData.fname;
+        const lname = formData.lname;
+
+        setFormData((prevData) =>({
+            ...prevData,
+            fname: capitalizeEachWord(fname),
+            lname: capitalizeEachWord(lname),
+        }));
+
+
 
         if(formData.password !== formData.confirmPassword){
             setErrorMessage('Passwords do not match!');
@@ -60,8 +82,9 @@ export function Register(){
 
                 setSuccessMessage(result.success);
                 setTimeout(() => {
+                    window.location.href = "http://localhost:5173/#/login";
                     setSuccessMessage('');
-                  }, 3000);
+                  }, 2000);
                 
             }else{
                 

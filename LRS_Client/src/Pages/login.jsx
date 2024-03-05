@@ -17,6 +17,9 @@ export function Login(){
         rememberMe: false
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
     const handleInputChange = (e) =>{
         const { name, value, type, checked } = e.target;
         setFormData((prevData) => ({
@@ -28,6 +31,8 @@ export function Login(){
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
+        setErrorMessage('');
+        setSuccessMessage('');
         try{
             const response = await fetch('http://localhost:3000/auth/login',{
                 method : 'POST',
@@ -41,12 +46,32 @@ export function Login(){
             });
 
             if (response.ok){
-                const {  userData } = await response.json();
-                setLoggedIn(userData)
+                const result = await response.json();
+                setSuccessMessage(result.success)
+                setFormData({
+                    email: '',
+                    password: '',
+                });
 
+                setTimeout(() => {
+                    window.location.href = "http://localhost:5173/#/";
+                    setSuccessMessage('');
+                  }, 1500);
+
+                setLoggedIn(result.userData)
+
+            }else{
+                const errorMessage = await response.json()
+                if(errorMessage.problem === "email"){
+                    setFormData({
+                        email: '',
+                        password: '',
+                    });
+                }
+                setErrorMessage(errorMessage.message);
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error logging in:', error);
         }
         
     };
@@ -99,7 +124,13 @@ export function Login(){
                                     onChange={handleInputChange}
                                 />
                                 <label htmlFor='rememberMe'>Remember Me</label>
-                            </div>
+
+                        </div>
+                        {errorMessage ? 
+                                ( <div className="error-message">{errorMessage}</div>
+                                ):(
+                                  successMessage && <div className="success-message">{successMessage}</div> 
+                                )}
                         <div id='Bottom'>
                             <button id='LoginButton' onClick={handleFormSubmit}>Log in</button>
                         </div>

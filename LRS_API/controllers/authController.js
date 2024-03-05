@@ -69,22 +69,27 @@ const handleUserLogin = async (req, res) => {
     }
     
 }
-/*
+
 const handleUserLogout = (req, res) =>{
-    deleteCookies(res);
+    const accessToken = req.cookies.accessToken;
+    const refreshToken = req.cookies.refreshToken;
+
+    res.cookie('accessToken', accessToken,{
+        httpOnly: true,
+        secure: false, //change to true later before deployment
+        expires: new Date("1900-01-01"), 
+        path: '/'
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false, 
+        expires: new Date("1900-01-01"), 
+        path: '/'
+    });
+
+
     res.status(200).json({success: 'Logout successful'})
 }
 
-function deleteCookies(res) {
-    var cookies = res.getHeader('Set-Cookie');
-    if (cookies) {
-        cookies = Array.isArray(cookies) ? cookies : [cookies];
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].split(';')[0];
-            res.setHeader('Set-Cookie', cookie + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/');
-        }
-    }
-}
-*/
-
-module.exports = {handleUserLogin}//, handleUserLogout};
+module.exports = {handleUserLogin, handleUserLogout};

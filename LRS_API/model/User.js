@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+const Reservation = require()
 
 const userSchema = new Schema({
     userID: {
@@ -31,7 +32,17 @@ const userSchema = new Schema({
         enum: ['admin', 'student'], //implement later
         default: 'student',
         required: true
+    },
+    reservations: [reservationSchema],
+    profile_info:{
+        profile_picture_url:{
+            type: String,
+        },
+        bio:{
+            type: String,
+        },
     }
+
 })
 
 module.exports = mongoose.model('User', userSchema);

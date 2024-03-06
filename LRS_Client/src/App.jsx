@@ -28,6 +28,7 @@ function App() {
 
                 if (response.ok){
                     const { userData } = await response.json()
+                    console.log(userData)
                     setLoggedIn(userData);
                 }
 

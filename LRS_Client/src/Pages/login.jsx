@@ -56,7 +56,7 @@ export function Login(){
                 setTimeout(() => {
                     window.location.href = "http://localhost:5173/#/";
                     setSuccessMessage('');
-                  }, 1500);
+                  }, 2500);
 
                 setLoggedIn(result.userData)
 

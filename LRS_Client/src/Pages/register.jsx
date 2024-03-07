@@ -84,7 +84,7 @@ export function Register(){
                 setTimeout(() => {
                     window.location.href = "http://localhost:5173/#/login";
                     setSuccessMessage('');
-                  }, 2000);
+                  }, 2500);
                 
             }else{
                 

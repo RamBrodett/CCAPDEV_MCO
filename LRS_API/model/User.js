@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const Reservation = require()
+const Reservation = require('./Reservation')
 
 const userSchema = new Schema({
     userID: {
@@ -33,7 +33,10 @@ const userSchema = new Schema({
         default: 'student',
         required: true
     },
-    reservations: [reservationSchema],
+    reservations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Reservation'
+    }],
     profile_info:{
         profile_picture_url:{
             type: String,

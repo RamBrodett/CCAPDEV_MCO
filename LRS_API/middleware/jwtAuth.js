@@ -11,6 +11,7 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
         }
         const refreshPayload = {
             userId: user.userID,
+            autoExtends: isRememberMeToggled ? 'true' : 'false'
         }
         
         //const accesTokenOptions = { expiresIn: '30m'};
@@ -26,7 +27,19 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
 
 };
 
-const generateNewToken = (user) => {
+const generateNewToken = (user, option) => {
+    //generetae refreshtoken that auto extends
+    if (option === 1){
+        const refreshPayload = {
+            userId: user.userID,
+            autoExtends: 'true'
+        }
+        const refreshTokenOptions = {expiresIn: '3w'}
+        const refreshToken = jwt.sign(refreshPayload, secretKey, refreshTokenOptions)
+        return refreshToken;
+    }
+
+    //else generate accesstoken
     const payload = {
         userId: user.userID,
         email: user.email,
@@ -74,6 +87,22 @@ const authenticateJWT = async (req, res, next) =>{
         return res.status(401).json({message: 'Unauthorized'});
     }
 
+    const decodedRefreshToken = verifyJWT(refreshToken);
+    let user;
+    //Check if the remember me option was toggled the last time it was generated
+    if (decodedRefreshToken.autoExtends === 'true'){
+        user = await getUserFromToken(decodedRefreshToken);
+        const refreshed_RefreshToken = generateNewToken(user, 2)
+        res.cookie('refreshToken', refreshed_RefreshToken,{
+            httpOnly: true,
+            secure: false, //change to true later before deployment
+            expires: new Date(Date.now() + 3 * 7 * 24 * 3600000), 
+            // + (number of weeks we want) * (days in a week) * 
+            // (hours in a day) * (min in milliseconds) to get the week value
+            path: '/'
+        });
+    }
+
     let decodedUserToken;
 
     if(accessToken){
@@ -84,12 +113,13 @@ const authenticateJWT = async (req, res, next) =>{
         decodedUserToken = verifyJWT(refreshToken);
         if(decodedUserToken){
             const user = await getUserFromToken(decodedUserToken);
-            const newAccessToken = generateNewToken(user);
+            const newAccessToken = generateNewToken(user, 0);
             res.cookie('accessToken', newAccessToken, {
                 httpOnly: true,
                 secure: false,
                 //expires: new Date(Date.now() +  1800000),
                 expires: new Date(Date.now() +  30000),
+                path: '/'
             });
             req.user = user;
             

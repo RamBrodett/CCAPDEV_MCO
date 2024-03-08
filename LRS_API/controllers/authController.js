@@ -26,7 +26,7 @@ const handleUserLogin = async (req, res) => {
        
 
         //it made it here, thus passwords are equal. Generate tokens 
-        const {accessToken,refreshToken} = authMiddleware.generateCredentialToken(user,rememberMe); // error here
+        const {accessToken, refreshToken} = authMiddleware.generateCredentialToken(user,rememberMe); // error here
         
         
         res.cookie('accessToken', accessToken,{

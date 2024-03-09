@@ -18,3 +18,10 @@ body {
     background-color: #ffffff;
     overflow-x: hidden;
 }
+
+.LoadingScreen{
+    text-align: center;
+    padding-top: 38vh;
+    font-size: 120px;
+    color: rgb(158, 158, 158);
+}

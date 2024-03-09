@@ -25,7 +25,7 @@ const userSchema = new Schema({
     },
     contactnum:{
         type: Number,
-        required: false
+        default: null
     },
     role:{
         type: String,
@@ -40,9 +40,11 @@ const userSchema = new Schema({
     profile_info:{
         profile_picture_url:{
             type: String,
+            default: 'default'
         },
         bio:{
             type: String,
+            default: null
         },
     }
 

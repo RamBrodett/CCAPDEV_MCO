@@ -14,8 +14,8 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
             autoExtends: isRememberMeToggled ? 'true' : 'false'
         }
         
-        //const accesTokenOptions = { expiresIn: '30m'};
-        const accesTokenOptions = { expiresIn: '30s'};
+        const accesTokenOptions = { expiresIn: '30m'};
+        //const accesTokenOptions = { expiresIn: '30s'};
         const refreshTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
         const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
         
@@ -45,8 +45,8 @@ const generateNewToken = (user, option) => {
         email: user.email,
         firstname: user.firstname,
     }
-    //const accesTokenOptions = { expiresIn: '30m'};
-    const accesTokenOptions = { expiresIn: '30s'};
+    const accesTokenOptions = { expiresIn: '30m'};
+    //const accesTokenOptions = { expiresIn: '30s'};
     const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
     return accessToken;
 
@@ -117,8 +117,8 @@ const authenticateJWT = async (req, res, next) =>{
             res.cookie('accessToken', newAccessToken, {
                 httpOnly: true,
                 secure: false,
-                //expires: new Date(Date.now() +  1800000),
-                expires: new Date(Date.now() +  30000),
+                expires: new Date(Date.now() +  1800000),
+                //expires: new Date(Date.now() +  30000),
                 path: '/'
             });
             req.user = user;

@@ -32,9 +32,9 @@ const handleUserLogin = async (req, res) => {
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
             secure: false, //change to true later before deployment
-            //expires: new Date(Date.now() +  1800000), 
+            expires: new Date(Date.now() +  1800000), 
             // + (min in milliseconds) to get the min value
-            expires: new Date(Date.now() +  30000),
+            //expires: new Date(Date.now() +  30000),
             path: '/'
         })
         

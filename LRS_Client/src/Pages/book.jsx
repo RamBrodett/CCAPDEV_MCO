@@ -76,7 +76,7 @@ export function Book(){
     };
 
     // sample booked seats
-    const bookedSeats = [
+    const bookedVL205206 = [
         'A03', 'A04', 'A05', 'A06', 'A08',
         'B08', 'B07', 'B06','C01', 'C02'
       ];
@@ -107,22 +107,22 @@ export function Book(){
         ),
         'Sun-8:30': (
             <div key="Sun-8:00">
-                {generateTable('D1T2', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D1T2', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sun-9:00': (
             <div key="Sun-8:00">
-                {generateTable('D1T3', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D1T3', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sun-9:30': (
             <div key="Sun-8:00">
-                {generateTable('D1T4', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D1T4', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sun-10:00': (
             <div key="Sun-8:00">
-                {generateTable('D1T5', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D1T5', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Mon-8:00': (
@@ -157,47 +157,47 @@ export function Book(){
         ),
         'Tue-8:30': (
             <div key="Tue-8:30">
-                {generateTable('D3T2', handleCellClick, bookedSeats, [], 5, 9)}
+                {generateTable('D3T2', handleCellClick, bookedVL205206, [], 5, 9)}
             </div>
         ),
         'Tue-9:00': (
             <div key="Tue-9:00">
-                {generateTable('D3T3', handleCellClick, bookedSeats, [], 5, 9)}
+                {generateTable('D3T3', handleCellClick, bookedVL205206, [], 5, 9)}
             </div>
         ),
         'Tue-9:30': (
             <div key="Tue-9:30">
-                {generateTable('D3T4', handleCellClick, bookedSeats, [], 5, 9)}
+                {generateTable('D3T4', handleCellClick, bookedVL205206, [], 5, 9)}
             </div>
         ),
         'Tue-10:00': (
             <div key="Tue-10:00">
-                {generateTable('D3T5', handleCellClick, bookedSeats, [], 5, 9)}
+                {generateTable('D3T5', handleCellClick, bookedVL205206, [], 5, 9)}
             </div>
         ),
         'Wed-8:00': (
             <div key="Wed-8:00">
-                {generateTable('D4T1', handleCellClick, bookedSeats, [], 2, 8)}
+                {generateTable('D4T1', handleCellClick, bookedVL205206, [], 2, 8)}
             </div>
         ),
         'Wed-8:30': (
             <div key="Wed-8:30">
-                {generateTable('D4T2', handleCellClick, bookedSeats, [], 2, 8)}
+                {generateTable('D4T2', handleCellClick, bookedVL205206, [], 2, 8)}
             </div>
         ),
         'Wed-9:00': (
             <div key="Wed-9:00">
-                {generateTable('D4T3', handleCellClick, bookedSeats, [], 2, 8)}
+                {generateTable('D4T3', handleCellClick, bookedVL205206, [], 2, 8)}
             </div>
         ),
         'Wed-9:30': (
             <div key="Wed-9:30">
-                {generateTable('D4T4', handleCellClick, bookedSeats, [], 2, 8)}
+                {generateTable('D4T4', handleCellClick, bookedVL205206, [], 2, 8)}
             </div>
         ),
         'Wed-10:00': (
             <div key="Wed-10:00">
-                {generateTable('D4T5', handleCellClick, bookedSeats, [], 2, 8)}
+                {generateTable('D4T5', handleCellClick, bookedVL205206, [], 2, 8)}
             </div>
         ),
         'Thu-8:00': (
@@ -227,56 +227,56 @@ export function Book(){
         ),
         'Fri-8:00': (
             <div key="Fri-8:00">
-                {generateTable('D6T1', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D6T1', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Fri-8:30': (
             <div key="Fri-8:30">
-                {generateTable('D6T2', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D6T2', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Fri-9:00': (
             <div key="Fri-9:00">
-                {generateTable('D6T3', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D6T3', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Fri-9:30': (
             <div key="Fri-9:30">
-                {generateTable('D6T4', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D6T4', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Fri-10:00': (
             <div key="Fri-10:00">
-                {generateTable('D6T5', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D6T5', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sat-8:00': (
             <div key="Sat-8:00">
-                {generateTable('D7T1', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D7T1', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sat-8:30': (
             <div key="Sat-8:30">
-                {generateTable('D7T2', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D7T2', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sat-9:00': (
             <div key="Sat-9:00">
-                {generateTable('D7T3', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D7T3', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sat-9:30': (
             <div key="Sat-9:30">
-                {generateTable('D7T4', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D7T4', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
         'Sat-10:00': (
             <div key="Sat-10:00">
-                {generateTable('D7T5', handleCellClick, bookedSeats, [], 3, 8)}
+                {generateTable('D7T5', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
     };
-    
+    const selectedLab = localStorage.getItem('selectedLab');
     return(
         <div className="bookBody">
             <Header />
@@ -285,7 +285,7 @@ export function Book(){
                     <div className="tickets">
                         <div className="ticket-selector">
                             <div className="head">
-                                <div className="title">Laboratory X</div>
+                                <div className="title">{selectedLab}</div>
                             </div>
                             <div className="seats">
                                 <div className="status">

@@ -3,7 +3,7 @@ Author: Ram David Brodett
 */
 
 import '../Styles/Header_Footer.css'
-import Icon from '../assets/Icon.png'
+import Icon from '../Assets/Icon.png'
 import { Link } from 'react-router-dom'
 import { AccDisplay } from './accDisplay'
 import { useState } from 'react'

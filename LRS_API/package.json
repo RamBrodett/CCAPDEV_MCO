@@ -9,7 +9,7 @@
     "dev": "nodemon api.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ram Brodett",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

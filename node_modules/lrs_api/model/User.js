@@ -33,14 +33,10 @@ const userSchema = new Schema({
         default: 'Student',
         required: true
     },
-    reservations: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Reservation'
-    }],
     profile_info:{
         profile_picture_url:{
             type: String,
-            default: 'default'
+            default: 'https://lrs-dp-db.s3.ap-southeast-1.amazonaws.com/default.png'
         },
         bio:{
             type: String,

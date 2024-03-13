@@ -21,14 +21,12 @@ Author: Ram David Brodett
 }
 
 #AccLogo{
-    background-image: url('../Assets/UserIcon.png');
-    background-size: 41px 40px;
-    background-position: .1px;
-    width: 41px;
-    height: 40px;
+    width: 48px;
+    height: 44px;
     display: inline-block;
     margin-right: 10px;
     margin-top: 3px;
+    border-radius: 100px;
 }
 
 #AccDisplayName{

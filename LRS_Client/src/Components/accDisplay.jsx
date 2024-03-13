@@ -1,26 +1,40 @@
 /*
 Author: Ram David Brodett
 */
-import '../Styles/ADStyle.css'
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
 import { useAuth } from '../AuthContext.jsx';
+import '../Styles/ADStyle.css'
 
-export function AccDisplay(){
-    const {user} = useAuth();
+export function AccDisplay() {
+    const { user } = useAuth();
+    const [imageUrl, setImageUrl] = useState('');
 
-    if(!user.isLoggedIn){
-        return null;}
+    useEffect(() => {
+        const getImageUrl = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${user.profileKey}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setImageUrl(data.imageUrl);
+                } else {
+                    console.error('Error fetching image URL:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching image URL:', error);
+            }
+        };
 
-    return(
+        getImageUrl();
+    }, [user.profileKey]);
+
+    if (!user.isLoggedIn) {
+        return null;
+    }
+
+    return (
         <div className="accDisp">
-            <span id='AccLogo'></span>
+            <img id='AccLogo' src={imageUrl} />
             <span id='AccDisplayName'>{user.firstname}</span>
         </div>
-
-    )
-
+    );
 }
-
-AccDisplay.propTypes = {
-    name: PropTypes.string,
-};

@@ -9,6 +9,7 @@ import { createContext, useContext, useState } from 'react';
       userID: null,
       firstname: null,
       lastname: null,
+      profileKey: null,
       isLoggedIn: false,
     }
     );
@@ -18,6 +19,7 @@ import { createContext, useContext, useState } from 'react';
         userID: userData.userId,
         firstname: userData.firstname,
         lastname: userData.lastname,
+        profileKey: userData.profileKey,
         isLoggedIn: true,
       })
     };
@@ -27,6 +29,7 @@ import { createContext, useContext, useState } from 'react';
         userID: null,
         firstname: null,
         lastname: null,
+        profileKey: null,
         isLoggedIn: false,
       })
     };

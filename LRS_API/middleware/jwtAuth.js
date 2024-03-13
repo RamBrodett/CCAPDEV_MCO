@@ -9,7 +9,10 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
             email: user.email,
             firstname: user.firstname,
             lastname:  user.lastname,
+            profileKey: user.profile_info.profile_picture_url.split('.com/')[1]
         }
+
+        console.log(payload)
         const refreshPayload = {
             userId: user.userID,
             autoExtends: isRememberMeToggled ? 'true' : 'false'
@@ -46,6 +49,7 @@ const generateNewToken = (user, option) => {
         email: user.email,
         firstname: user.firstname,
         lastname:  user.lastname,
+        profileKey: user.profile_info.profile_picture_url.split('.com/')[1]
     }
     const accesTokenOptions = { expiresIn: '30m'};
     //const accesTokenOptions = { expiresIn: '30s'};

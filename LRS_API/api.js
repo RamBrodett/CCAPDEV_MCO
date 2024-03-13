@@ -10,6 +10,7 @@ const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
 const userSearchRoute = require('./routes/userSearchRoute')
 const userProfileRoute = require('./routes/userProfileRoute')
+const profileDisplayRoute = require('./routes/profileDisplayRoute')
 
 connectDB();
 
@@ -25,6 +26,7 @@ app.use('/userManagement', registerRoute);
 app.use('/auth', loginRoute);
 app.use('/search', userSearchRoute)
 app.use('/getProfile', userProfileRoute)
+app.use('/profileIMG', profileDisplayRoute)
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {

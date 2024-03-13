@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/searchPillStyle.css';
-import { useUser } from '../UserProvider';
+//import { useUser } from '../UserProvider';
 
 export function Search_Field() {
   const [text, setText] = useState('');
@@ -9,23 +9,24 @@ export function Search_Field() {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const navigate = useNavigate();
   const searchPillContainerRef = useRef();
-  const dummyUsers = useUser();
 
-  const getMatchingUsers = () => {
-
-    const searchWords = text.toLowerCase().split(/\s+/);
-    const filteredUsers = dummyUsers.filter(user =>
-      searchWords.every(word => user.Fname.toLowerCase().includes(word))
-    );
-
-    setMatchingUsers(filteredUsers);
-    setIsDropdownVisible(!!filteredUsers.length); // Show dropdown only if there are matching users
+  const getMatchingUsers = async() => {
+    try{
+      const response = await fetch(`http://localhost:3000/search?wordQuery=${text}`);
+      if(!response.ok){
+        throw new Error('Failed to fetch matching users');
+      }
+      const data = await response.json();
+      console.log(data);
+      setMatchingUsers(data);
+      setIsDropdownVisible(!!data.length);
+      }catch (error){
+      console.error('Error fetching matching users:', error);
+    }
   };
 
-  const redirectToProfile = (userId) => {
-    console.log(userId);
-    // You can replace this with the actual route/path to the profile page
-    navigate(`/profile/${userId}`);
+  const redirectToProfile = (firstname,lastname,userID) => {
+    navigate(`/profile/${firstname}-${lastname}+${userID}`);
     setIsDropdownVisible(false); // Close the dropdown after clicking on a user
   };
 
@@ -61,11 +62,11 @@ export function Search_Field() {
             <ul>
               {matchingUsers.map((user) => (
                 <li
-                  key={user.id}
-                  onClick={() => redirectToProfile(user.id)}
-                  style={{ cursor: 'pointer' }} // Ensure the cursor is a pointer
+                  key={user.userID}
+                  onClick={() => redirectToProfile(user.firstname,user.lastname,user.userID)}
+                  style={{ cursor: 'pointer' }}
                 >
-                  {user.Fname}
+                  {user.firstname} {user.lastname}
                 </li>
               ))}
             </ul>

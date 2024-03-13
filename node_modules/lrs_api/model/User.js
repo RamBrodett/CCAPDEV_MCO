@@ -29,8 +29,8 @@ const userSchema = new Schema({
     },
     role:{
         type: String,
-        enum: ['admin', 'student'], //implement later
-        default: 'student',
+        enum: ['Admin', 'Student'], //implement later
+        default: 'Student',
         required: true
     },
     reservations: [{

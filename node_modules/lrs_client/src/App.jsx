@@ -60,7 +60,7 @@ function App() {
                             <Route path='/labSelect' element={<LabSelect />}/>
                             <Route path='/checkout' element={<Checkout />}/>
                             <Route path='/book' element={<Book />}/>
-                            <Route path='/profile/:userId' element={<Profile />}/>
+                            <Route path='/profile/:userCred' element={<Profile />}/>
                             <Route path='/settings/:userId' element={<SettingsProfile />}/>
                         </Routes>
                 </Router>

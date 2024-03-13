@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
+const userSearchRoute = require('./routes/userSearchRoute')
+const userProfileRoute = require('./routes/userProfileRoute')
 
 connectDB();
 
@@ -21,6 +23,8 @@ app.use(cookieParser());
 //routing for user management related
 app.use('/userManagement', registerRoute);
 app.use('/auth', loginRoute);
+app.use('/search', userSearchRoute)
+app.use('/getProfile', userProfileRoute)
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {

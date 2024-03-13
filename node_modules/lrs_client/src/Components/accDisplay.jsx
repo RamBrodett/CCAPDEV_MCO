@@ -14,7 +14,7 @@ export function AccDisplay(){
     return(
         <div className="accDisp">
             <span id='AccLogo'></span>
-            <span id='AccDisplayName'>{user.fname}</span>
+            <span id='AccDisplayName'>{user.firstname}</span>
         </div>
 
     )

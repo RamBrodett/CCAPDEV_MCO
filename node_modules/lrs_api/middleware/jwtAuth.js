@@ -8,6 +8,7 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
             userId: user.userID,
             email: user.email,
             firstname: user.firstname,
+            lastname:  user.lastname,
         }
         const refreshPayload = {
             userId: user.userID,
@@ -44,6 +45,7 @@ const generateNewToken = (user, option) => {
         userId: user.userID,
         email: user.email,
         firstname: user.firstname,
+        lastname:  user.lastname,
     }
     const accesTokenOptions = { expiresIn: '30m'};
     //const accesTokenOptions = { expiresIn: '30s'};
@@ -123,12 +125,12 @@ const authenticateJWT = async (req, res, next) =>{
                 //expires: new Date(Date.now() +  30000),
                 path: '/'
             });
-            req.user = user;
-            
+            req.user = user; 
             return next();
         }
     }else {
         req.user = decodedUserToken;
+
         return next();
     }
 

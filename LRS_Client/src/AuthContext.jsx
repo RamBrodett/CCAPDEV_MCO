@@ -6,21 +6,27 @@ import { createContext, useContext, useState } from 'react';
   
   export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({
-      fname: null,
+      userID: null,
+      firstname: null,
+      lastname: null,
       isLoggedIn: false,
     }
     );
   
     const setLoggedIn = (userData) => {
       setUser({
-        fname: userData,
+        userID: userData.userId,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
         isLoggedIn: true,
       })
     };
   
     const setLoggedOut = () => {
       setUser({
-        fname: null,
+        userID: null,
+        firstname: null,
+        lastname: null,
         isLoggedIn: false,
       })
     };

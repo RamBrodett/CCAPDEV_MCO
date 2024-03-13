@@ -40,7 +40,7 @@ function App() {
 
         checkAndLoginUser();
 
-    },[]);
+    },);
 
     if (isLoading) {
         // loading indicator or spinner while checking login status

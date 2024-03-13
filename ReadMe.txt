@@ -1,6 +1,6 @@
 # LRS Web Application Project For APDEV Course
 
--- project still on early phase -- 
+-- project 2nd phase-- 
 
 ## Getting Started
 
@@ -8,10 +8,9 @@ After cloning the repository, follow these steps to start development:
 
 1. Open the terminal in VS Code.
 2. Navigate to CCAPDEV_MCO.
-3. Run the development server for both LRS_API and LRS_Client:
-    npm run dev
+3. npm install, then npm run dev
 
-    //it will run a script to npm run dev for both API AND Client at once.
+//it will run a script to npm run dev for both API AND Client workspace at once.
     
 
 Always execute these commands when making code modifications to visualize the changes through the provided port.

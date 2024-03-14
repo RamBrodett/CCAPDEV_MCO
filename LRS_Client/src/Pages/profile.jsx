@@ -9,6 +9,7 @@ export function Profile() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
+  const [matchingReservations, setMatchingReservations] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,6 +22,7 @@ export function Profile() {
         }
         const user = await response.json();
         setUserData(user);
+        fetchReservations(user);
         fetchProfilePic(user);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -43,6 +45,19 @@ export function Profile() {
         setLoading(false);
       }
     };
+
+    const fetchReservations = async (userData) =>{
+      const userId = userData.userID;
+      try{
+        const reservations = await fetch(`http://localhost:3000/getUserReservations?userId=${userId}`)
+        if(reservations.ok){
+          const data = await reservations.json();
+          setMatchingReservations(data);
+        }
+      }catch(error){
+        console.error('Error fetching reservations:', error);
+      }
+    }
 
     fetchUser();
 
@@ -90,8 +105,27 @@ export function Profile() {
                 )}
               </div>
               <div id="reservedSeatsDetails">
-                <h1>Reservations</h1>
-                <p>Nothing yet...</p>
+                {matchingReservations ? (
+                <>
+                    <h1>Reservations</h1>
+                      <ul>
+                      <p>
+                        {matchingReservations.map((reservations) =>(
+                            <li key={reservations.reservationID} style={ {border: '2px solid gray', marginBottom: '5px'}}>
+                              Laboratory: {reservations.labDetails.labID} <br />
+                              Seat-ID: {reservations.labDetails.seatID} <br />
+                              time slot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
+                            </li>
+                        ))}
+                        </p>
+                      </ul>
+                </>
+                ):(
+                  <>
+                    <h1>Reservations</h1>
+                    <p>Nothing yet...</p>
+                  </>
+                )}
               </div>
             </div>
           </div>

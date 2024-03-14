@@ -49,7 +49,6 @@ const uploadNewImage = async (req, res) => {
 
 const readImage = async (req, res) => {
     const {imgKey} = req.query; 
-
     const params = {
         Bucket: bucketName,
         Key: imgKey,

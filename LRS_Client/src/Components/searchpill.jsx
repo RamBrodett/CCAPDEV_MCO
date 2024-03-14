@@ -17,7 +17,6 @@ export function Search_Field() {
         throw new Error('Failed to fetch matching users');
       }
       const data = await response.json();
-      console.log(data);
       setMatchingUsers(data);
       setIsDropdownVisible(!!data.length);
       }catch (error){

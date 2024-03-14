@@ -14,6 +14,7 @@ const loginRoute = require('./routes/authRoute');
 const userSearchRoute = require('./routes/userSearchRoute');
 const userProfileRoute = require('./routes/userProfileRoute');
 const profileDisplayRoute = require('./routes/profileDisplayRoute');
+const userReservationRoute = require('./routes/userReservationRoute');
 
 
 connectDB();
@@ -28,9 +29,10 @@ app.use(cookieParser());
 //routing for user management related
 app.use('/userManagement', registerRoute);
 app.use('/auth', loginRoute);
-app.use('/search', userSearchRoute)
-app.use('/getProfile', userProfileRoute)
-app.use('/profileIMG', profileDisplayRoute)
+app.use('/search', userSearchRoute);
+app.use('/getProfile', userProfileRoute);
+app.use('/profileIMG', profileDisplayRoute);
+app.use('/getUserReservations',userReservationRoute);
 
 // function to make user we only listen when db connection is secured.
 mongoose.connection.once('open', () => {

@@ -6,9 +6,21 @@ const reservationSchema = new Schema({
         type: Number,
         required: true,
     },
-    labID:{
+    studentID:{
         type: Number,
-        required: true,
+        require: true,
+        default: 0
+        //if 0 it is anonymous @jpcarney 
+    },
+    labDetails:{
+        labID: {
+            type: String,
+            required: true,
+        },
+        seatID: {
+            type: String,
+            required: true,
+        }
     },
     date:{
         type: Date,

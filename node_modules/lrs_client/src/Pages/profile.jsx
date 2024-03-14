@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Header } from '../Components/Header';
 import { Footer } from '../Components/Footer';
-import '../Styles/profile.css';
+import '../Styles/profile.css'
 
 export function Profile() {
   const { userCred } = useParams();

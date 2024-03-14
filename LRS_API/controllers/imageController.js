@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 const { s3, PutObjectCommand, GetObjectCommand, DeleteObjectCommand, bucketName } = require('../s3Conn');
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { crypto } = require('crypto');

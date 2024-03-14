@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 const secretKey = process.env.JWT_SECRET_KEY;

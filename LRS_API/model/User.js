@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const Reservation = require('./Reservation')

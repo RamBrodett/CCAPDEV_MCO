@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett, Chantal Sia, John Paul Carney
+*/
 require('dotenv').config();
 const PORT = process.env.PORT;
 const express = require('express');

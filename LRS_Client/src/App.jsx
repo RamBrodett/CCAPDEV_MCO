@@ -61,7 +61,7 @@ function App() {
                             <Route path='/checkout' element={<Checkout />}/>
                             <Route path='/book' element={<Book />}/>
                             <Route path='/profile/:userCred' element={<Profile />}/>
-                            <Route path='/settings/:userId' element={<SettingsProfile />}/>
+                            <Route path='/settings/:userCred' element={<SettingsProfile />}/>
                         </Routes>
                 </Router>
         </UserProvider>

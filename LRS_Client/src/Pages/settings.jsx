@@ -1,28 +1,54 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useUser } from '../UserProvider';
 import { Header } from '../Components/Header';
 import { Footer } from '../Components/Footer';
-import tempUserIcon from '../Assets/UserIcon.png';
 import '../Styles/settings.css';
 
 export function SettingsProfile() {
-  const { userId } = useParams();
+  const { userCred } = useParams();
   const [userData, setUserData] = useState(null);
-  const dummyUsers = useUser();
+  const [loading, setLoading] = useState(true);
+  const [imageUrl, setImageUrl] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
 
   useEffect(() => {
-    const user = dummyUsers.find((user) => user.id === parseInt(userId, 10));
+    const fetchUser = async () => {
+      console.log( userCred)
+      const [firstname, lastnameNID] = userCred.split('-');
+      const [lastname, userID] = lastnameNID.split('+');
+      try {
+        const response = await fetch(`http://localhost:3000/getProfile?firstname=${firstname}&lastname=${lastname}&userID=${userID}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const user = await response.json();
+        setUserData(user);
+        fetchProfilePic(user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    
+    const fetchProfilePic = async (userData) => {
+      const imageKey = userData.profile_info.profile_picture_url.split('.com/')[1];
+      try {
+        const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${imageKey}`);
+        if (response.ok) {
+          const data = await response.json();
+          setImageUrl(data.imageUrl);
+        } else {
+          console.error('Error fetching image URL:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching image URL:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
 
-    if (user) {
-      setUserData(user);
-      setEditedUserData(user); 
-    } else {
-      console.error(`User with userId ${userId} not found`);
-    }
-  }, [dummyUsers, userId]);
+  },[userCred]);
 
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
@@ -46,9 +72,11 @@ export function SettingsProfile() {
     <div id="profile_Container">
       <Header />
       <div id="profile_body">
-        {userData ? (
+        {loading ? (
+          <div>Loading...</div>
+        ) : userData ? (
           <div id="UserProfileDetails">
-            <h2>{`${userData.Fname} ${userData.Lname}'s Settings`}</h2>
+           <h2>{`${userData.role}'s Profile`}</h2>
             <hr />
             <div id="topProfileDetails">
               {isEditing ? (
@@ -120,16 +148,16 @@ export function SettingsProfile() {
                 </>
                 ) : (
                   <div id='topProfileDetails'>
-                        <img id="userProfileImage" src={tempUserIcon} alt="User Icon" />
+                        <img id='userProfileImage' src={imageUrl} alt="User Profile"></img>
                         <div id="profileDetails" >
                             <div id="profileNameText">
-                                <h1>{`${editedUserData.Lname}, ${editedUserData.Fname}`}</h1>
+                                <h1>{`${userData.lastname},${userData.firstname}`}</h1>
                             </div>
                             <div id="contactdetails">
                                 <h1>Contact</h1>
                                 <div id="contactInfo">
-                                    <h2>{`${editedUserData.email}`}</h2>
-                                    {editedUserData.number ? <h2>{`(+63) ${editedUserData.number}`}</h2> : null}
+                                    <h2>{`${userData.email}`}</h2>
+                                    {userData.contactnum ? <h2>{`(+63) ${userData.contactnum}`}</h2> : null}
                                 </div>
                             </div>
                         </div>
@@ -137,13 +165,17 @@ export function SettingsProfile() {
                 )}
             </div>
             <div className='botProfileDetails'>
-              { !isEditing ? (
-                <>
-                <div id="bio">
-                  <h1>Biography</h1>
-                  <p>{editedUserData.biography || 'Nothing yet...'}</p>
-                </div>
-              </>
+              { !isEditing ? (userData.profile_info.bio !== null ? (
+                  <div id='bio'>
+                    <h1>Biography</h1>
+                    <p>{userData.profile_info.bio}</p>
+                  </div>
+                ) : (
+                  <div id='bio'>
+                    <h1>Biography</h1>
+                    <p>Nothing yet...</p>
+                  </div>
+                )
               ):(null
               )}
 

@@ -8,9 +8,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
-const userSearchRoute = require('./routes/userSearchRoute')
-const userProfileRoute = require('./routes/userProfileRoute')
-const profileDisplayRoute = require('./routes/profileDisplayRoute')
+const userSearchRoute = require('./routes/userSearchRoute');
+const userProfileRoute = require('./routes/userProfileRoute');
+const profileDisplayRoute = require('./routes/profileDisplayRoute');
+
 
 connectDB();
 

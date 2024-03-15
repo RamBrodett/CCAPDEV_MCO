@@ -1,9 +1,42 @@
-/* ----------  Guide page style ----------*/
+/* ----------  Guide page style --------*/
 
-.GuideContainer{
+.GuideContainernew{
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: white;
+    background-color: rgb(184, 28, 28);
+    outline: 1px solid black;
 }
+
+.Guide_Body {
+    display: flex;
+    flex-direction: column;
+}
+
+.topPortion {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+.stepcontainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin-left: 40px;
+}
+
+.step {
+    width: 400px;
+    height: 379px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #00703C;
+    padding: 15px;
+}
+
+/*okay as i type this nothing changes in style for the page.
+ the text changes fine from the jsx but it doesnt follow its css style*/

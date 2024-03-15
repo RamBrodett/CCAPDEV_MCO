@@ -474,7 +474,7 @@ export function Book(){
                                         </div>
                                     )}
                                     <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
-                                </div>
+                                    </div>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ const connectDB = require('./dbConn');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
+const reserveRoute = require('./routes/reserveRoute');
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
 const userSearchRoute = require('./routes/userSearchRoute');
@@ -25,6 +26,8 @@ app.use(cors({
   }));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use('/reserve', reserveRoute);
 
 //routing for user management related
 app.use('/userManagement', registerRoute);

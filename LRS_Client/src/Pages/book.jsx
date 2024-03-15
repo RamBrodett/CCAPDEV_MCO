@@ -3,7 +3,7 @@ Authors:
 John Paul Carney
 Chantal Sia
 */
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import {Header} from '../Components/Header.jsx'
 import {Footer} from '../Components/Footer.jsx'
@@ -11,14 +11,95 @@ import  generateTable from '../Components/generateTable';
 import Cross_icon from '../Assets/cross_icon.png'
 import '../Styles/booking.css'
 
+
 export function Book(){
     const [selectedDay, setSelectedDay] = useState('Sun');
-    const [selectedTime, setSelectedTime] = useState('8:00');
+    const [selectedTime, setSelectedTime] = useState('9:15AM');
+    const selectedLab = localStorage.getItem('selectedLab');
+    const timeSlots = ['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM']
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+    const bookedVL205206 = [
+        'A03', 'A04', 'A05', 'A06', 'A08',
+        'B08', 'B07', 'B06','C01', 'C02'
+      ];
+
+    const bookedLS212 = [
+        'A08', 'A09', 'A10'
+    ];
+    const emptyLS212 = [
+        'A01','A02','A03','A04','A05','A06','A07',
+        'B05','B06','B07','C05','C06','C07','C08','C09','C10',
+        'D05','D06','D07','D08','D09','D10'
+    ];  
+    const bookedGK306AB = [
+        'C01', 'C02'
+    ];
+    const emptyGK306AB = [
+        'A01','A02','A03','A04','A05','A06','A07','A08','A09','A10',
+        'B01','B02','B03','B04','B05','B06','B07','B08','B09','B10'
+    ];  
+
+    const labMap = {
+        'Velasco 205-206': {id: 'VL205', emptyCells: [], numRows: 3, numCols: 8 },
+        'LS Hall 212': {id: 'LS212', emptyCells: emptyLS212, numRows: 4, numCols: 10 },
+        'LS Hall 229': {id: 'LS229', emptyCells: [], numRows: 5, numCols: 9 },
+        'Gokongwei 306AB': {id: 'GK306B', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
+    };
+
+    const [formData, setFormData] = useState({
+        studentID: '',
+        labDetails:{
+            labID: labMap[selectedLab].id,
+            seatID: '',
+        },
+        date: new Date('2024-03-22'),
+        timeSlot:{
+            timeStart: '',
+            timeEnd: '',
+        }
+    });
 
     const handleDayChange = (day) => {
         setSelectedDay(day);    
         removeAllInfoDivs();
     };
+
+    const convertTo24Hour = (time12h) => {
+        const [time, period] = time12h.split(/(?=[AP]M)/);
+    
+        const [hours, minutes] = time.split(':');
+    
+        let hours24h = parseInt(hours, 10);
+        if (period === 'PM' && hours24h !== 12) {
+            hours24h += 12;
+        } else if (period === 'AM' && hours24h === 12) {
+            hours24h = 0;
+        }
+    
+        const hoursStr = String(hours24h).padStart(2, '0');
+        const minutesStr = minutes.padStart(2, '0');
+    
+        return `${hoursStr}:${minutesStr}`;
+    }
+    function findEndTime(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+    
+        let newHours = hours + 1;
+        let newMinutes = minutes + 30;
+    
+        if (newMinutes >= 60) {
+            newHours += 1;
+            newMinutes -= 60;
+        }
+    
+        newHours %= 24;
+    
+        const formattedHours = String(newHours).padStart(2, '0');
+        const formattedMinutes = String(newMinutes).padStart(2, '0');
+    
+        return `${formattedHours}:${formattedMinutes}`;
+    }
 
     const handleTimeChange = (time) => {
         setSelectedTime(time);
@@ -35,10 +116,14 @@ export function Book(){
         }
     };
 
+    // TEMPO FOR TESTING, DISPLAYS FORM DATA IN CONSOLE
+    useEffect(() => {
+        console.log(formData); // Log formData after it's updated
+    }, [formData]);
+
     const handleCellClick = (event) => {
-        // Retrieve the cell element
         const cell = event.target;
-        
+    
         // COLOR CHANGE ONCLICK + CREATE/REMOVE DIV
         if (cell.style.backgroundColor === 'rgb(220, 53, 69)') {
             cell.style.backgroundColor = '';
@@ -46,6 +131,18 @@ export function Book(){
             const infoDiv = document.getElementById(`infoDiv-${cell.value}`);
             if (infoDiv) {
                 infoDiv.remove();
+
+                setFormData((prevData) => ({
+                    ...prevData,
+                    labDetails: {
+                        ...prevData.labDetails,
+                        seatID: '',
+                        timeSlot: {
+                            timeStart: '',
+                            timeEnd: '',
+                        }
+                    }
+                }));
             }
         } else {
             cell.style.backgroundColor = 'rgb(220, 53, 69)';
@@ -55,6 +152,20 @@ export function Book(){
             infoDiv.classList.add('infoDiv');
             infoDiv.textContent = cell.value;
     
+            // Add cell value to formData
+            setFormData((prevData) => ({
+                ...prevData,
+                labDetails: {
+                    ...prevData.labDetails,
+                    seatID: cell.value,
+                },
+                timeSlot: {
+                    ...prevData.timeSlot,
+                    timeStart: `${selectedDay}-${convertTo24Hour(selectedTime)}`, // Update with your actual start time
+                    timeEnd: `${selectedDay}-${findEndTime(convertTo24Hour(selectedTime))}`, // Update with your actual end time
+                }
+            }));
+
             // temp, change to proper image icon 
             const closeIcon = document.createElement('span');
             const img = document.createElement('img');
@@ -64,6 +175,15 @@ export function Book(){
             closeIcon.classList.add('closeIcon');
             closeIcon.addEventListener('click', () => {
                 infoDiv.remove();
+                
+                setFormData((prevData) => ({
+                    ...prevData,
+                    labDetails: {
+                        ...prevData.labDetails,
+                        seatID: '', // Remove the seat ID
+                    }
+                }));
+
                 // Restore the original background color when the infoDiv is removed
                 cell.style.backgroundColor = '';
                 cell.style.color = '';
@@ -75,53 +195,30 @@ export function Book(){
         }
     };
 
-    // sample booked seats
-    const bookedVL205206 = [
-        'A03', 'A04', 'A05', 'A06', 'A08',
-        'B08', 'B07', 'B06','C01', 'C02'
-      ];
-
-    const bookedLS212 = [
-        'A08', 'A09', 'A10'
-    ];
-    const emptyLS212 = [
-        'A01','A02','A03','A04','A05','A06','A07',
-        'B05','B06','B07','C05','C06','C07','C08','C09','C10',
-        'D05','D06','D07','D08','D09','D10'
-    ];  
-    const bookedGK306B = [
-        'C01', 'C02'
-    ];
-    const emptyGK306B = [
-        'A01','A02','A03','A04','A05','A06','A07','A08','A09','A10',
-        'B01','B02','B03','B04','B05','B06','B07','B08','B09','B10'
-    ];  
-
-
     // Sample tables for specific day-time combinations
     const sampleTables = {
-        'Sun-8:00': (
-            <div key="Sun-8:00">
+        'Sun-9:15AM': (
+            <div key="Sun-9:15AM">
                 {generateTable('D1T1', handleCellClick, [], [], 3, 8)}
             </div>
         ),
-        'Sun-8:30': (
-            <div key="Sun-8:00">
+        'Sun-11:00AM': (
+            <div key="Sun-11:00AM">
                 {generateTable('D1T2', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
-        'Sun-9:00': (
-            <div key="Sun-8:00">
+        'Sun-12:45PM': (
+            <div key="Sun-12:45PM">
                 {generateTable('D1T3', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
-        'Sun-9:30': (
-            <div key="Sun-8:00">
+        'Sun-2:30PM': (
+            <div key="Sun-2:30PM">
                 {generateTable('D1T4', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
-        'Sun-10:00': (
-            <div key="Sun-8:00">
+        'Sun-4:15PM': (
+            <div key="Sun-4:15PM">
                 {generateTable('D1T5', handleCellClick, bookedVL205206, [], 3, 8)}
             </div>
         ),
@@ -202,27 +299,27 @@ export function Book(){
         ),
         'Thu-8:00': (
             <div key="Thu-8:00">
-                {generateTable('D5T1', handleCellClick, [], emptyGK306B, 4, 8)}
+                {generateTable('D5T1', handleCellClick, [], emptyGK306AB, 4, 8)}
             </div>
         ),
         'Thu-8:30': (
             <div key="Thu-8:30">
-                {generateTable('D5T2', handleCellClick, bookedGK306B, emptyGK306B, 4, 8)}
+                {generateTable('D5T2', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
             </div>
         ),
         'Thu-9:00': (
             <div key="Thu-9:00">
-                {generateTable('D5T3', handleCellClick, bookedGK306B, emptyGK306B, 4, 8)}
+                {generateTable('D5T3', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
             </div>
         ),
         'Thu-9:30': (
             <div key="Thu-9:30">
-                {generateTable('D5T4', handleCellClick, bookedGK306B, emptyGK306B, 4, 8)}
+                {generateTable('D5T4', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
             </div>
         ),
         'Thu-10:00': (
             <div key="Thu-10:00">
-                {generateTable('D5T5', handleCellClick, bookedGK306B, emptyGK306B, 4, 8)}
+                {generateTable('D5T5', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
             </div>
         ),
         'Fri-8:00': (
@@ -276,8 +373,56 @@ export function Book(){
             </div>
         ),
     };
-    const selectedLab = localStorage.getItem('selectedLab');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Store form data in local storage
+            localStorage.setItem('formData', JSON.stringify(formData));
+    
+            // Make a POST request to create a reservation record
+            const response = await fetch('http://localhost:3000/reserve', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+
+                // Reset form data
+                setFormData({
+                    studentID: '',
+                    labDetails:{
+                        labID: labMap[selectedLab].id,
+                        seatID: '',
+                    },
+                    date: new Date('2024-03-22'),
+                    timeSlot:{
+                        timeStart: '',
+                        timeEnd: '',
+                    }
+                });
+                // Redirect to the login page after showing success message
+                const result = await response.json();
+                setSuccessMessage(result.success);
+                setTimeout(() => {
+                    window.location.href = "http://localhost:5173/#/login";
+                    setSuccessMessage('');
+                }, 2500);
+            } else {
+                // Handle error
+                console.error('Error creating reservation:', response.statusText);
+                // Show error message if needed
+            }
+        } catch (error) {
+            console.error('Error handling form submission:', error);
+            // Show error message if needed
+        }
+    };
+
     return(
+
         <div className="bookBody">
             <Header />
             <div className="Booking">
@@ -316,7 +461,7 @@ export function Book(){
                                     </div>
                                     {/* Time selection */}
                                     <div className="times">
-                                        {['8:00', '8:30', '9:00', '9:30', '10:00'].map((time) => (
+                                        {['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM'].map((time) => (
                                             <label className={`time ${selectedTime === time ? 'selected' : ''}`} key={time}>
                                                 <input className='radioInput'
                                                     type="radio"
@@ -329,7 +474,7 @@ export function Book(){
                                         ))}
                                     </div>
                                 </div>
-                                <Link to="/checkout" className="checkout">Checkout</Link>
+                                <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
                             </div>
                         </div>
                     </div>

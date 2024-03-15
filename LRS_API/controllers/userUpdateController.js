@@ -1,3 +1,4 @@
+/* AUthor chantal */
 const User = require('../model/User');
 
 const handleUserUpdate = async(req, res) => {

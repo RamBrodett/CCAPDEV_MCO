@@ -11,11 +11,6 @@ export function Guide(){
         <div className="GuideContainter">
             <Header/>
             <div className="Guide_Body">
-                {/*Chantal do this:
-                 implement a simple user guide page that 
-                explains how to use our webpage, specifically the
-                booking part then just navigation tour for other pages
-                put the css code in components/style.css */}
                 <div className = "topPortion" >
                     <h1>Guide</h1>
                     <p>
@@ -25,7 +20,7 @@ export function Guide(){
                 </div>
 
                 <div className = "stepcontainer"> 
-                    <div className = "step">
+                    <div className = "stepstep">
                         <div className = "step1imagebox">
                         </div>
                         <div className='steptextbox'>

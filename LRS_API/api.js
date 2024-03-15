@@ -9,8 +9,11 @@ const connectDB = require('./dbConn');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
+const reserveRoute = require('./routes/reserveRoute');
+const getReservationsRoute = require('./routes/getReservationsRoute');
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
+const getUserProfiles = require('./routes/getUserProfiles');
 const userSearchRoute = require('./routes/userSearchRoute');
 const userProfileRoute = require('./routes/userProfileRoute');
 const profileDisplayRoute = require('./routes/profileDisplayRoute');
@@ -26,7 +29,11 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.use('/reserve', reserveRoute);
+app.use('/getReservations', getReservationsRoute);
+
 //routing for user management related
+app.use('/getUserProfiles', getUserProfiles)
 app.use('/userManagement', registerRoute);
 app.use('/auth', loginRoute);
 app.use('/search', userSearchRoute);

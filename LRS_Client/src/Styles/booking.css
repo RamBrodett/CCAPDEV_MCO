@@ -204,13 +204,37 @@
     padding-left:2px;
 }
 
+.checkoutContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.reserveforother {
+    font-size: 16px;
+    width: fit-content;
+    padding: 7px 14px;
+    margin-top: 20px;
+    margin-left: auto; /* Align to the right */
+    margin-right:0;
+    background: rgb(233, 233, 233);
+    color: black;
+    text-decoration: none;
+    border-radius: 2mm;
+    transition-duration: 0.4s;
+}
+
 .checkout {
     font-size: 16px;
     width: fit-content;
     padding: 7px 14px;
-    margin-top:20px;
-    margin-left: auto; 
-    margin-right: 0;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: 0; /* Align to the left */
     background: rgb(233, 233, 233);
     color: black;
     text-decoration: none;
@@ -219,6 +243,8 @@
     transition-duration: 0.4s;
 }
 
+
 .checkout:hover {
     background: rgb(28, 185, 120);
 }
+

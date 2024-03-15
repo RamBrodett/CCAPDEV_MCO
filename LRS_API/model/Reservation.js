@@ -34,6 +34,10 @@ const reservationSchema = new Schema({
         require: true,
     },
     timeSlot:{
+        day:{
+            type: String,
+            required: true,
+        },
         timeStart:{
             type: String,
             required: true,

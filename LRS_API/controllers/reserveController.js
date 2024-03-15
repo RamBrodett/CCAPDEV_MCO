@@ -1,24 +1,34 @@
 const Reservation = require('../model/Reservation');
-// i made it as a function, fix it to const object later, i just used it 
-// kase as direct addition to the db so manually inputted data, make it also dynamic variables
-async function reserveSeat() {
-    try{
 
+const reserveSeats = async (req, res) => {
+    const {studentID, labDetails, date, timeSlot} = req.body;
+    try {
+        // Iterate over seatIDs array and create reservations for each seat
+        const lastID = await Reservation.findOne({}, {}, { sort: { 'reservationID': -1 } }).exec();
+        let newReservationID = 1;
+
+        if (lastID) {
+            newReservationID = lastID.reservationID + 1;
+        }
         await Reservation.create({
-            reservationID: 8,
-            studentID:4,
-            labDetails:{
-                labID:'VL206',
-                seatID: 'B01'
+
+            reservationID: newReservationID,
+            studentID: 0,
+            labDetails: {
+                labID: labDetails.labID,
+                seatID: labDetails.seatID,
             },
-            date: new Date('2024-03-22'),
-            timeSlot:{
-                timeStart: 'Fri-14:00',
-                timeEnd: 'Fri-14:30',
+            date: date,
+            timeSlot: {
+                day : timeSlot.day,
+                timeStart: timeSlot.timeStart,
+                timeEnd: timeSlot.timeEnd,
             }
-        })
-    }catch(error){
-        console.log(error)
+        });
+        res.status(201).json({ success: true, message: 'Reservation created successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Failed to create reservation' });
     }
 }
-module.exports = reserveSeat;
+module.exports = { reserveSeats };

@@ -10,6 +10,7 @@ import { createContext, useContext, useState } from 'react';
       firstname: null,
       lastname: null,
       profileKey: null,
+      role: null,
       isLoggedIn: false,
     }
     );
@@ -20,6 +21,7 @@ import { createContext, useContext, useState } from 'react';
         firstname: userData.firstname,
         lastname: userData.lastname,
         profileKey: userData.profileKey,
+        role: userData.role,
         isLoggedIn: true,
       })
     };
@@ -30,6 +32,7 @@ import { createContext, useContext, useState } from 'react';
         firstname: null,
         lastname: null,
         profileKey: null,
+        role: null,
         isLoggedIn: false,
       })
     };

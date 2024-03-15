@@ -11,7 +11,6 @@ import { Book } from './Pages/book.jsx'
 import { Checkout } from './Pages/checkout.jsx'
 import { Profile } from './Pages/profile.jsx'
 import{ SettingsProfile } from './Pages/settings.jsx'
-import { UserProvider } from './UserProvider.jsx'
 import { useAuth } from './AuthContext.jsx'
 
 function App() {
@@ -49,22 +48,20 @@ function App() {
 
 
     return(
-        <UserProvider>
-                <Router>
-                        <Routes>
-                            <Route path='/' element={<Home/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='/register' element={<Register/>}/>
-                            <Route path='/locations' element={<Location/>}/>
-                            <Route path='/guide' element={<Guide/>}/>
-                            <Route path='/labSelect' element={<LabSelect />}/>
-                            <Route path='/checkout' element={<Checkout />}/>
-                            <Route path='/book' element={<Book />}/>
-                            <Route path='/profile/:userCred' element={<Profile />}/>
-                            <Route path='/settings/:userCred' element={<SettingsProfile />}/>
-                        </Routes>
-                </Router>
-        </UserProvider>
+        <Router>
+            <Routes>
+                <Route path='/' element={<Home/>}/>
+                <Route path='/login' element={<Login/>}/>
+                <Route path='/register' element={<Register/>}/>
+                <Route path='/locations' element={<Location/>}/>
+                <Route path='/guide' element={<Guide/>}/>
+                <Route path='/labSelect' element={<LabSelect />}/>
+                <Route path='/checkout' element={<Checkout />}/>
+                <Route path='/book' element={<Book />}/>
+                <Route path='/profile/:userCred' element={<Profile />}/>
+                <Route path='/settings/:userCred' element={<SettingsProfile />}/>
+            </Routes>
+        </Router>
     )
 }
 export default App

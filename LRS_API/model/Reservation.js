@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const reservationSchema = new Schema({
     reservationID:{
         type: Number,
-        required: true,
+        required: true
     },
     studentID:{
         type: Number,

@@ -23,6 +23,8 @@ export function Book(){
     const [forms, setForms] = useState([]);
     const [matchingReservations, setMatchingReservations] = useState([]);
     const [students, setStudents] = useState([]);
+    const [selectedStudentID, setSelectedStudentID] = useState('');
+
 
     const { user } = useAuth();
     const emptyLS212 = [
@@ -193,23 +195,6 @@ export function Book(){
           fetchReservations();
     }, [selectedLab, selectedDay, selectedTime]);
 
-    useEffect(() => {  
-        const fetchListStudents = async () =>{
-            try{
-              const students = await fetch(`http://localhost:3000/getUserProfiles?role=Student`)
-              if(students.ok){
-                const data = await students.json();
-                setStudents(data);
-                console.log(data);
-              }
-            }catch(error){
-              console.error('Error fetching list of students:', error);
-            }
-          }
-          fetchListStudents();
-    }, [selectedLab]);
-
-
     const sampleTables = {};
 
     days.forEach(day => {
@@ -232,18 +217,39 @@ export function Book(){
         });
     });
 
+    useEffect(() => {  
+        const fetchListStudents = async () =>{
+            try{
+              const students = await fetch(`http://localhost:3000/getUserProfiles?role=Student`)
+              if(students.ok){
+                const data = await students.json();
+                setStudents(data);
+                console.log(data);
+              }
+            }catch(error){
+              console.error('Error fetching list of students:', error);
+            }
+          }
+          fetchListStudents();
+    }, [selectedLab]);
+
+    const handleStudentSelect = (event) => {
+        const selectedID = event.target.value;
+        console.log('Selected Student ID:', selectedID);
+        setSelectedStudentID(selectedID);
+    };
+
     const handleSubmit = async (e) => {
         console.log(user.userID);
         const reserveAnonCheckbox = document.getElementById('reserve-anon');
         e.preventDefault();
-        if (user.isLoggedIn){
+        if (user.role == 'Student'){
             if (reserveAnonCheckbox && reserveAnonCheckbox.checked) {
                 const updatedForms = forms.map(form => ({
                     ...form,
                     studentID: 0
                 }));
                 setForms(updatedForms);
-                console.log("Updated forms with student ID 0:", updatedForms);
                 try {
                     const promises = updatedForms.map(async (form, index) => {
                         const delay = index * 1000; // Adjust the delay time as needed
@@ -340,7 +346,55 @@ export function Book(){
                 }
             }
         } else {
-            window.location.href = "http://localhost:5173/#/login";
+            const updatedForms = forms.map(form => ({
+                ...form,
+                studentID: selectedStudentID
+            }));
+                setForms(updatedForms);
+                try {
+                    const promises = updatedForms.map(async (form, index) => {
+                        const delay = index * 1000; // Adjust the delay time as needed
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        const response = await fetch('http://localhost:3000/reserve', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(form),
+                        });
+                        if (!response.ok) {
+                            console.error('Error creating reservation:', response.statusText);
+                        }
+                        return response;
+                    });
+                    const responses = await Promise.all(promises);
+    
+                    const allRequestsSuccessful = responses.every(response => response.ok);
+    
+                    if (allRequestsSuccessful) {
+                        setForms([]);
+    
+                        setFormData({
+                            studentID: '',
+                            labDetails: {
+                                labID: labMap[selectedLab].id,
+                                seatID: '',
+                            },
+                            date: new Date('2024-03-22'),
+                            timeSlot: {
+                                day: '',
+                                timeStart: '',
+                                timeEnd: '',
+                            }
+                        });
+    
+                        window.location.href = "http://localhost:5173/#";
+                    } else {
+                        console.error('Some reservation requests failed');
+                    }
+                } catch (error) {
+                    console.error('Error handling form submission:', error);
+                }
         }
     };
     
@@ -400,27 +454,27 @@ export function Book(){
                                     </div>
                                 </div>
                                 <div className="checkoutContainer">
-                                    {!user.isLoggedIn && ( // CHANGE TO IF USER IS STUDENT
+                                    {user.role == 'Admin' && (
                                         <div className="reserveforother" id="reserveforother">
                                             <label>Reserve for: </label>
-                                            <select name="students">
-                                                <option value="">Myself</option>
+                                            <select name="students" onChange={handleStudentSelect}>
+                                                <option value={user.userID}>Myself</option>
                                                 {students.map(student => (
-                                                    <option key={student._id} value={student._id}>
+                                                    <option key={student.userID} value={student.userID}>
                                                         {student.firstname} {student.lastname}
                                                     </option>
                                                 ))}
                                             </select>
                                         </div>
                                     )}
-                                    {user.isLoggedIn && ( // CHANGE TO IF USER IS LAB tech
+                                    {user.role == 'Student' && (
                                         <div className="reserveforother" id="reserveanon">
                                             <label>Reserve Anonymously  </label>
                                             <input type="checkbox" id="reserve-anon"></input>
                                         </div>
                                     )}
                                     <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
-                                </div>
+                                    </div>
                             </div>
                         </div>
                     </div>

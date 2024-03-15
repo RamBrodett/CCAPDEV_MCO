@@ -1,7 +1,7 @@
 const Reservation = require('../model/Reservation');
 
 const reserveSeats = async (req, res) => {
-    const {studentID, labID, seatID, date, timeStart, timeEnd } = req.body;
+    const {studentID, labDetails, date, timeSlot } = req.body;
     try {
         // Iterate over seatIDs array and create reservations for each seat
         const lastID = await Reservation.findOne({}, {}, { sort: { 'reservationID': -1 } }).exec();
@@ -15,13 +15,13 @@ const reserveSeats = async (req, res) => {
             reservationID: newReservationID,
             studentID: 0,
             labDetails: {
-                labID: labID,
-                seatID: seatID,
+                labID: labDetails.labID,
+                seatID: labDetails.seatID,
             },
             date: date,
             timeSlot: {
-                timeStart: timeStart,
-                timeEnd: timeEnd,
+                timeStart: timeSlot.timeStart,
+                timeEnd: timeSlot.timeEnd,
             }
         });
         res.status(201).json({ success: true, message: 'Reservation created successfully' });

@@ -14,9 +14,9 @@ import '../Styles/booking.css'
 
 export function Book(){
     const [selectedDay, setSelectedDay] = useState('Sun');
-    const [selectedTime, setSelectedTime] = useState('9:15AM');
+    const [selectedTime, setSelectedTime] = useState('9:00');
     const selectedLab = localStorage.getItem('selectedLab');
-    const timeSlots = ['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM']
+    const timeSlots = ['9:00', '9:30', '10:00', '10:30', '11:00']
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
     const [forms, setForms] = useState([]);
@@ -309,7 +309,7 @@ export function Book(){
                                     </div>
                                     {/* Time selection */}
                                     <div className="times">
-                                        {['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM'].map((time) => (
+                                        {['9:00', '9:30', '10:00', '10:30', '11:00'].map((time) => (
                                             <label className={`time ${selectedTime === time ? 'selected' : ''}`} key={time}>
                                                 <input className='radioInput'
                                                     type="radio"

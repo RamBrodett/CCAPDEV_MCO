@@ -17,7 +17,7 @@ export function Book(){
     const [selectedDay, setSelectedDay] = useState('Sun');
     const [selectedTime, setSelectedTime] = useState('9:00');
     const selectedLab = localStorage.getItem('selectedLab');
-    const timeSlots = ['9:00', '9:30', '10:00', '10:30', '11:00']
+    const timeSlots = ['9:00', '9:45', '10:30', '11:15', '12:00']
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
     const [forms, setForms] = useState([]);
@@ -45,7 +45,7 @@ export function Book(){
     };
 
     const [formData, setFormData] = useState({
-        studentID: 0,
+        studentID: user.userID,
         labDetails:{
             labID: labMap[selectedLab].id,
             seatID: '',
@@ -83,10 +83,8 @@ export function Book(){
 
     function findEndTime(time) {
         const [hours, minutes] = time.split(':').map(Number);
-    
-        let newHours = hours + 1;
         let newMinutes = minutes + 30;
-    
+        let newHours = hours;
         if (newMinutes >= 60) {
             newHours += 1;
             newMinutes -= 60;
@@ -96,7 +94,7 @@ export function Book(){
     
         const formattedHours = String(newHours).padStart(2, '0');
         const formattedMinutes = String(newMinutes).padStart(2, '0');
-    
+
         return `${formattedHours}:${formattedMinutes}`;
     }
 
@@ -145,7 +143,7 @@ export function Book(){
     
             // Add cell value to formData
             const newForm = {
-                studentID: 0,
+                studentID: user.userID,
                 labDetails:{
                     labID: labMap[selectedLab].id,
                     seatID: seatID
@@ -235,55 +233,118 @@ export function Book(){
     });
 
     const handleSubmit = async (e) => {
+        console.log(user.userID);
+        const reserveAnonCheckbox = document.getElementById('reserve-anon');
         e.preventDefault();
         if (user.isLoggedIn){
-            try {
-                const promises = forms.map(async (form) => {
-                    const response = await fetch('http://localhost:3000/reserve', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(form),
-                    });
-                    if (!response.ok) {
-                        console.error('Error creating reservation:', response.statusText);
-                    }
-                    return response;
-                });
-        
-                const responses = await Promise.all(promises);
-        
-                const allRequestsSuccessful = responses.every(response => response.ok);
-        
-                if (allRequestsSuccessful) {
-                    setForms([]);
-        
-                    setFormData({
-                        studentID: '',
-                        labDetails: {
-                            labID: labMap[selectedLab].id,
-                            seatID: '',
-                        },
-                        date: new Date('2024-03-22'),
-                        timeSlot: {
-                            day: '',
-                            timeStart: '',
-                            timeEnd: '',
+            if (reserveAnonCheckbox && reserveAnonCheckbox.checked) {
+                const updatedForms = forms.map(form => ({
+                    ...form,
+                    studentID: 0
+                }));
+                setForms(updatedForms);
+                console.log("Updated forms with student ID 0:", updatedForms);
+                try {
+                    const promises = updatedForms.map(async (form, index) => {
+                        const delay = index * 1000; // Adjust the delay time as needed
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        const response = await fetch('http://localhost:3000/reserve', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(form),
+                        });
+                        if (!response.ok) {
+                            console.error('Error creating reservation:', response.statusText);
                         }
+                        return response;
                     });
-        
-                    window.location.href = "http://localhost:5173/#";
-                } else {
-                    console.error('Some reservation requests failed');
+                    const responses = await Promise.all(promises);
+    
+                    const allRequestsSuccessful = responses.every(response => response.ok);
+    
+                    if (allRequestsSuccessful) {
+                        setForms([]);
+    
+                        setFormData({
+                            studentID: '',
+                            labDetails: {
+                                labID: labMap[selectedLab].id,
+                                seatID: '',
+                            },
+                            date: new Date('2024-03-22'),
+                            timeSlot: {
+                                day: '',
+                                timeStart: '',
+                                timeEnd: '',
+                            }
+                        });
+    
+                        window.location.href = "http://localhost:5173/#";
+                    } else {
+                        console.error('Some reservation requests failed');
+                    }
+                } catch (error) {
+                    console.error('Error handling form submission:', error);
                 }
-            } catch (error) {
-                console.error('Error handling form submission:', error);
+            } else {
+                const updatedForms = forms.map(form => ({
+                    ...form,
+                    studentID: user.userID
+                }));
+                setForms(updatedForms);
+                try {
+                    const promises = updatedForms.map(async (form, index) => {
+                        const delay = index * 1000; // Adjust the delay time as needed
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        const response = await fetch('http://localhost:3000/reserve', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(form),
+                        });
+                        if (!response.ok) {
+                            console.error('Error creating reservation:', response.statusText);
+                        }
+                        return response;
+                    });
+                    const responses = await Promise.all(promises);
+    
+                    const allRequestsSuccessful = responses.every(response => response.ok);
+    
+                    if (allRequestsSuccessful) {
+                        setForms([]);
+    
+                        setFormData({
+                            studentID: '',
+                            labDetails: {
+                                labID: labMap[selectedLab].id,
+                                seatID: '',
+                            },
+                            date: new Date('2024-03-22'),
+                            timeSlot: {
+                                day: '',
+                                timeStart: '',
+                                timeEnd: '',
+                            }
+                        });
+    
+                        window.location.href = "http://localhost:5173/#";
+                    } else {
+                        console.error('Some reservation requests failed');
+                    }
+                } catch (error) {
+                    console.error('Error handling form submission:', error);
+                }
             }
         } else {
             window.location.href = "http://localhost:5173/#/login";
         }
     };
+    
+    
 
     return(
 
@@ -325,7 +386,7 @@ export function Book(){
                                     </div>
                                     {/* Time selection */}
                                     <div className="times">
-                                        {['9:00', '9:30', '10:00', '10:30', '11:00'].map((time) => (
+                                        {['9:00', '9:45', '10:30', '11:15', '12:00'].map((time) => (
                                             <label className={`time ${selectedTime === time ? 'selected' : ''}`} key={time}>
                                                 <input className='radioInput'
                                                     type="radio"
@@ -339,17 +400,25 @@ export function Book(){
                                     </div>
                                 </div>
                                 <div className="checkoutContainer">
-                                    <div className="reserveforother">
-                                        <label>Reserve for: </label>
-                                        <select name="students">
-                                            <option value="">Myself</option>
-                                            {students.map(student => (
-                                                <option key={student._id} value={student._id}>
-                                                    {student.firstname} {student.lastname}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
+                                    {!user.isLoggedIn && ( // CHANGE TO IF USER IS STUDENT
+                                        <div className="reserveforother" id="reserveforother">
+                                            <label>Reserve for: </label>
+                                            <select name="students">
+                                                <option value="">Myself</option>
+                                                {students.map(student => (
+                                                    <option key={student._id} value={student._id}>
+                                                        {student.firstname} {student.lastname}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+                                    {user.isLoggedIn && ( // CHANGE TO IF USER IS LAB tech
+                                        <div className="reserveforother" id="reserveanon">
+                                            <label>Reserve Anonymously  </label>
+                                            <input type="checkbox" id="reserve-anon"></input>
+                                        </div>
+                                    )}
                                     <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
                                 </div>
                             </div>

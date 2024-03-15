@@ -1,7 +1,7 @@
 const Reservation = require('../model/Reservation');
 
 const reserveSeats = async (req, res) => {
-    const {studentID, labDetails, date, timeSlot } = req.body;
+    const {studentID, labDetails, date, timeSlot} = req.body;
     try {
         // Iterate over seatIDs array and create reservations for each seat
         const lastID = await Reservation.findOne({}, {}, { sort: { 'reservationID': -1 } }).exec();
@@ -20,6 +20,7 @@ const reserveSeats = async (req, res) => {
             },
             date: date,
             timeSlot: {
+                day : timeSlot.day,
                 timeStart: timeSlot.timeStart,
                 timeEnd: timeSlot.timeEnd,
             }

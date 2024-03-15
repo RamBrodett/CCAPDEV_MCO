@@ -19,42 +19,36 @@ export function Book(){
     const timeSlots = ['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM']
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-    const bookedVL205206 = [
-        'A03', 'A04', 'A05', 'A06', 'A08',
-        'B08', 'B07', 'B06','C01', 'C02'
-      ];
+    const [matchingReservations, setMatchingReservations] = useState([]);
 
-    const bookedLS212 = [
-        'A08', 'A09', 'A10'
-    ];
     const emptyLS212 = [
         'A01','A02','A03','A04','A05','A06','A07',
         'B05','B06','B07','C05','C06','C07','C08','C09','C10',
         'D05','D06','D07','D08','D09','D10'
     ];  
-    const bookedGK306AB = [
-        'C01', 'C02'
-    ];
     const emptyGK306AB = [
         'A01','A02','A03','A04','A05','A06','A07','A08','A09','A10',
         'B01','B02','B03','B04','B05','B06','B07','B08','B09','B10'
     ];  
 
     const labMap = {
-        'Velasco 205-206': {id: 'VL205', emptyCells: [], numRows: 3, numCols: 8 },
+        'Velasco 205': {id: 'VL205', emptyCells: [], numRows: 3, numCols: 8 },
+        'Velasco 206': {id: 'VL206', emptyCells: [], numRows: 3, numCols: 8 },
         'LS Hall 212': {id: 'LS212', emptyCells: emptyLS212, numRows: 4, numCols: 10 },
         'LS Hall 229': {id: 'LS229', emptyCells: [], numRows: 5, numCols: 9 },
-        'Gokongwei 306AB': {id: 'GK306B', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
+        'Gokongwei 306A': {id: 'GK306A', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
+        'Gokongwei 306B': {id: 'GK306B', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
     };
 
     const [formData, setFormData] = useState({
-        studentID: '',
+        studentID: 0,
         labDetails:{
             labID: labMap[selectedLab].id,
             seatID: '',
         },
         date: new Date('2024-03-22'),
         timeSlot:{
+            day: '',
             timeStart: '',
             timeEnd: '',
         }
@@ -82,6 +76,7 @@ export function Book(){
     
         return `${hoursStr}:${minutesStr}`;
     }
+
     function findEndTime(time) {
         const [hours, minutes] = time.split(':').map(Number);
     
@@ -116,11 +111,6 @@ export function Book(){
         }
     };
 
-    // TEMPO FOR TESTING, DISPLAYS FORM DATA IN CONSOLE
-    useEffect(() => {
-        console.log(formData); // Log formData after it's updated
-    }, [formData]);
-
     const handleCellClick = (event) => {
         const cell = event.target;
     
@@ -138,6 +128,7 @@ export function Book(){
                         ...prevData.labDetails,
                         seatID: '',
                         timeSlot: {
+                            day: '',
                             timeStart: '',
                             timeEnd: '',
                         }
@@ -161,8 +152,9 @@ export function Book(){
                 },
                 timeSlot: {
                     ...prevData.timeSlot,
-                    timeStart: `${selectedDay}-${convertTo24Hour(selectedTime)}`, // Update with your actual start time
-                    timeEnd: `${selectedDay}-${findEndTime(convertTo24Hour(selectedTime))}`, // Update with your actual end time
+                    day: `${selectedDay}`,
+                    timeStart: `${convertTo24Hour(selectedTime)}`,
+                    timeEnd: `${findEndTime(convertTo24Hour(selectedTime))}`,
                 }
             }));
 
@@ -195,184 +187,45 @@ export function Book(){
         }
     };
 
-    // Sample tables for specific day-time combinations
-    const sampleTables = {
-        'Sun-9:15AM': (
-            <div key="Sun-9:15AM">
-                {generateTable('D1T1', handleCellClick, [], [], 3, 8)}
-            </div>
-        ),
-        'Sun-11:00AM': (
-            <div key="Sun-11:00AM">
-                {generateTable('D1T2', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sun-12:45PM': (
-            <div key="Sun-12:45PM">
-                {generateTable('D1T3', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sun-2:30PM': (
-            <div key="Sun-2:30PM">
-                {generateTable('D1T4', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sun-4:15PM': (
-            <div key="Sun-4:15PM">
-                {generateTable('D1T5', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Mon-8:00': (
-            <div key="Mon-8:00">
-                {generateTable('D2T1', handleCellClick, [], emptyLS212, 4, 10)}
-            </div>
-        ),
-        'Mon-8:30': (
-            <div key="Mon-8:30">
-                {generateTable('D2T2', handleCellClick, bookedLS212, emptyLS212, 4, 10)}
-            </div>
-        ),
-        'Mon-9:00': (
-            <div key="Mon-9:00">
-                {generateTable('D2T3', handleCellClick, bookedLS212, emptyLS212, 4, 10)}
-            </div>
-        ),
-        'Mon-9:30': (
-            <div key="Mon-9:30">
-                {generateTable('D2T4', handleCellClick, bookedLS212, emptyLS212, 4, 10)}
-            </div>
-        ),
-        'Mon-10:00': (
-            <div key="Mon-10:00">
-                {generateTable('D2T5', handleCellClick, bookedLS212, emptyLS212, 4, 10)}
-            </div>
-        ),
-        'Tue-8:00': (
-            <div key="Tue-8:00">
-                {generateTable('D3T1', handleCellClick, [], [], 5, 9)}
-            </div>
-        ),
-        'Tue-8:30': (
-            <div key="Tue-8:30">
-                {generateTable('D3T2', handleCellClick, bookedVL205206, [], 5, 9)}
-            </div>
-        ),
-        'Tue-9:00': (
-            <div key="Tue-9:00">
-                {generateTable('D3T3', handleCellClick, bookedVL205206, [], 5, 9)}
-            </div>
-        ),
-        'Tue-9:30': (
-            <div key="Tue-9:30">
-                {generateTable('D3T4', handleCellClick, bookedVL205206, [], 5, 9)}
-            </div>
-        ),
-        'Tue-10:00': (
-            <div key="Tue-10:00">
-                {generateTable('D3T5', handleCellClick, bookedVL205206, [], 5, 9)}
-            </div>
-        ),
-        'Wed-8:00': (
-            <div key="Wed-8:00">
-                {generateTable('D4T1', handleCellClick, bookedVL205206, [], 2, 8)}
-            </div>
-        ),
-        'Wed-8:30': (
-            <div key="Wed-8:30">
-                {generateTable('D4T2', handleCellClick, bookedVL205206, [], 2, 8)}
-            </div>
-        ),
-        'Wed-9:00': (
-            <div key="Wed-9:00">
-                {generateTable('D4T3', handleCellClick, bookedVL205206, [], 2, 8)}
-            </div>
-        ),
-        'Wed-9:30': (
-            <div key="Wed-9:30">
-                {generateTable('D4T4', handleCellClick, bookedVL205206, [], 2, 8)}
-            </div>
-        ),
-        'Wed-10:00': (
-            <div key="Wed-10:00">
-                {generateTable('D4T5', handleCellClick, bookedVL205206, [], 2, 8)}
-            </div>
-        ),
-        'Thu-8:00': (
-            <div key="Thu-8:00">
-                {generateTable('D5T1', handleCellClick, [], emptyGK306AB, 4, 8)}
-            </div>
-        ),
-        'Thu-8:30': (
-            <div key="Thu-8:30">
-                {generateTable('D5T2', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
-            </div>
-        ),
-        'Thu-9:00': (
-            <div key="Thu-9:00">
-                {generateTable('D5T3', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
-            </div>
-        ),
-        'Thu-9:30': (
-            <div key="Thu-9:30">
-                {generateTable('D5T4', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
-            </div>
-        ),
-        'Thu-10:00': (
-            <div key="Thu-10:00">
-                {generateTable('D5T5', handleCellClick, bookedGK306AB, emptyGK306AB, 4, 8)}
-            </div>
-        ),
-        'Fri-8:00': (
-            <div key="Fri-8:00">
-                {generateTable('D6T1', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Fri-8:30': (
-            <div key="Fri-8:30">
-                {generateTable('D6T2', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Fri-9:00': (
-            <div key="Fri-9:00">
-                {generateTable('D6T3', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Fri-9:30': (
-            <div key="Fri-9:30">
-                {generateTable('D6T4', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Fri-10:00': (
-            <div key="Fri-10:00">
-                {generateTable('D6T5', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sat-8:00': (
-            <div key="Sat-8:00">
-                {generateTable('D7T1', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sat-8:30': (
-            <div key="Sat-8:30">
-                {generateTable('D7T2', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sat-9:00': (
-            <div key="Sat-9:00">
-                {generateTable('D7T3', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sat-9:30': (
-            <div key="Sat-9:30">
-                {generateTable('D7T4', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-        'Sat-10:00': (
-            <div key="Sat-10:00">
-                {generateTable('D7T5', handleCellClick, bookedVL205206, [], 3, 8)}
-            </div>
-        ),
-    };
+    useEffect(() => {  
+        const fetchReservations = async () =>{
+            try{
+                console.log(labMap[selectedLab].id);
+              const reservations = await fetch(`http://localhost:3000/getReservations?labID=${labMap[selectedLab].id}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
+              if(reservations.ok){
+                const data = await reservations.json();
+                setMatchingReservations(data);
+                console.log(data);
+              }
+            }catch(error){
+              console.error('Error fetching reservations:', error);
+            }
+          }
+          fetchReservations();
+    }, [selectedLab, selectedDay, selectedTime]);
+
+    const sampleTables = {};
+
+    // Loop over each day and time slot
+    days.forEach(day => {
+        timeSlots.forEach((timeSlot, index) => {
+            const key = `${day}-${timeSlot}`;
+            const reservationKey = `D${days.indexOf(day)}T${index + 1}`;
+            const table = (
+                <div key={key}>
+                    {generateTable(
+                        reservationKey,
+                        handleCellClick,
+                        matchingReservations.map(reservation => reservation.labDetails.seatID),
+                        labMap[selectedLab].emptyCells,
+                        labMap[selectedLab].numRows,
+                        labMap[selectedLab].numCols
+                    )}
+                </div>
+            );
+            sampleTables[key] = table;
+        });
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -399,17 +252,12 @@ export function Book(){
                     },
                     date: new Date('2024-03-22'),
                     timeSlot:{
+                        day: '',
                         timeStart: '',
                         timeEnd: '',
                     }
-                });
-                // Redirect to the login page after showing success message
-                const result = await response.json();
-                setSuccessMessage(result.success);
-                setTimeout(() => {
-                    window.location.href = "http://localhost:5173/#/login";
-                    setSuccessMessage('');
-                }, 2500);
+                });                
+                window.location.href = "http://localhost:5173/#";
             } else {
                 // Handle error
                 console.error('Error creating reservation:', response.statusText);

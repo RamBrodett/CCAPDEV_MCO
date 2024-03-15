@@ -5,6 +5,7 @@ Chantal Sia
 */
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../AuthContext.jsx';
 import {Header} from '../Components/Header.jsx'
 import {Footer} from '../Components/Footer.jsx'
 import  generateTable from '../Components/generateTable';
@@ -21,7 +22,9 @@ export function Book(){
 
     const [forms, setForms] = useState([]);
     const [matchingReservations, setMatchingReservations] = useState([]);
+    const [students, setStudents] = useState([]);
 
+    const { user } = useAuth();
     const emptyLS212 = [
         'A01','A02','A03','A04','A05','A06','A07',
         'B05','B06','B07','C05','C06','C07','C08','C09','C10',
@@ -192,6 +195,23 @@ export function Book(){
           fetchReservations();
     }, [selectedLab, selectedDay, selectedTime]);
 
+    useEffect(() => {  
+        const fetchListStudents = async () =>{
+            try{
+              const students = await fetch(`http://localhost:3000/getUserProfiles?role=Student`)
+              if(students.ok){
+                const data = await students.json();
+                setStudents(data);
+                console.log(data);
+              }
+            }catch(error){
+              console.error('Error fetching list of students:', error);
+            }
+          }
+          fetchListStudents();
+    }, [selectedLab]);
+
+
     const sampleTables = {};
 
     days.forEach(day => {
@@ -213,59 +233,55 @@ export function Book(){
             sampleTables[key] = table;
         });
     });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const promises = forms.map(async (form) => {
-                // Make a POST request to create a reservation record for each form
-                const response = await fetch('http://localhost:3000/reserve', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(form),
-                });
-                if (!response.ok) {
-                    // Handle error for each form if needed
-                    console.error('Error creating reservation:', response.statusText);
-                }
-                return response;
-            });
-    
-            // Wait for all POST requests to complete
-            const responses = await Promise.all(promises);
-    
-            // Check if all requests were successful
-            const allRequestsSuccessful = responses.every(response => response.ok);
-    
-            if (allRequestsSuccessful) {
-                // Reset forms array
-                setForms([]);
-    
-                // Reset form data for each form
-                setFormData({
-                    studentID: '',
-                    labDetails: {
-                        labID: labMap[selectedLab].id,
-                        seatID: '',
-                    },
-                    date: new Date('2024-03-22'),
-                    timeSlot: {
-                        day: '',
-                        timeStart: '',
-                        timeEnd: '',
+        if (user.isLoggedIn){
+            try {
+                const promises = forms.map(async (form) => {
+                    const response = await fetch('http://localhost:3000/reserve', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(form),
+                    });
+                    if (!response.ok) {
+                        console.error('Error creating reservation:', response.statusText);
                     }
+                    return response;
                 });
-    
-                // Redirect to home page
-                window.location.href = "http://localhost:5173/#";
-            } else {
-                // Handle error if not all requests were successful
-                console.error('Some reservation requests failed');
+        
+                const responses = await Promise.all(promises);
+        
+                const allRequestsSuccessful = responses.every(response => response.ok);
+        
+                if (allRequestsSuccessful) {
+                    setForms([]);
+        
+                    setFormData({
+                        studentID: '',
+                        labDetails: {
+                            labID: labMap[selectedLab].id,
+                            seatID: '',
+                        },
+                        date: new Date('2024-03-22'),
+                        timeSlot: {
+                            day: '',
+                            timeStart: '',
+                            timeEnd: '',
+                        }
+                    });
+        
+                    window.location.href = "http://localhost:5173/#";
+                } else {
+                    console.error('Some reservation requests failed');
+                }
+            } catch (error) {
+                console.error('Error handling form submission:', error);
             }
-        } catch (error) {
-            console.error('Error handling form submission:', error);
-            // Show error message if needed
+        } else {
+            window.location.href = "http://localhost:5173/#/login";
         }
     };
 
@@ -322,7 +338,20 @@ export function Book(){
                                         ))}
                                     </div>
                                 </div>
-                                <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
+                                <div className="checkoutContainer">
+                                    <div className="reserveforother">
+                                        <label>Reserve for: </label>
+                                        <select name="students">
+                                            <option value="">Myself</option>
+                                            {students.map(student => (
+                                                <option key={student._id} value={student._id}>
+                                                    {student.firstname} {student.lastname}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <Link className="checkout" onClick={handleSubmit}>Checkout</Link>
+                                </div>
                             </div>
                         </div>
                     </div>

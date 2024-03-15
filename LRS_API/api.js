@@ -13,6 +13,7 @@ const reserveRoute = require('./routes/reserveRoute');
 const getReservationsRoute = require('./routes/getReservationsRoute');
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/authRoute');
+const getUserProfiles = require('./routes/getUserProfiles');
 const userSearchRoute = require('./routes/userSearchRoute');
 const userProfileRoute = require('./routes/userProfileRoute');
 const profileDisplayRoute = require('./routes/profileDisplayRoute');
@@ -32,6 +33,7 @@ app.use('/reserve', reserveRoute);
 app.use('/getReservations', getReservationsRoute);
 
 //routing for user management related
+app.use('/getUserProfiles', getUserProfiles)
 app.use('/userManagement', registerRoute);
 app.use('/auth', loginRoute);
 app.use('/search', userSearchRoute);

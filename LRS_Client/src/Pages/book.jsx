@@ -19,6 +19,7 @@ export function Book(){
     const timeSlots = ['9:15AM', '11:00AM', '12:45PM', '2:30PM', '4:15PM']
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
+    const [forms, setForms] = useState([]);
     const [matchingReservations, setMatchingReservations] = useState([]);
 
     const emptyLS212 = [
@@ -113,27 +114,23 @@ export function Book(){
 
     const handleCellClick = (event) => {
         const cell = event.target;
+        const seatID = cell.value;
     
         // COLOR CHANGE ONCLICK + CREATE/REMOVE DIV
         if (cell.style.backgroundColor === 'rgb(220, 53, 69)') {
+            const existingFormIndex = forms.findIndex(form => form.seatID === seatID);
+            if (existingFormIndex !== -1) {
+                const updatedForms = [...forms];
+                updatedForms.splice(existingFormIndex, 1);
+                setForms(updatedForms);
+            }
             cell.style.backgroundColor = '';
             cell.style.color = '';
             const infoDiv = document.getElementById(`infoDiv-${cell.value}`);
             if (infoDiv) {
                 infoDiv.remove();
 
-                setFormData((prevData) => ({
-                    ...prevData,
-                    labDetails: {
-                        ...prevData.labDetails,
-                        seatID: '',
-                        timeSlot: {
-                            day: '',
-                            timeStart: '',
-                            timeEnd: '',
-                        }
-                    }
-                }));
+                setForms(prevForms => prevForms.filter(form => form.seatID !== seatID));
             }
         } else {
             cell.style.backgroundColor = 'rgb(220, 53, 69)';
@@ -144,20 +141,20 @@ export function Book(){
             infoDiv.textContent = cell.value;
     
             // Add cell value to formData
-            setFormData((prevData) => ({
-                ...prevData,
-                labDetails: {
-                    ...prevData.labDetails,
-                    seatID: cell.value,
+            const newForm = {
+                studentID: 0,
+                labDetails:{
+                    labID: labMap[selectedLab].id,
+                    seatID: seatID
                 },
-                timeSlot: {
-                    ...prevData.timeSlot,
-                    day: `${selectedDay}`,
+                date: new Date('2024-03-22'),
+                timeSlot:{
+                    day:  `${selectedDay}`,
                     timeStart: `${convertTo24Hour(selectedTime)}`,
-                    timeEnd: `${findEndTime(convertTo24Hour(selectedTime))}`,
+                    timeEnd: `${findEndTime(convertTo24Hour(selectedTime))}`
                 }
-            }));
-
+            };
+            setForms(prevForms => [...prevForms, newForm]);
             // temp, change to proper image icon 
             const closeIcon = document.createElement('span');
             const img = document.createElement('img');
@@ -167,20 +164,11 @@ export function Book(){
             closeIcon.classList.add('closeIcon');
             closeIcon.addEventListener('click', () => {
                 infoDiv.remove();
-                
-                setFormData((prevData) => ({
-                    ...prevData,
-                    labDetails: {
-                        ...prevData.labDetails,
-                        seatID: '', // Remove the seat ID
-                    }
-                }));
+                setForms(prevForms => prevForms.filter(form => form.seatID !== seatID));
 
-                // Restore the original background color when the infoDiv is removed
                 cell.style.backgroundColor = '';
                 cell.style.color = '';
             });
-    
             infoDiv.appendChild(closeIcon);
     
             document.getElementById("selectedSeatsContainer").appendChild(infoDiv);
@@ -206,7 +194,6 @@ export function Book(){
 
     const sampleTables = {};
 
-    // Loop over each day and time slot
     days.forEach(day => {
         timeSlots.forEach((timeSlot, index) => {
             const key = `${day}-${timeSlot}`;
@@ -226,42 +213,55 @@ export function Book(){
             sampleTables[key] = table;
         });
     });
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Store form data in local storage
-            localStorage.setItem('formData', JSON.stringify(formData));
-    
-            // Make a POST request to create a reservation record
-            const response = await fetch('http://localhost:3000/reserve', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+            const promises = forms.map(async (form) => {
+                // Make a POST request to create a reservation record for each form
+                const response = await fetch('http://localhost:3000/reserve', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(form),
+                });
+                if (!response.ok) {
+                    // Handle error for each form if needed
+                    console.error('Error creating reservation:', response.statusText);
+                }
+                return response;
             });
-            if (response.ok) {
-
-                // Reset form data
+    
+            // Wait for all POST requests to complete
+            const responses = await Promise.all(promises);
+    
+            // Check if all requests were successful
+            const allRequestsSuccessful = responses.every(response => response.ok);
+    
+            if (allRequestsSuccessful) {
+                // Reset forms array
+                setForms([]);
+    
+                // Reset form data for each form
                 setFormData({
                     studentID: '',
-                    labDetails:{
+                    labDetails: {
                         labID: labMap[selectedLab].id,
                         seatID: '',
                     },
                     date: new Date('2024-03-22'),
-                    timeSlot:{
+                    timeSlot: {
                         day: '',
                         timeStart: '',
                         timeEnd: '',
                     }
-                });                
+                });
+    
+                // Redirect to home page
                 window.location.href = "http://localhost:5173/#";
             } else {
-                // Handle error
-                console.error('Error creating reservation:', response.statusText);
-                // Show error message if needed
+                // Handle error if not all requests were successful
+                console.error('Some reservation requests failed');
             }
         } catch (error) {
             console.error('Error handling form submission:', error);

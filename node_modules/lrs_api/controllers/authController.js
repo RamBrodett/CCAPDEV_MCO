@@ -1,3 +1,7 @@
+/* 
+ Author: Ram David Brodett
+*/
+
 //login controller 
 
 const User = require('../model/User');

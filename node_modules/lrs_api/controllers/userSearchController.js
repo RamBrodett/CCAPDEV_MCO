@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 const User = require('../model/User');
 
 const userSearch = async(req, res) =>{

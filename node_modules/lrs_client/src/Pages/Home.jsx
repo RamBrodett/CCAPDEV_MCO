@@ -20,10 +20,11 @@ export function Home(){
                                 <span></span> {/* complab image 1 */}
                                 <div className='topText'>
                                     <h1>Features</h1>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit blanditiis enim modi eligendi explicabo unde.
-                                    Veniam eum adipisci illum ratione ipsum, corrupti vero consequatur dolorum tempora sed ab est deserunt. Lorem ipsum 
-                                    dolor sit amet consectetur adipisicing elit. Distinctio repellendus optio repudiandae? Excepturi, non officia quidem 
-                                    ipsam fugit recusandae voluptates, nihil doloribus omnis voluptas vel blanditiis neque totam aliquid cupiditate!</p>
+                                    <p>Our computer lab offers a diverse range of features tailored to meet various needs.
+                                     Equipped with powerful software for programming, statistics, 3D modeling, and more, users can unleash their creativity and productivity. 
+                                     With seamless internet access, users can explore the web for research and collaboration. Additionally, office productivity suites,
+                                     and multimedia playback capabilities are available to handle projects of any scale. 
+                                     Security measures are robust, ensuring data protection, while collaboration tools promote communication and file sharing.</p>
                                 </div>
                             </div>
                             <div className="bottomContent">

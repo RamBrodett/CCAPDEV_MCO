@@ -10,6 +10,7 @@ export function SettingsProfile() {
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isPasswdEditing, setIsPasswdEditing] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
 
   useEffect(() => {
@@ -52,6 +53,18 @@ export function SettingsProfile() {
 
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
+    setEditedUserData({
+      firstname: userData.firstname,
+      lastname: userData.lastname,
+      email: userData.email,
+      contactnum: userData.contactnum,
+      biography: userData.profile_info.bio
+    })
+
+  };
+
+  const handlePasswordChangeToggle = () => {
+    setIsPasswdEditing((prev) => !prev);
   };
 
   const handleInputChange = (e) => {
@@ -60,8 +73,13 @@ export function SettingsProfile() {
   };
 
   const handleSaveChanges = () => {
-    setUserData(editedUserData);
     setIsEditing(false);
+  };
+  const handleSavePassChanges = () => {
+    setIsPasswdEditing(false);
+  };
+  const handleCancelPassChanges = () => {
+    setIsPasswdEditing(false);
   };
 
   const handleCancelChanges = () => {
@@ -98,7 +116,7 @@ export function SettingsProfile() {
                         type="text"
                         id="firstNameInput"
                         name="Fname"
-                        value={editedUserData.Fname}
+                        value={editedUserData.firstname}
                         onChange={handleInputChange}
                       />
                       <label htmlFor="lastNameInput">Last Name:</label>
@@ -106,7 +124,7 @@ export function SettingsProfile() {
                         type="text"
                         id="lastNameInput"
                         name="Lname"
-                        value={editedUserData.Lname}
+                        value={editedUserData.lastname}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -129,7 +147,7 @@ export function SettingsProfile() {
                           type="tel"
                           id="numberInput"
                           name="number"
-                          value={editedUserData.number}
+                          value={editedUserData.contactnum}
                           onChange={handleInputChange}
                           placeholder='10 digit phone number(omit 0)'
                         />
@@ -146,26 +164,54 @@ export function SettingsProfile() {
                     </div>
                   </div>
                 </>
-                ) : (
-                  <div id='topProfileDetails'>
-                        <img id='userProfileImage' src={imageUrl} alt="User Profile"></img>
-                        <div id="profileDetails" >
-                            <div id="profileNameText">
-                                <h1>{`${userData.lastname},${userData.firstname}`}</h1>
-                            </div>
-                            <div id="contactdetails">
-                                <h1>Contact</h1>
-                                <div id="contactInfo">
-                                    <h2>{`${userData.email}`}</h2>
-                                    {userData.contactnum ? <h2>{`(+63) ${userData.contactnum}`}</h2> : null}
-                                </div>
-                            </div>
-                        </div>
-                  </div>
+                ) : ( isPasswdEditing ? (
+                  <>
+                    <div id='PasswordChangeForm'>
+                      <label htmlFor="passwordInput">Current Password:</label>
+                      <input
+                        type="password"
+                        id="passwordInput"
+                        name="passwordInputname"
+                        onChange={handleInputChange}
+                      />
+                      <label htmlFor="newpasswordInput">New Password:</label>
+                      <input
+                        type="password"
+                        id="newpasswordInput"
+                        name="newpasswordInputname"
+                        onChange={handleInputChange}
+                      />
+                      <label htmlFor="confirmpasswordInput">Confirm Password:</label>
+                      <input
+                        type="password"
+                        id="confirmpasswordInput"
+                        name="confirmpasswordInputname"
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </>
+                ):(
+                  <>
+                    <div id='topProfileDetails'>
+                      <img id='userProfileImage' src={imageUrl} alt="User Profile"></img>
+                      <div id="profileDetails" >
+                          <div id="profileNameText">
+                              <h1>{`${userData.lastname},${userData.firstname}`}</h1>
+                          </div>
+                          <div id="contactdetails">
+                              <h1>Contact</h1>
+                              <div id="contactInfo">
+                                  <h2>{`${userData.email}`}</h2>
+                                  {userData.contactnum ? <h2>{`(+63) ${userData.contactnum}`}</h2> : null}
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </>)
                 )}
             </div>
             <div className='botProfileDetails'>
-              { !isEditing ? (userData.profile_info.bio !== null ? (
+              { (!isEditing && !isPasswdEditing) ? (userData.profile_info.bio !== null ? (
                   <div id='bio'>
                     <h1>Biography</h1>
                     <p>{userData.profile_info.bio}</p>
@@ -176,8 +222,7 @@ export function SettingsProfile() {
                     <p>Nothing yet...</p>
                   </div>
                 )
-              ):(null
-              )}
+              ):(null)}
 
             </div>
             <div id="buttons">
@@ -186,11 +231,17 @@ export function SettingsProfile() {
                 <button id='cancelButt' onClick={handleCancelChanges}>Cancel Editing</button>
                 <button id='saveButt' onClick={handleSaveChanges}>Save Changes</button>
                 </>
-              ) : (
+              ) : ( isPasswdEditing ? (
+                <>
+                <button id='cancelButt' onClick={handleCancelPassChanges}>Cancel Editing</button>
+                <button id='saveButt' onClick={handleSavePassChanges}>Save Changes</button>
+                </>) : (
                 <>
                   <button onClick={handleEditToggle}>Edit Profile</button>
+                  <button onClick={handlePasswordChangeToggle} id='passwordAccButt'>Change Password</button>
                   <button id='deleteAccButt'>Delete Account</button>
                 </>
+              )
               )}
             </div>
           </div>

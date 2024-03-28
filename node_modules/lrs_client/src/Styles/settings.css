@@ -107,6 +107,10 @@
     margin-left: 30px;
   }
 
+  #passwordAccButt{
+    margin-left: 30px;
+  }
+
   .botProfileDetails{
     display: flex;
     flex-direction: column;
@@ -130,7 +134,7 @@
   flex-direction: column;
 }
 
-#profileImageEdit label {
+#profileImageEdit label, #contactEdit label {
   color: #00af5e;
 }
 
@@ -192,4 +196,15 @@
   min-height: 80px;
   padding: 10px;
   border: none;
+}
+
+#PasswordChangeForm{
+  display: flex;
+  flex-direction: column;
+  background-color: gainsboro;
+  margin-left: 25px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 3px .2px black;
 }

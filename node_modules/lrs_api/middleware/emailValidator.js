@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 const validEmailExpression =  (email) => {
     const emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegEx.test(email);

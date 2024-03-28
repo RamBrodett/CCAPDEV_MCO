@@ -26,10 +26,12 @@ export function LabSelect() {
                         <div id="labSelectorBox">
                             <select id="labSelectDropdown" onChange={handleSelectChange}>
                                 <option value="">Select Laboratory</option>
-                                <option value="Velasco 205-206">Velasco 205-206</option>
+                                <option value="Velasco 205">Velasco 205</option>
+                                <option value="Velasco 206">Velasco 206</option>
                                 <option value="LS Hall 212">LS Hall 212</option>
                                 <option value="LS Hall 229">LS Hall 229</option>
-                                <option value="Gokongwei 306AB">Gokongwei 306AB</option>
+                                <option value="Gokongwei 306A">Gokongwei 306A</option>
+                                <option value="Gokongwei 306B">Gokongwei 306B</option>
                             </select>
                         </div>
                     </div>

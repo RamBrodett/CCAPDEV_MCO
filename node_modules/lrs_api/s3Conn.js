@@ -1,3 +1,6 @@
+/* 
+ Author: Ram David Brodett
+*/
 require('dotenv').config();
 
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");

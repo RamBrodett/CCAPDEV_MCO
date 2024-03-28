@@ -115,8 +115,7 @@ export function Profile() {
                             <li key={reservations.reservationID} style={ {border: '2px solid gray', marginBottom: '5px'}}>
                               Laboratory: {reservations.labDetails.labID} <br />
                               Seat-ID: {reservations.labDetails.seatID} <br />
-                              Day: {reservations.timeSlot.day}
-                              time slot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
+                              Day: {reservations.timeSlot.day} | Timeslot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
                             </li>
                         ))}
                         </p>

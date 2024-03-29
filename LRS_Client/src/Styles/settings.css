@@ -208,3 +208,10 @@
   border-radius: 10px;
   box-shadow: 0 0 3px .2px black;
 }
+
+#ErrorCodePass{
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 11px;
+}

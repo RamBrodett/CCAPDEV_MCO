@@ -11,11 +11,22 @@ export function SettingsProfile() {
   const [imageUrl, setImageUrl] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswdEditing, setIsPasswdEditing] = useState(false);
-  const [editedUserData, setEditedUserData] = useState({});
+  const [editedUserData, setEditedUserData] = useState({
+    firstname: null,
+    lastname: null,
+    email: null,
+    contactnum: null,
+    biography: null
+  });
+  const [editedPassUserData, setEditedPassData] = useState({
+    new: null,
+    curr: null,
+    confirm: null
+  });
+  const [messageCodePass, setMessageCodePass] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log( userCred)
       const [firstname, lastnameNID] = userCred.split('-');
       const [lastname, userID] = lastnameNID.split('+');
       try {
@@ -69,14 +80,94 @@ export function SettingsProfile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserData((prev) => ({ ...prev, [name]: value }));
+    if (isEditing){
+      setEditedUserData((prev) => ({ 
+        ...prev, [name]: value }));
+    } 
+
+    if (isPasswdEditing){
+      setEditedPassData((prev) => ({ 
+        ...prev, [name]: value }));
+    }
   };
 
   const handleSaveChanges = () => {
     setIsEditing(false);
   };
-  const handleSavePassChanges = () => {
-    setIsPasswdEditing(false);
+
+  const handleSavePassChanges = async (e)=> {
+    e.preventDefault();
+    const email = userData.email;
+    const currPass = editedPassUserData.curr;
+    const newPass = editedPassUserData.new;
+    const confPass = editedPassUserData.confirm;
+
+    setMessageCodePass(null);
+
+    if (!currPass || !newPass || !confPass) {
+      setMessageCodePass('Please fill in all fields');
+      setEditedPassData({
+        curr: '',
+        new: '',
+        confirm: '' });
+      return;
+    }
+
+    if (newPass !== confPass) {
+      setMessageCodePass('New password and confirm password do not match');
+      setEditedPassData((prev) => ({ 
+        ...prev, 
+        new: '',
+        confirm: '' }));
+      return;
+    }
+
+    try{
+      const response = await fetch('http://localhost:3000/auth/checkPassword',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: email, password: editedPassUserData.curr})
+      });
+      if (response.ok){
+        //if password matched, change password
+        try{
+          const passResponse = await fetch('http://localhost:3000/userManagement/updateLoginCredentials',{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, newPass: editedPassUserData.new }),
+          });
+
+          if(passResponse.ok){
+            setMessageCodePass('Password changed successfully!');
+            setEditedPassData({
+              curr: '',
+              new: '',
+              confirm: '' });
+              setTimeout(() => {
+                setMessageCodePass('');
+                setIsPasswdEditing(false);
+              }, 2500);
+          }
+
+        }catch(error){
+          console.error('Error encountered: ', error);
+          setMessageCodePass('Error changing password. Please try again later.');
+        }
+      } else {
+        setMessageCodePass('Incorrect current password');
+        setEditedPassData({
+          curr: '',
+          new: '',
+          confirm: '' });
+      }
+    } catch(error){
+      console.error('Error encountered: ', error);
+      setMessageCodePass('Error encountered. Please try again later.');
+    }
   };
   const handleCancelPassChanges = () => {
     setIsPasswdEditing(false);
@@ -171,23 +262,28 @@ export function SettingsProfile() {
                       <input
                         type="password"
                         id="passwordInput"
-                        name="passwordInputname"
+                        name="curr"
+                        value={editedPassUserData.curr}
                         onChange={handleInputChange}
                       />
                       <label htmlFor="newpasswordInput">New Password:</label>
                       <input
                         type="password"
                         id="newpasswordInput"
-                        name="newpasswordInputname"
+                        name="new"
+                        value={editedPassUserData.new}
                         onChange={handleInputChange}
                       />
                       <label htmlFor="confirmpasswordInput">Confirm Password:</label>
                       <input
                         type="password"
                         id="confirmpasswordInput"
-                        name="confirmpasswordInputname"
+                        name="confirm"
+                        value={editedPassUserData.confirm}
                         onChange={handleInputChange}
                       />
+                      {messageCodePass ? (<p id='ErrorCodePass'>{messageCodePass}</p>):(null)}
+                      
                     </div>
                   </>
                 ):(

@@ -10,6 +10,8 @@ export function Profile() {
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
   const [matchingReservations, setMatchingReservations] = useState([]);
+  const [editingReservationID, setEditingReservationID] = useState(null);
+  const [editedLabID, setEditedLabID] = useState('');
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,6 +66,14 @@ export function Profile() {
 
   }, [userCred]);
 
+    const handleEditClick = (reservationID) => {
+      setEditingReservationID(reservationID);
+    };
+
+    const handleCancel = () => {
+      setEditingReservationID(null);
+  };
+
   return (
     <div id='profile_Container'>
       <Header />
@@ -112,11 +122,45 @@ export function Profile() {
                       <ul>
                       <p>
                         {matchingReservations.map((reservations) =>(
-                            <li key={reservations.reservationID} style={ {border: '2px solid gray', marginBottom: '5px'}}>
-                              Laboratory: {reservations.labDetails.labID} <br />
-                              Seat-ID: {reservations.labDetails.seatID} <br />
-                              Day: {reservations.timeSlot.day} | Timeslot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
-                            </li>
+                          <li key={reservations.reservationID} id="reservationContainer">
+                            {editingReservationID === reservations.reservationID ? (
+                            <>
+                              Laboratory: 
+                              <select name="labs" onChange={(e) => setEditedLabID(e.target.value)}>
+                                <option value="">{reservations.labDetails.labID}</option>
+                                {["VL205", "VL206", "LS212", "LS229", "GK306A", "GK306B"].map((labOption) => (
+                                  labOption !== reservations.labDetails.labID && (
+                                      <option key={labOption} value={labOption}>{labOption}</option>
+                                  )
+                                ))}
+                              </select>
+                              <br />
+                              Seat-ID: 
+                              <select>
+                                <option value="">{reservations.labDetails.seatID}</option>
+                              </select>
+                              <br></br>
+                              Day: 
+                              <select>
+                                <option value="">{reservations.timeSlot.day}</option>
+                              </select> | 
+                              Timeslot: 
+                              <select>
+                                <option value="">{reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}</option>
+                              </select> <br />
+                              <button id="topRightReservationButton1" onClick={() => handleCancel(reservations.reservationID)}>CANCEL</button>
+                              <button id="topRightReservationButton2">CONFIRM</button>
+                            </>
+                            ) : (
+                              <> 
+                                Laboratory: {reservations.labDetails.labID} <br />
+                                Seat-ID: {reservations.labDetails.seatID} <br />
+                                Day: {reservations.timeSlot.day} | Timeslot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
+                                <button id="topRightReservationButton1" onClick={() => handleDelete(reservations.reservationID)}>REMOVE</button>
+                                <button id="topRightReservationButton2" onClick={() => handleEditClick(reservations.reservationID)}>EDIT</button>
+                              </>)}
+
+                        </li>
                         ))}
                         </p>
                       </ul>

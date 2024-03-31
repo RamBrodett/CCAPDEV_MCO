@@ -14,7 +14,6 @@ import { useAuth} from '../AuthContext.jsx'
 export function Header(){
     const {user, setLoggedOut} = useAuth();
     /* this is temporary have to fix the backend for the username retrieval */
-    const[userId] = useState(3);
     const[isSpVisible , setIsSpVisible] = useState(false);
     /* this is temporary have to fix the backend for the login check */
     const handleLogOut = async () =>{
@@ -58,7 +57,7 @@ export function Header(){
                 <div onClick={toggleSidePanel}>
                     <AccDisplay className='NavElem' />
                 </div>
-                <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} userId={userId} />
+                <SidePanel visibility={isSpVisible} onClose={toggleSidePanel} />
             </div>
 
         </div>

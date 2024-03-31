@@ -4,17 +4,19 @@ const User = require('../model/User');
 const bcrypt = require('bcrypt');
 
 const handleUserUpdate = async(req, res) => {
-    const {newfn, newln, newcontact, newbio, newpicture} = req.body;
-    const {userID} = req.query;
+  const { userID, editedUserData }= req.body;
 
+    const contactnum = editedUserData.contactnum === "null" ? null : editedUserData.contactnum;
+    const bio = editedUserData.biography === "" ? null : editedUserData.biography;
+    
     try{
         const updatedUser = await User.findOneAndUpdate({userID}, {
           $set: {
-            firstname: newfn,
-            lastname: newln,
-            contact: newcontact,
-            'profile_info_bio': newbio,
-            'profile_info.profile_picture_url': newpicture
+            firstname: editedUserData.firstname,
+            lastname: editedUserData.lastname,
+            email: editedUserData.email,
+            contactnum: contactnum,
+            "profile_info.bio" : bio,
           }
         }, {new: true}
         );
@@ -22,6 +24,7 @@ const handleUserUpdate = async(req, res) => {
         if (!updatedUser) { //didnt find user
           return res.status(404).json({ message: 'User not found' });
         }
+        res.status(200).json({user:updatedUser});
     }catch (error) {
         console.error('Error updating user:', error);
         return res.status(500).json({ error: 'Internal server error' });
@@ -42,7 +45,7 @@ const handleUserLoginUpdate = async(req, res) =>{
       return res.status(404).json({ message: 'User not found' });
     }
     
-    res.status(200).json({User: updatedUser})
+    res.status(200).json({updatedUser})
   }catch (error) {
       console.error('Error updating user:', error);
       return res.status(500).json({ error: 'Internal server error' });

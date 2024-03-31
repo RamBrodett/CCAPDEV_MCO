@@ -1,13 +1,11 @@
-/*
-Author: Ram David Brodett
-*/
-import { useState, useEffect } from 'react'; // Import useState and useEffect hooks
+import { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext.jsx';
-import '../Styles/ADStyle.css'
+import '../Styles/ADStyle.css';
 
 export function AccDisplay() {
     const { user } = useAuth();
     const [imageUrl, setImageUrl] = useState('');
+    const [displayName, setDisplayName] = useState('');
 
     useEffect(() => {
         const getImageUrl = async () => {
@@ -25,7 +23,11 @@ export function AccDisplay() {
         };
 
         getImageUrl();
-    }, [user.profileKey]);
+    }, [user.profileKey]); // Add user.firstname as a dependency
+
+    useEffect(() => {
+        setDisplayName(`${user.firstname}`);
+    }, [user.firstname, user.lastname]); // Update displayName when firstname or lastname changes
 
     if (!user.isLoggedIn) {
         return null;
@@ -33,8 +35,8 @@ export function AccDisplay() {
 
     return (
         <div className="accDisp">
-            <img id='AccLogo' src={imageUrl} />
-            <span id='AccDisplayName'>{user.firstname}</span>
+            <img id='AccLogo' src={imageUrl} alt="User Profile" />
+            <span id='AccDisplayName'>{displayName}</span>
         </div>
     );
 }

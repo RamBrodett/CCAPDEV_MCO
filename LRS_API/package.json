@@ -20,7 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.0",
     "@aws-sdk/client-s3": "^3.36.0",
-    "@aws-sdk/s3-request-presigner": "^3.36.0"
+    "@aws-sdk/s3-request-presigner": "^3.36.0",
+    "multer": "1.4.4-lts.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

@@ -17,4 +17,25 @@ const s3 = new S3Client({
     region: bucketRegion
 });
 
-module.exports = {s3, PutObjectCommand,GetObjectCommand, DeleteObjectCommand, bucketName};
+const uploadFile = (fileBuffer, filename, mimetype) => {
+    console.log("uploadFile");
+    const uploadParams = {
+        Bucket: bucketName,
+        Body: fileBuffer,
+        key: filename,
+        ContentType: mimetype
+    }
+
+    return s3.send(new PutObjectCommand(uploadParams))
+}
+
+const deleteFile = (filename) =>{
+    console.log("deleteFile");
+    const deleteParams ={
+        Bucket: bucketName,
+        Key: filename,
+    }
+    return s3.send(new DeleteObjectCommand(deleteParams))
+}
+
+module.exports = {s3,GetObjectCommand, bucketName, deleteFile, uploadFile};

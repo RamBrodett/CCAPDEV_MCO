@@ -158,7 +158,6 @@ export function Book(){
                 }
             };
             setForms(prevForms => [...prevForms, newForm]);
-            // temp, change to proper image icon 
             const closeIcon = document.createElement('span');
             const img = document.createElement('img');
             img.src = Cross_icon;
@@ -401,7 +400,6 @@ export function Book(){
     
 
     return(
-
         <div className="bookBody">
             <Header />
             <div className="Booking">
@@ -418,7 +416,6 @@ export function Book(){
                                     <div className="item">Selected</div>
                                 </div>
                                 <div className='all-seats'>
-                                    {/* Display selected sample table */}
                                     {sampleTables[`${selectedDay}-${selectedTime}`]}
                                 </div>
                             </div>

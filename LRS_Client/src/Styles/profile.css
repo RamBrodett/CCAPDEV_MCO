@@ -106,3 +106,25 @@
     border-radius: 7px;
     box-shadow: 0 0 1px black;
 }
+
+#reservationContainer {
+    border: 2px solid gray;
+    margin-bottom: 5px;
+    position: relative;
+    cursor: default;
+}
+
+#topRightReservationButton1 {
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    background-color:rgb(220, 53, 69); 
+    cursor: pointer;
+}
+
+#topRightReservationButton2 {
+    position: absolute; 
+    bottom: 5px; 
+    right: 5px; 
+    cursor: pointer;
+}

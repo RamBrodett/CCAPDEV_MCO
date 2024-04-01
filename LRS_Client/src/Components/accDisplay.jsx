@@ -8,6 +8,12 @@ export function AccDisplay() {
     const [displayName, setDisplayName] = useState('');
 
     useEffect(() => {
+        if (!user || !user.isLoggedIn) {
+            setImageUrl('');
+            setDisplayName('');
+            return;
+        }
+
         const getImageUrl = async () => {
             try {
                 const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${user.profileKey}`);
@@ -23,13 +29,18 @@ export function AccDisplay() {
         };
 
         getImageUrl();
-    }, [user.profileKey]); // Add user.firstname as a dependency
+    }, [user]);
 
     useEffect(() => {
-        setDisplayName(`${user.firstname}`);
-    }, [user.firstname, user.lastname]); // Update displayName when firstname or lastname changes
+        if (!user || !user.isLoggedIn) {
+            setDisplayName('');
+            return;
+        }
 
-    if (!user.isLoggedIn) {
+        setDisplayName(`${user.firstname}`);
+    }, [user]); 
+
+    if (!user || !user.isLoggedIn) {
         return null;
     }
 

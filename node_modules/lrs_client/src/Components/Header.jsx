@@ -28,9 +28,9 @@ export function Header(){
         
         if (response.ok){
             setLoggedOut();
+            window.location.reload();
         }
         
-        setLoggedOut();
     }
 
     const toggleSidePanel = () => {

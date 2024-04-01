@@ -6,12 +6,12 @@ import '../Styles/settings.css';
 
 // eslint-disable-next-line react/prop-types
 export function SettingsProfile( ) {
-  const {user, setLoggedIn} = useAuth();
+  const {user, setLoggedIn, setLoggedOut} = useAuth();
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswdEditing, setIsPasswdEditing] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [file, setFile] = useState();
   const [savingChanges, setSavingChanges] = useState(false);
   const userIDKEY = user.userID
@@ -30,6 +30,7 @@ export function SettingsProfile( ) {
   const [messageCodePass, setMessageCodePass] = useState(null);
 
   useEffect(() => {
+
     const fetchUser = async () => {
       try {
         const response = await fetch(`http://localhost:3000/getProfile/settings?userID=${userIDKEY}`);
@@ -56,13 +57,14 @@ export function SettingsProfile( ) {
         }
       } catch (error) {
         console.error('Error fetching image URL:', error);
-      } finally {
-        setLoading(false);
       }
     };
-    fetchUser();
 
-  },[]);
+    if (userIDKEY !== undefined && userIDKEY !== null) {
+      fetchUser();
+    }
+
+  },[userIDKEY]);
 
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
@@ -73,11 +75,47 @@ export function SettingsProfile( ) {
       contactnum: userData.contactnum,
       biography: userData.profile_info.bio
     })
-
   };
 
   const handlePasswordChangeToggle = () => {
     setIsPasswdEditing((prev) => !prev);
+  };
+
+
+  const handleDeleteConfirmation = async() => {
+    
+    const response = await fetch('http://localhost:3000/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+        
+        if (response.ok){
+
+          const response2 = await fetch('http://localhost:3000/userManagement/deleteAccount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: userData.email })
+          });
+
+          if (response2.ok) {
+              window.location.href = "http://localhost:5173/#/";
+              setLoggedOut();
+              location.reload();
+          } else {
+              
+              console.error('Delete account failed:', response.statusText);
+          }
+        }
+  };
+
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirmation(false);
   };
 
   const handleInputChange = (e) => {
@@ -391,6 +429,13 @@ export function SettingsProfile( ) {
               ):(null)}
 
             </div>
+            {showDeleteConfirmation && (
+                <div className="delete-confirmation">
+                  <p>Are you sure you want to delete your account?</p>
+                  <button id='contDelete' onClick={handleDeleteConfirmation}>Yes, delete</button>
+                  <button onClick={handleCancelDelete}>Cancel</button>
+              </div>
+            )}
             <div id="buttons">
               {isEditing ? (
                 <>
@@ -401,12 +446,13 @@ export function SettingsProfile( ) {
                 <>
                 <button id='cancelButt' onClick={handleCancelPassChanges}>Cancel Editing</button>
                 <button id='saveButt' onClick={handleSavePassChanges}>Save Changes</button>
-                </>) : (
-                <>
+                </>) : ( showDeleteConfirmation ? (null): (
+                  <>
                   <button onClick={handleEditToggle}>Edit Profile</button>
                   <button onClick={handlePasswordChangeToggle} id='passwordAccButt'>Change Password</button>
-                  <button id='deleteAccButt'>Delete Account</button>
-                </>
+                  <button id='deleteAccButt' onClick={() => setShowDeleteConfirmation(true)}>Delete Account</button>
+                </>)
+                
               )
               )}
             </div>

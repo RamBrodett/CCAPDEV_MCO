@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Header } from '../Components/Header';
 import { Footer } from '../Components/Footer';
+import {useAuth} from '../AuthContext';
 import '../Styles/settings.css';
 
-export function SettingsProfile() {
-  const { userCred } = useParams();
+// eslint-disable-next-line react/prop-types
+export function SettingsProfile( ) {
+  const {user, setLoggedIn} = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswdEditing, setIsPasswdEditing] = useState(false);
+  const [file, setFile] = useState();
+  const [savingChanges, setSavingChanges] = useState(false);
+  const userIDKEY = user.userID
   const [editedUserData, setEditedUserData] = useState({
     firstname: null,
     lastname: null,
     email: null,
-    contactnum: null,
-    biography: null
+    contactnum: '',
+    biography: ''
   });
   const [editedPassUserData, setEditedPassData] = useState({
     new: null,
@@ -27,10 +31,8 @@ export function SettingsProfile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const [firstname, lastnameNID] = userCred.split('-');
-      const [lastname, userID] = lastnameNID.split('+');
       try {
-        const response = await fetch(`http://localhost:3000/getProfile?firstname=${firstname}&lastname=${lastname}&userID=${userID}`);
+        const response = await fetch(`http://localhost:3000/getProfile/settings?userID=${userIDKEY}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
@@ -60,7 +62,7 @@ export function SettingsProfile() {
     };
     fetchUser();
 
-  },[userCred]);
+  },[]);
 
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
@@ -91,8 +93,77 @@ export function SettingsProfile() {
     }
   };
 
-  const handleSaveChanges = () => {
-    setIsEditing(false);
+  const handleSaveChanges = async(e) => {
+    e.preventDefault();
+
+    const firstname = editedUserData.firstname;
+    const lastname = editedUserData.lastname;
+    const email = editedUserData.email;
+
+    //check first for firstname, lastname, email. it is required if empty return and cancel it
+    if(!firstname || !lastname || !email){
+      console.log('firstname, lastname, email, cannot be empty! reverting changes');
+      setEditedUserData({
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+        contactnum: userData.contactnum,
+        biography: userData.profile_info.bio,
+        profileImage: null
+      })
+      return
+    }
+
+    //change profile picture here:
+    if(file){
+      try{
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('userID', userIDKEY);
+        const response = await fetch('http://localhost:3000/profileIMG/uploadNewImage',{
+          method: 'POST',
+          body: formData
+          }
+        );
+        if(response.ok){
+          console.log("image uploaded");
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    //change profile details here:
+    try{
+      const requestData = {
+        userID: userIDKEY,
+        editedUserData: editedUserData
+      };
+
+      const response = await fetch('http://localhost:3000/userManagement/updateAccount',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+      })
+      if(response.ok){
+        const user = await response.json();
+        await setLoggedIn(user);
+
+        //make it wait for 7 seconds
+        setSavingChanges(true);
+        setTimeout(() => {
+          window.location.reload();
+          setSavingChanges(false);
+          setIsEditing(false);
+        }, 9050);
+
+      }
+
+    }catch(error){
+      console.log("Encoutered an internal error. Error code: ,", error)
+    }
+
   };
 
   const handleSavePassChanges = async (e)=> {
@@ -181,8 +252,9 @@ export function SettingsProfile() {
     <div id="profile_Container">
       <Header />
       <div id="profile_body">
-        {loading ? (
-          <div>Loading...</div>
+        {savingChanges? (
+          <div className='LoadingScreen'>Loading changes...
+          <br />Thank you for waiting.</div>
         ) : userData ? (
           <div id="UserProfileDetails">
            <h2>{`${userData.role}'s Profile`}</h2>
@@ -194,11 +266,9 @@ export function SettingsProfile() {
                     <div id="profileImageEdit">
                       <label htmlFor="profileImageInput">Change Profile Image:</label>
                       <input
-                        type="file"
-                        id="profileImageInput"
-                        name="profileImage"
+                        onChange={e => setFile(e.target.files[0])} 
+                        type="file" 
                         accept="image/*"
-                        onChange={handleInputChange}
                       />
                     </div>
                     <div id="profileNameTextEdit">
@@ -206,7 +276,7 @@ export function SettingsProfile() {
                       <input
                         type="text"
                         id="firstNameInput"
-                        name="Fname"
+                        name="firstname"
                         value={editedUserData.firstname}
                         onChange={handleInputChange}
                       />
@@ -214,7 +284,7 @@ export function SettingsProfile() {
                       <input
                         type="text"
                         id="lastNameInput"
-                        name="Lname"
+                        name="lastname"
                         value={editedUserData.lastname}
                         onChange={handleInputChange}
                       />
@@ -237,7 +307,7 @@ export function SettingsProfile() {
                         <input
                           type="tel"
                           id="numberInput"
-                          name="number"
+                          name="contactnum"
                           value={editedUserData.contactnum}
                           onChange={handleInputChange}
                           placeholder='10 digit phone number(omit 0)'
@@ -292,7 +362,7 @@ export function SettingsProfile() {
                       <img id='userProfileImage' src={imageUrl} alt="User Profile"></img>
                       <div id="profileDetails" >
                           <div id="profileNameText">
-                              <h1>{`${userData.lastname},${userData.firstname}`}</h1>
+                              <h1>{`${userData.lastname}, ${userData.firstname}`}</h1>
                           </div>
                           <div id="contactdetails">
                               <h1>Contact</h1>

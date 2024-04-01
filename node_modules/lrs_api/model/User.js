@@ -3,7 +3,6 @@
 */
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const Reservation = require('./Reservation')
 
 const userSchema = new Schema({
     userID: {
@@ -48,5 +47,6 @@ const userSchema = new Schema({
     }
 
 })
+userSchema.index({ userID: 1 });
 
 module.exports = mongoose.model('User', userSchema);

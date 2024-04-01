@@ -121,6 +121,7 @@ export function Profile() {
     setEditingDay(reservation.labDetails.day);
     setEditingTimeStart(reservation.labDetails.timeStart);
     setEditingTimeEnd(reservation.labDetails.timeEnd);
+    setEditingTime(reservation.labDetails.timeStart - reservation.labDetails.timeEnd);
 
     const fullRoomName = Object.keys(labMap).find(roomName => labMap[roomName].id === reservation.labDetails.labID);
 
@@ -244,13 +245,13 @@ export function Profile() {
                               <label htmlFor="seat-dropdown">Seat-ID:</label>
                               <select id="seat-dropdown" defaultValue={editingSeatID}>
                                 {labMap[selectedLab] && generateSeatArray(labMap[selectedLab].numRows, labMap[selectedLab].numCols)
-                                  .filter(seat => !labMap[selectedLab].emptyCells.includes(seat))
-                                  .filter(seat => !matchingReservations.some(reservation => reservation.seatID === seat))
-                                  .map((seatID, index) => (
-                                    <option key={index} value={seatID}>
-                                      {seatID}
-                                    </option>
-                                  ))}
+                                .filter(seat => !labMap[selectedLab].emptyCells.includes(seat))
+                                .filter(seat => seat === editingSeatID || !matchingReservations.some(reservation => reservation.labDetails.seatID === seat))
+                                .map((seatID, index) => (
+                                  <option key={index} value={seatID}>
+                                    {seatID}
+                                  </option>
+                                ))}
                               </select>
                                 <br></br>
                                 <label htmlFor="day-dropdown">Day:</label>

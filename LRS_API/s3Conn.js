@@ -18,19 +18,16 @@ const s3 = new S3Client({
 });
 
 const uploadFile = (fileBuffer, filename, mimetype) => {
-    console.log("uploadFile");
     const uploadParams = {
         Bucket: bucketName,
         Body: fileBuffer,
-        key: filename,
+        Key: filename,
         ContentType: mimetype
     }
-
     return s3.send(new PutObjectCommand(uploadParams))
 }
 
 const deleteFile = (filename) =>{
-    console.log("deleteFile");
     const deleteParams ={
         Bucket: bucketName,
         Key: filename,

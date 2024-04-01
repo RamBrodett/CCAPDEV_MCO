@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {readImage} = require('../controllers/imageController')
-const { uploadFile, deleteFile } = require('../s3Conn');
+const { uploadFile, deleteFile, bucketName} = require('../s3Conn');
 const User = require('../model/User');
 const multer = require('multer');
 const crypto = require('crypto');
@@ -34,8 +34,7 @@ router.post('/uploadNewImage', upload.single('image'), async(req, res)=> {
                 "profile_info.profile_picture_url" : newImageURL
             }
         })
-
-        res.status(200)
+        res.status(200).send({ message: 'Image uploaded successfully' });
 
     }catch(error){
         console.error('Error uploading image:', error);
@@ -43,6 +42,7 @@ router.post('/uploadNewImage', upload.single('image'), async(req, res)=> {
         console.log(error);
     }
 });
+
 router.get('/readImage', readImage);
 
 module.exports = router;

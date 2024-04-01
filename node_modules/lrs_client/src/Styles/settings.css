@@ -222,3 +222,28 @@
   font-size: 120px;
   color: rgb(158, 158, 158);
 }
+
+.delete-confirmation{
+  background-color: rgb(223, 223, 223);
+  border-radius: 11px;
+  width: 400px;
+  height: 150px;
+  padding: 30px;
+  padding-top: 20px;
+  margin-left: 25px;
+  margin-top: 20px;
+  border: black solid 2px;
+
+}
+
+.delete-confirmation p{
+  margin-bottom: 30px;
+  font-weight: bolder;
+}
+.delete-confirmation button{
+  margin-right: 10px;
+}
+
+#contDelete{
+  background-color:  rgb(255, 92, 92); ;
+}

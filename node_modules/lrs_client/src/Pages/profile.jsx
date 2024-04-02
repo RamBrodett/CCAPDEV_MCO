@@ -225,73 +225,23 @@ export function Profile() {
                 </div>
                 <div id="reservedSeatsDetails">
                   {matchingUserReservations ? (
-                  <>
+                    <>
                       <h1>Reservations</h1>
-                        <ul>
+                      <ul>
                         <p>
-                          {matchingUserReservations.map((reservations) =>(
-                            <li key={reservations.reservationID} id="reservationContainer">
-                              {editingReservationID === reservations.reservationID ? (
-                              <>
-                              <label htmlFor="labs-dropdown">Laboratory:</label>
-                              <select name="labs" id="labs-dropdown" onChange={(e) => setEditingLabID(e.target.value)} defaultValue={EditingLabID}>
-                                {Object.values(labMap).map((lab) => (
-                                  <option key={lab.id} value={lab.id}>
-                                    {lab.id}  
-                                  </option>
-                                ))}
-                              </select>
-                              <br />
-                              <label htmlFor="seat-dropdown">Seat-ID:</label>
-                              <select id="seat-dropdown" defaultValue={editingSeatID}>
-                                {labMap[selectedLab] && generateSeatArray(labMap[selectedLab].numRows, labMap[selectedLab].numCols)
-                                .filter(seat => !labMap[selectedLab].emptyCells.includes(seat))
-                                .filter(seat => seat === editingSeatID || !matchingReservations.some(reservation => reservation.labDetails.seatID === seat))
-                                .map((seatID, index) => (
-                                  <option key={index} value={seatID}>
-                                    {seatID}
-                                  </option>
-                                ))}
-                              </select>
-                                <br></br>
-                                <label htmlFor="day-dropdown">Day:</label>
-                                <select defaultValue={editingDay} onChange={(e) => setEditingDay(e.target.value)}>
-                                  {days.map((day, index) => (
-                                    <option key={index} value={day}>
-                                      {day}
-                                    </option>
-                                  ))}
-                                </select>| 
-                                <label htmlFor="timeSlot-dropdown">Time Slot:</label>
-                                <select defaultValue={editingTime} onChange={(e) => setEditingTime(e.target.value)}>
-                                  {timeSlots.map((timeStart, index) => {
-                                    const timeEnd = findEndTime(timeStart);
-                                    const timeSlotLabel = `${timeStart} - ${timeEnd}`;
-                                    return (
-                                      <option key={index} value={timeSlotLabel}>
-                                        {timeSlotLabel}
-                                      </option>
-                                    );
-                                  })}
-                                </select>
-                                <button id="topRightReservationButton1" onClick={() => handleCancel(reservations.reservationID)}>CANCEL</button>
-                                <button id="topRightReservationButton2">CONFIRM</button>
-                              </>
-                              ) : (
-                                <> 
-                                  Laboratory: {reservations.labDetails.labID} <br />
-                                  Seat-ID: {reservations.labDetails.seatID} <br />
-                                  Day: {reservations.timeSlot.day} | Timeslot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
-                                  <button id="topRightReservationButton1" onClick={() => handleDelete(reservations.reservationID)}>REMOVE</button>
-                                  <button id="topRightReservationButton2" onClick={() => handleEditClick(reservations)}>EDIT</button>
-                                </>)}
-
+                        {matchingUserReservations.map((reservation) => (
+                          <li key={reservation.reservationID} id="reservationContainer">
+                            <>
+                              Laboratory: {reservation.labDetails.labID} <br />
+                              Seat-ID: {reservation.labDetails.seatID} <br />
+                              Day: {reservation.timeSlot.day} | Timeslot: {reservation.timeSlot.timeStart} - {reservation.timeSlot.timeEnd}
+                            </>
                           </li>
-                          ))}
-                          </p>
-                        </ul>
-                  </>
-                  ):(
+                        ))}
+                        </p>
+                      </ul>
+                    </>
+                  ) : (
                     <>
                       <h1>Reservations</h1>
                       <p>Nothing yet...</p>

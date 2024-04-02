@@ -33,4 +33,57 @@ const reserveSeats = async (req, res) => {
     }
 }
 
-module.exports = { reserveSeats };
+const updateReservation = async (req, res) => {
+    const { reservationID, studentID, labDetails, date, timeSlot } = req.body;
+    try {
+        const updatedReservation = await Reservation.findOneAndUpdate(
+            { reservationID: reservationID }, // Match the reservationID
+            {
+                studentID: studentID,
+                labDetails: {
+                    labID: labDetails.labID,
+                    seatID: labDetails.seatID,
+                },
+                date: date,
+                timeSlot: {
+                    day: timeSlot.day,
+                    timeStart: timeSlot.timeStart,
+                    timeEnd: timeSlot.timeEnd,
+                }
+            },
+            { new: true } // To return the updated record
+        );
+        
+        if (!updatedReservation) {
+            return res.status(404).json({ success: false, message: 'Reservation not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'Reservation updated successfully', updatedReservation });
+        console.log("updated");
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Failed to update reservation' });
+    }
+}
+
+const deleteReservation = async (req, res) => {
+    const { reservationID } = req.body;
+    try {
+        const deletedReservation = await Reservation.findOneAndDelete(
+            { reservationID: reservationID } // Match the reservationID
+        );
+        
+        if (!deletedReservation) {
+            return res.status(404).json({ success: false, message: 'Reservation not found' });
+        }
+
+        res.status(200).json({ success: true, message: 'Reservation deleted successfully', deletedReservation });
+        console.log("deleted");
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Failed to delete reservation' });
+    }
+}
+
+
+module.exports = { reserveSeats, updateReservation, deleteReservation };

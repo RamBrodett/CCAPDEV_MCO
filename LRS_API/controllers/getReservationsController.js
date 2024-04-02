@@ -11,4 +11,15 @@ const getReservations = async (req, res) => {
     }
 }
 
-module.exports = { getReservations }
+const getAllReservations = async (_req, res) => {
+    try {
+        const allReservations = await Reservation.find();
+        console.log("found reservations");
+        res.json(allReservations);
+    } catch (error) {
+        console.error('Error retrieving reservations: ', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+module.exports = { getReservations, getAllReservations }

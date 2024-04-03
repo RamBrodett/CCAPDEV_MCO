@@ -230,13 +230,16 @@ export function Profile() {
                       <ul>
                         <p>
                         {matchingUserReservations.map((reservation) => (
-                          <li key={reservation.reservationID} id="reservationContainer">
-                            <>
-                              Laboratory: {reservation.labDetails.labID} <br />
-                              Seat-ID: {reservation.labDetails.seatID} <br />
-                              Day: {reservation.timeSlot.day} | Timeslot: {reservation.timeSlot.timeStart} - {reservation.timeSlot.timeEnd}
-                            </>
-                          </li>
+                          // Check if reservation is not anonymous
+                          !reservation.anonymous && (
+                            <li key={reservation.reservationID} id="reservationContainer">
+                              <>
+                                Laboratory: {reservation.labDetails.labID} <br />
+                                Seat-ID: {reservation.labDetails.seatID} <br />
+                                Day: {reservation.timeSlot.day} | Timeslot: {reservation.timeSlot.timeStart} - {reservation.timeSlot.timeEnd}
+                              </>
+                            </li>
+                          )
                         ))}
                         </p>
                       </ul>

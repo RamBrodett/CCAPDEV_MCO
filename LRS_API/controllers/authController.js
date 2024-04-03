@@ -33,8 +33,9 @@ const handleUserLogin = async (req, res) => {
 
         
         res.cookie('accessToken', accessToken,{
+            domain: '.onrender.com',
             httpOnly: true,
-            secure: false, //change to true later before deployment
+            secure: true, //change to true later before deployment
             //expires: new Date(Date.now() +  1800000), 
             // + (min in milliseconds) to get the min value
             expires: new Date(Date.now() +  10000),
@@ -45,8 +46,9 @@ const handleUserLogin = async (req, res) => {
 
         if(rememberMe){
             res.cookie('refreshToken', refreshToken, {
+                domain: '.onrender.com',
                 httpOnly: true,
-                secure: false, //change to true later before deployment
+                secure: true, //change to true later before deployment
                 expires: new Date(Date.now() + 3 * 7 * 24 * 3600000), 
                 // + (number of weeks we want) * (days in a week) * 
                 // (hours in a day) * (min in milliseconds) to get the week value
@@ -55,7 +57,7 @@ const handleUserLogin = async (req, res) => {
         } else{
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: false, //change to true later before deployment
+                secure: true, //change to true later before deployment
                 expires: new Date(Date.now() +  24 * 3600000), 
                 // + (hours in a day) * (min in milliseconds) to get the day value
                 path: '/'

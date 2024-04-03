@@ -14,6 +14,54 @@ export function Profile() {
   const [editingReservationID, setEditingReservationID] = useState(null);
   const [EditingLabID, setEditingLabID] = useState('');
 
+  const [editingSeatID, setEditingSeatID] = useState('');
+  const [editingDay, setEditingDay] = useState('');
+  const [editingTimeStart, setEditingTimeStart] = useState('');
+  const [editingTimeEnd, setEditingTimeEnd] = useState('');
+  const [editingTime, setEditingTime] = useState('');
+
+  const [selectedDay, setSelectedDay] = useState('Sun');
+  const [selectedTime, setSelectedTime] = useState('9:00');
+  const [selectedLab, setSelectedLab] = useState([]);
+  const timeSlots = ['9:00', '9:45', '10:30', '11:15', '12:00'];
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const emptyLS212 = [
+    'A01','A02','A03','A04','A05','A06','A07',
+    'B05','B06','B07','C05','C06','C07','C08','C09','C10',
+    'D05','D06','D07','D08','D09','D10'
+  ];  
+  const emptyGK306AB = [
+    'A01','A02','A03','A04','A05','A06','A07','A08','A09','A10',
+    'B01','B02','B03','B04','B05','B06','B07','B08','B09','B10'
+  ];  
+
+  const labMap = {
+    'Velasco 205': {id: 'VL205', emptyCells: [], numRows: 3, numCols: 8 },
+    'Velasco 206': {id: 'VL206', emptyCells: [], numRows: 3, numCols: 8 },
+    'LS Hall 212': {id: 'LS212', emptyCells: emptyLS212, numRows: 4, numCols: 10 },
+    'LS Hall 229': {id: 'LS229', emptyCells: [], numRows: 5, numCols: 9 },
+    'Gokongwei 306A': {id: 'GK306A', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
+    'Gokongwei 306B': {id: 'GK306B', emptyCells: emptyGK306AB, numRows: 4, numCols: 8 },
+  };
+
+  function findEndTime(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    let newMinutes = minutes + 30;
+    let newHours = hours;
+    if (newMinutes >= 60) {
+        newHours += 1;
+        newMinutes -= 60;
+    }
+
+    newHours %= 24;
+
+    const formattedHours = String(newHours).padStart(2, '0');
+    const formattedMinutes = String(newMinutes).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}`;
+}
+
   useEffect(() => {
     const fetchUser = async () => {
       const [firstname, lastnameNID] = userCred.split('-');
@@ -66,6 +114,39 @@ export function Profile() {
     fetchUser();
 
   }, [userCred]);
+
+  const handleEditClick = (reservation) => {
+    setEditingReservationID(reservation.reservationID);
+    setEditingLabID(reservation.labDetails.labID);
+    setEditingSeatID(reservation.labDetails.seatID);
+    setEditingDay(reservation.labDetails.day);
+    setEditingTimeStart(reservation.labDetails.timeStart);
+    setEditingTimeEnd(reservation.labDetails.timeEnd);
+    setEditingTime(reservation.labDetails.timeStart - reservation.labDetails.timeEnd);
+
+    const fullRoomName = Object.keys(labMap).find(roomName => labMap[roomName].id === reservation.labDetails.labID);
+
+    setSelectedLab(fullRoomName);
+
+  };
+
+  const handleCancel = () => {
+    setEditingReservationID(null);
+  };
+
+  function generateSeatArray(rows, cols) {
+    const seatArray = [];
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 1; j <= cols; j++) {
+        const rowLetter = alphabet[i];
+        const seatID = rowLetter + (j < 10 ? '0' + j : j);
+        seatArray.push(seatID);
+      }
+    }
+    return seatArray;
+  }
 
   
   const convertTo24Hour = (time12h) => {

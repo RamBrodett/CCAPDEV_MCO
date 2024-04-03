@@ -5,4 +5,5 @@ const router = express.Router();
 router.get('/', userProfile);
 router.get('/settings', userProfile2 );
 
+
 module.exports = router;

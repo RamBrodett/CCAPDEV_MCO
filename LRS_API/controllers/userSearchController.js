@@ -23,4 +23,14 @@ const userSearch = async(req, res) =>{
     }
 }
 
-module.exports = {userSearch}
+const userGetByID = async(req, res) =>{
+    const {userID} = req.query;
+    try{
+        const matchingUser = await User.findOne({userID: userID});
+        res.json(matchingUser);
+    }catch(error){
+        console.error('Error searching users: ', error);
+        res.status(500).json({message: 'Internal server error'});
+    }
+}
+module.exports = {userSearch, userGetByID}

@@ -10,7 +10,8 @@ import { LabSelect } from './Pages/labSelect.jsx'
 import { Book } from './Pages/book.jsx'
 import { Checkout } from './Pages/checkout.jsx'
 import { Profile } from './Pages/profile.jsx'
-import{ SettingsProfile } from './Pages/settings.jsx'
+import { Reservations } from './Pages/reservations.jsx'
+import { SettingsProfile } from './Pages/settings.jsx'
 import { useAuth } from './AuthContext.jsx'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
     }, [setLoggedIn]);
   
     if (isLoading) {
+
       // loading indicator or spinner while checking login status
       return <div className='LoadingScreen'>Loading...</div>;
     }
@@ -56,6 +58,7 @@ function App() {
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/book' element={<Book />} />
           <Route path='/profile/:userCred' element={<Profile />} />
+          <Route path='/reservations/:userCred' element={<Reservations />}/>
           <Route path='/settings' element={<SettingsProfile />} />
         </Routes>
       </Router>

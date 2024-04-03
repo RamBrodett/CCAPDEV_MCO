@@ -31,6 +31,10 @@ app.use(cookieParser());
 
 app.use('/reserve', reserveRoute);
 app.use('/getReservations', getReservationsRoute);
+app.use('/getAllReservations', getReservationsRoute);
+app.use('/updateReservation', reserveRoute);
+app.use('/deleteReservation', reserveRoute);
+
 
 //routing for user management related
 app.use('/getUserProfiles', getUserProfiles)

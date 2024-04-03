@@ -99,7 +99,7 @@ export function Reservations() {
     const fetchProfilePic = async (userData) => {
       const imageKey = userData.profile_info.profile_picture_url.split('.com/')[1];
       try {
-        const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${imageKey}`);
+        const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${imageKey}`);
         if (response.ok) {
           const data = await response.json();
           setImageUrl(data.imageUrl);
@@ -117,7 +117,7 @@ export function Reservations() {
         if (userData.role === 'Student') {
             const userId = userData.userID;
             try{
-                const reservations = await fetch(`http://localhost:3000/getUserReservations?userId=${userId}`)
+                const reservations = await fetch(`https://techquiverlrs.onrender.com/getUserReservations?userId=${userId}`)
                 if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingUserReservations(data);
@@ -128,7 +128,7 @@ export function Reservations() {
         } else if (userData.role === 'Admin') {
             const fetchAllReservations = async () =>{
                 try{
-                const reservations = await fetch(`http://localhost:3000/getReservations/all`)
+                const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations/all`)
                 if(reservations.ok){
                     const data = await reservations.json();
                     setMatchingUserReservations(data);
@@ -146,7 +146,7 @@ export function Reservations() {
   
   const fetchUserByID = async (userID) => {
     try {
-      const response = await fetch(`http://localhost:3000/search/findOne?userID=${userID}`);
+      const response = await fetch(`https://techquiverlrs.onrender.com/search/findOne?userID=${userID}`);
       if (response.ok) {
         const data = await response.json();
         return { 
@@ -215,7 +215,7 @@ export function Reservations() {
   useEffect(() => {  
         const fetchReservations = async () =>{
             try{
-            const reservations = await fetch(`http://localhost:3000/getReservations?labID=${editingLabID}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
+            const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${editingLabID}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
             if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
@@ -244,7 +244,7 @@ export function Reservations() {
     });
 
     try {
-        const response = await fetch('http://localhost:3000/reserve/updateReservation', {
+        const response = await fetch('https://techquiverlrs.onrender.com/reserve/updateReservation', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -280,7 +280,7 @@ export function Reservations() {
   const handleDelete = async (reservationID) => {
 
     try {
-        const response = await fetch('http://localhost:3000/reserve/deleteReservation', {
+        const response = await fetch('https://techquiverlrs.onrender.com/reserve/deleteReservation', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ export function AccDisplay() {
 
         const getImageUrl = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${user.profileKey}`);
+                const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${user.profileKey}`);
                 if (response.ok) {
                     const data = await response.json();
                     setImageUrl(data.imageUrl);

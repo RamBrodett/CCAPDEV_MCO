@@ -108,7 +108,7 @@ const authenticateJWT = async (req, res, next) =>{
             const refreshed_RefreshToken = generateNewToken(user, 1)
             res.cookie('refreshToken', refreshed_RefreshToken,{
                 httpOnly: true,
-                secure: false, //change to true later before deployment
+                secure: true, //change to true later before deployment
                 expires: new Date(Date.now() + 3 * 7 * 24 * 3600000), 
                 // + (number of weeks we want) * (days in a week) * 
                 // (hours in a day) * (min in milliseconds) to get the week value
@@ -130,7 +130,7 @@ const authenticateJWT = async (req, res, next) =>{
             const newAccessToken = generateNewToken(user, 0);
             res.cookie('accessToken', newAccessToken, {
                 httpOnly: true,
-                secure: false,
+                secure: true,
                 //expires: new Date(Date.now() +  1800000),
                 expires: new Date(Date.now() +  10000),
                 path: '/'

@@ -33,7 +33,7 @@ export function SettingsProfile( ) {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/getProfile/settings?userID=${userIDKEY}`);
+        const response = await fetch(`https://techquiverlrs.onrender.com/getProfile/settings?userID=${userIDKEY}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
@@ -48,7 +48,7 @@ export function SettingsProfile( ) {
     const fetchProfilePic = async (userData) => {
       const imageKey = userData.profile_info.profile_picture_url.split('.com/')[1];
       try {
-        const response = await fetch(`http://localhost:3000/profileIMG/readImage?imgKey=${imageKey}`);
+        const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${imageKey}`);
         if (response.ok) {
           const data = await response.json();
           setImageUrl(data.imageUrl);
@@ -84,7 +84,7 @@ export function SettingsProfile( ) {
 
   const handleDeleteConfirmation = async() => {
     
-    const response1 = await fetch('http://localhost:3000/reserve/deleteAllReservations',{
+    const response1 = await fetch('https://techquiverlrs.onrender.com/reserve/deleteAllReservations',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export function SettingsProfile( ) {
     if(!response1.ok){
       return
     }
-    const response = await fetch('http://localhost:3000/auth/logout', {
+    const response = await fetch('https://techquiverlrs.onrender.com/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export function SettingsProfile( ) {
         
         if (response.ok){
 
-          const response2 = await fetch('http://localhost:3000/userManagement/deleteAccount', {
+          const response2 = await fetch('https://techquiverlrs.onrender.com/userManagement/deleteAccount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export function SettingsProfile( ) {
         const formData = new FormData();
         formData.append('image', file);
         formData.append('userID', userIDKEY);
-        const response = await fetch('http://localhost:3000/profileIMG/uploadNewImage',{
+        const response = await fetch('https://techquiverlrs.onrender.com/profileIMG/uploadNewImage',{
           method: 'POST',
           body: formData
           }
@@ -188,7 +188,7 @@ export function SettingsProfile( ) {
         editedUserData: editedUserData
       };
 
-      const response = await fetch('http://localhost:3000/userManagement/updateAccount',{
+      const response = await fetch('https://techquiverlrs.onrender.com/userManagement/updateAccount',{
         method: 'POST',
         headers:{
           'Content-Type': 'application/json',
@@ -243,7 +243,7 @@ export function SettingsProfile( ) {
     }
 
     try{
-      const response = await fetch('http://localhost:3000/auth/checkPassword',{
+      const response = await fetch('https://techquiverlrs.onrender.com/auth/checkPassword',{
         method: 'POST',
         headers:{
           'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ export function SettingsProfile( ) {
       if (response.ok){
         //if password matched, change password
         try{
-          const passResponse = await fetch('http://localhost:3000/userManagement/updateLoginCredentials',{
+          const passResponse = await fetch('https://techquiverlrs.onrender.com/userManagement/updateLoginCredentials',{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

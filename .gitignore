@@ -1,1 +1,3 @@
 LRS_API/.env
+LRS_CLIENT/node_modules
+node_modules

@@ -18,7 +18,7 @@ export function Header(){
     /* this is temporary have to fix the backend for the login check */
     const handleLogOut = async () =>{
         
-        const response = await fetch('http://localhost:3000/auth/logout', {
+        const response = await fetch('https://techquiverlrs.onrender.com/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

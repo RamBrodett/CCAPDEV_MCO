@@ -11,7 +11,7 @@ export function Search_Field() {
 
   const getMatchingUsers = async() => {
     try{
-      const response = await fetch(`http://localhost:3000/search?wordQuery=${text}`);
+      const response = await fetch(`https://techquiverlrs.onrender.com/search?wordQuery=${text}`);
       if(!response.ok){
         throw new Error('Failed to fetch matching users');
       }

@@ -63,7 +63,7 @@ export function Register(){
         setSuccessMessage('');
 
         try{
-            const response = await fetch('http://localhost:3000/userManagement/register',{
+            const response = await fetch('https://techquiverlrs.onrender.com/userManagement/register',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

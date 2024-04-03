@@ -204,7 +204,7 @@ export function Book(){
     useEffect(() => {  
         const fetchReservations = async () =>{
             try{
-              const reservations = await fetch(`http://localhost:3000/getReservations?labID=${labMap[selectedLab].id}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
+              const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${labMap[selectedLab].id}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
               if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
@@ -224,7 +224,7 @@ export function Book(){
                 const userIDs = matchingReservations.map(reservation => reservation.studentID);
                 const usernames = await Promise.all(userIDs.map(async (userID, index) => {
                     try {
-                        const response = await fetch(`http://localhost:3000/search/findOne?userID=${userID}`);
+                        const response = await fetch(`https://techquiverlrs.onrender.com/search/findOne?userID=${userID}`);
                         if (response.ok) {
                             const userData = await response.json();
                             // Get the reservation corresponding to this userID
@@ -277,7 +277,7 @@ export function Book(){
     useEffect(() => {  
         const fetchListStudents = async () =>{
             try{
-              const students = await fetch(`http://localhost:3000/getUserProfiles?role=Student`)
+              const students = await fetch(`https://techquiverlrs.onrender.com/getUserProfiles?role=Student`)
               if(students.ok){
                 const data = await students.json();
                 setStudents(data);
@@ -308,7 +308,7 @@ export function Book(){
                     const promises = updatedForms.map(async (form, index) => {
                         const delay = index * 1000; // Adjust the delay time as needed
                         await new Promise(resolve => setTimeout(resolve, delay));
-                        const response = await fetch('http://localhost:3000/reserve', {
+                        const response = await fetch('https://techquiverlrs.onrender.com/reserve', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -359,7 +359,7 @@ export function Book(){
                     const promises = updatedForms.map(async (form, index) => {
                         const delay = index * 1000; // Adjust the delay time as needed
                         await new Promise(resolve => setTimeout(resolve, delay));
-                        const response = await fetch('http://localhost:3000/reserve', {
+                        const response = await fetch('https://techquiverlrs.onrender.com/reserve', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -411,7 +411,7 @@ export function Book(){
                     const promises = updatedForms.map(async (form, index) => {
                         const delay = index * 1000; // Adjust the delay time as needed
                         await new Promise(resolve => setTimeout(resolve, delay));
-                        const response = await fetch('http://localhost:3000/reserve', {
+                        const response = await fetch('https://techquiverlrs.onrender.com/reserve', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

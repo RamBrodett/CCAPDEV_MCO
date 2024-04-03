@@ -22,7 +22,7 @@ function App() {
     useEffect(() => {
       const checkAndLoginUser = async () => {
         try {
-          const response = await fetch('http://localhost:3000/auth/check', {
+          const response = await fetch('https://techquiverlrs.onrender.com/auth/check', {
             method: 'GET',
             credentials: 'include',
           });

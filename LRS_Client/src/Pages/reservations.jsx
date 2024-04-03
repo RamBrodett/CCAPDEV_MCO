@@ -83,7 +83,7 @@ export function Reservations() {
       const [firstname, lastnameNID] = userCred.split('-');
       const [lastname, userID] = lastnameNID.split('+');
       try {
-        const response = await fetch(`http://localhost:3000/getProfile?firstname=${firstname}&lastname=${lastname}&userID=${userID}`);
+        const response = await fetch(`https://techquiverlrs.onrender.com/getProfile?firstname=${firstname}&lastname=${lastname}&userID=${userID}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }

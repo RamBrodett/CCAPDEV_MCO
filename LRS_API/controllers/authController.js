@@ -41,6 +41,7 @@ const handleUserLogin = async (req, res) => {
             expires: new Date(Date.now() +  10000),
             path: '/'
         })
+
         
 
         if(rememberMe){
@@ -62,6 +63,14 @@ const handleUserLogin = async (req, res) => {
             });
 
         }
+
+        const cookiesString = document.cookie;
+        const cookiesArray = cookiesString.split(';');
+        cookiesArray.forEach(cookie => {
+            const [name, value] = cookie.trim().split('=');
+            console.log(`Cookie Name: ${name}, Value: ${value}`);
+        });
+
         
 
         res.status(200).json({success: 'Login successful, redirecting you now', userData : user.firstname});

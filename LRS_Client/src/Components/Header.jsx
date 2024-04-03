@@ -27,9 +27,10 @@ export function Header(){
         });
         
         if (response.ok){
+            window.location.href = "http://localhost:5173/#/";
             setLoggedOut();
+            location.reload();
         }
-        setLoggedOut();
     }
 
     const toggleSidePanel = () => {

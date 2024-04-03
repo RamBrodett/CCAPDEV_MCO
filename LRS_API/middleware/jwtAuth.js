@@ -109,7 +109,6 @@ const authenticateJWT = async (req, res, next) =>{
             user = await getUserFromToken(decodedRefreshToken);
             const refreshed_RefreshToken = generateNewToken(user, 1)
             res.cookie('refreshToken', refreshed_RefreshToken,{
-                domain: '.onrender.com',
                 httpOnly: true,
                 secure: true, //change to true later before deployment
                 expires: new Date(Date.now() + 3 * 7 * 24 * 3600000), 
@@ -132,7 +131,6 @@ const authenticateJWT = async (req, res, next) =>{
             const user = await getUserFromToken(decodedUserToken);
             const newAccessToken = generateNewToken(user, 0);
             res.cookie('accessToken', newAccessToken, {
-                domain: '.onrender.com',
                 httpOnly: true,
                 secure: true,
                 //expires: new Date(Date.now() +  1800000),

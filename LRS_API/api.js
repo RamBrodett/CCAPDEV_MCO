@@ -23,7 +23,7 @@ const userReservationRoute = require('./routes/userReservationRoute');
 connectDB();
 
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: 'https://techquiverlabreservation.onrender.com/', 
     credentials: true,
   }));
 app.use(express.json());

@@ -291,7 +291,7 @@ export function Reservations() {
             console.error('Error deleting reservation: ', response.statusText);
         }
         else {
-            window.location.href = "http://localhost:5173/reservations/";
+            window.location.reload();
         }
     } catch (error) {
         console.error('Error handling form submission:', error);

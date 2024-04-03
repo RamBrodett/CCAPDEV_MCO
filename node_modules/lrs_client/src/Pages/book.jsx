@@ -62,11 +62,6 @@ export function Book(){
         anonymous: ''
     });
 
-    const handleDayChange = (day) => {
-        setSelectedDay(day);    
-        removeAllInfoDivs();
-    };
-
     const convertTo24Hour = (time12h) => {
         const [time, period] = time12h.split(/(?=[AP]M)/);
     
@@ -102,11 +97,6 @@ export function Book(){
         return `${formattedHours}:${formattedMinutes}`;
     }
 
-    const handleTimeChange = (time) => {
-        setSelectedTime(time);
-        removeAllInfoDivs();
-    };
-
     const removeAllInfoDivs = () => {
         const selectedSeatsContainer = document.getElementById("selectedSeatsContainer");
         if (selectedSeatsContainer) {
@@ -117,6 +107,38 @@ export function Book(){
         }
     };
 
+    const resetForms = () => {
+        setForms([]);
+    
+        setFormData({
+            studentID: '',
+            labDetails: {
+                labID: labMap[selectedLab].id,
+                seatID: '',
+            },
+            date: new Date('2024-03-22'),
+            timeSlot: {
+                day: '',
+                timeStart: '',
+                timeEnd: '',
+            },
+            anonymous: ''
+        });
+        removeAllInfoDivs();
+    }
+
+    const handleTimeChange = (time) => {
+        setSelectedTime(time);
+        resetForms();
+    };
+
+
+    const handleDayChange = (day) => {
+        setSelectedDay(day);    
+        resetForms();
+    };
+
+    
     const handleCellClick = (event) => {
         const cell = event.target;
         const seatID = cell.value;

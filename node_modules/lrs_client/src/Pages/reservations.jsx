@@ -24,6 +24,8 @@ export function Reservations() {
   const [selectedLab, setSelectedLab] = useState([]);
   const timeSlots = ['9:00', '9:45', '10:30', '11:15', '12:00'];
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const [usernames, setUsernames] = useState([]);
+
 
   const [formData, setFormData] = useState({
         reservationID: '',
@@ -113,27 +115,23 @@ export function Reservations() {
 
     const fetchUserReservations = async (userData) =>{
         if (userData.role === 'Student') {
-            console.log("user is an "+userData.role);
             const userId = userData.userID;
             try{
                 const reservations = await fetch(`http://localhost:3000/getUserReservations?userId=${userId}`)
                 if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingUserReservations(data);
-                console.log(matchingUserReservations);
                 }
             }catch(error){
                 console.error('Error fetching reservations:', error);
             } 
         } else if (userData.role === 'Admin') {
-            console.log("user is an "+userData.role);
             const fetchAllReservations = async () =>{
                 try{
                 const reservations = await fetch(`http://localhost:3000/getReservations/all`)
                 if(reservations.ok){
                     const data = await reservations.json();
                     setMatchingUserReservations(data);
-                    console.log(data);
                 }
                 }catch(error){
                 console.error('Error fetching reservations:', error);
@@ -144,6 +142,25 @@ export function Reservations() {
     }
     fetchUser();
   }, [userCred]);
+
+  
+  const fetchUserByID = async (userID) => {
+    try {
+      const response = await fetch(`http://localhost:3000/search/findOne?userID=${userID}`);
+      if (response.ok) {
+        const data = await response.json();
+        return { 
+          firstname: data.firstname, 
+          lastname: data.lastname
+        };
+      } else {
+        throw new Error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return null;
+    }
+  };
 
   const handleEditClick = (reservation) => {
     setEditingReservationID(reservation.reservationID);
@@ -202,7 +219,6 @@ export function Reservations() {
             if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
-                console.log(data);
             }
             }catch(error){
             console.error('Error fetching reservations:', error);
@@ -237,7 +253,6 @@ export function Reservations() {
         });
         if (!response.ok) {
             console.error('Error updating reservation: ', response.statusText);
-            console.log(formData);
         }
         else {
             setFormData({
@@ -274,7 +289,6 @@ export function Reservations() {
         });
         if (!response.ok) {
             console.error('Error deleting reservation: ', response.statusText);
-            console.log({ reservationID: reservationID });
         }
         else {
             window.location.href = "http://localhost:5173/reservations/";
@@ -283,6 +297,27 @@ export function Reservations() {
         console.error('Error handling form submission:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const fetchedUsernames = await Promise.all(matchingUserReservations.map(async (reservation) => {
+          const userData = await fetchUserByID(reservation.studentID);
+
+          return {
+            reservationID: reservation.reservationID,
+            userID: reservation.studentID,
+            firstname: userData.firstname,
+            lastname: userData.lastname
+          };
+        }));
+        setUsernames(fetchedUsernames.filter(user => user !== null));
+      } catch (error) {
+        console.error('Error fetching usernames:', error);
+      }
+    };
+    fetchUsernames();
+  }, [matchingUserReservations]);
 
     return (
       <div id='profile_Container'>
@@ -301,8 +336,18 @@ export function Reservations() {
                         <p>
                           {matchingUserReservations.map((reservations) =>(
                             <li key={reservations.reservationID} id="reservationContainer">
+                            {/* Display user details here */}
                               {editingReservationID === reservations.reservationID ? (
                               <>
+                              {userData.role === "Admin" && (
+                              <>                            
+                              {usernames.map(user => (
+                              user.reservationID === reservations.reservationID && (
+                                <div key={user.reservationID}>
+                                  Student: {user.firstname} {user.lastname}<br />
+                                </div>
+                              )
+                            ))}</>)}
                               <label htmlFor="labs-dropdown">Laboratory:</label>
                               <select name="labs" id="labs-dropdown" onChange={(e) => setEditingLabID(e.target.value)} defaultValue={editingLabID}>
                                 {Object.values(labMap).map((lab) => (
@@ -349,15 +394,23 @@ export function Reservations() {
                               </>
                               ) : (
                                 <> 
+                                  {userData.role === "Admin" && (<>
+                                    {usernames.map(user => (
+                                    user.reservationID === reservations.reservationID && (
+                                      <div key={user.reservationID}>
+                                        Student: {user.firstname} {user.lastname}<br />
+                                      </div>
+                                    )
+                                  ))}
+                                  </>)}
                                   Laboratory: {reservations.labDetails.labID} <br />
-                                  Seat-ID: {reservations.labDetails.seatID} <br />
+                                  Seat ID: {reservations.labDetails.seatID} <br />
                                   Day: {reservations.timeSlot.day} | Timeslot: {reservations.timeSlot.timeStart} - {reservations.timeSlot.timeEnd}
                                   <button id="topRightReservationButton1" onClick={() => handleDelete(reservations.reservationID)}>REMOVE</button>
                                   <button id="topRightReservationButton2" onClick={() => handleEditClick(reservations)}>EDIT</button>
                                 </>)}
-
-                          </li>
-                          ))}
+                              </li>
+                            ))}
                           </p>
                         </ul>
                   </>

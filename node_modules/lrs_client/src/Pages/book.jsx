@@ -25,10 +25,9 @@ export function Book(){
     const [bookedUserIDs, setBookedUserIDs] = useState([]);
     const [usernames, setUsernames] = useState([]);
     const [students, setStudents] = useState([]);
-    const [selectedStudentID, setSelectedStudentID] = useState('');
-
-
     const { user } = useAuth();
+    const [selectedStudentID, setSelectedStudentID] = useState(user.userID);
+
     const emptyLS212 = [
         'A01','A02','A03','A04','A05','A06','A07',
         'B05','B06','B07','C05','C06','C07','C08','C09','C10',

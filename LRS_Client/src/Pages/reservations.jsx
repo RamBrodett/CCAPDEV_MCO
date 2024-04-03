@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Header } from '../Components/Header';
 import { Footer } from '../Components/Footer';
-import '../Styles/profile.css'
+import '../Styles/reservations.css'
 
 export function Reservations() {
   const { userCred } = useParams();
@@ -320,15 +320,13 @@ export function Reservations() {
   }, [matchingUserReservations]);
 
     return (
-      <div id='profile_Container'>
+      <div id='r_profile_Container'>
         <Header />
-        <div id="profile_body">
           {loading ? (
             <div>Loading...</div>
           ) : userData ? (
-            <div id='UserProfileDetails'>
-              <div id="botProfileDetails">
-                <div id="reservedSeatsDetails">
+              <div id="r_botProfileDetails">
+                <div id="r_reservedSeatsDetails">
                   {matchingUserReservations ? (
                   <>
                       <h1>Reservations</h1>
@@ -421,12 +419,10 @@ export function Reservations() {
                     </>
                   )}
                 </div>
-              </div>
             </div>
           ) : (
             <div id="errorProfile">User not found</div>
           )}
-        </div>
         <Footer />
       </div>
     );

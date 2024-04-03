@@ -4,7 +4,11 @@ Author: Chantal Sia
 
 import {Header} from '../Components/Header.jsx'
 import {Footer} from '../Components/Footer.jsx'
+import GuideImage1 from '../Assets/guideimage1.png'
+import GuideImage2 from '../Assets/guideimage2.png'
+import GuideImage3 from '../Assets/guideimage3.png'
 import '../Styles/guide.css'
+
 
 export function Guide(){
     return(
@@ -20,8 +24,9 @@ export function Guide(){
                 </div>
 
                 <div className = "stepcontainer"> 
-                    <div className = "stepstep">
-                        <div className = "step1imagebox">
+                    <div className = "step">
+                        <div className = "stepimagebox">
+                            <img src={GuideImage1} style={{marginBottom: "34px"}}></img>
                         </div>
                         <div className='steptextbox'>
                             Select booking located at the top right corner of the page next to the login button.
@@ -30,25 +35,23 @@ export function Guide(){
                     </div>
 
                     <div className = "step">
-                        <div className = "step2imagebox">
+                        <div className = "stepimagebox">
+                            <img src={GuideImage2}></img>
                         </div>
                         <div className='steptextbox'>
-                            From this window select which laboratory you would like to book and the date and time.
-
+                            From this window select your desired laboratory, day, time slot, and seats. You may also reserve anonymously by checking the box to the left of Checkout.
                         </div>
                     </div>
 
                     <div className = "step">
-                        <div className = "step3imagebox">
+                        <div className = "stepimagebox">
+                            <img src={GuideImage3}></img>
                         </div>
                         <div className='steptextbox'>
-                           {` Choose among the green available seats and click on the seat you would like to book. the
-                            box should turn red once it's reserved.`}
+                            Once everything is chosen, click on Checkout to confirm your reservation. You can manage your reservations in the side panel by clicking on your profile in the top right.
                         </div>
                     </div>
-            
                 </div>
-
             </div>
             <Footer />
         </div>

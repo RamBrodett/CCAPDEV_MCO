@@ -29,7 +29,6 @@ export function Header(){
         if (response.ok){
             setLoggedOut();
         }
-        
         setLoggedOut();
     }
 

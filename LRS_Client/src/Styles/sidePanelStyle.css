@@ -7,6 +7,7 @@
     background-color: #8da1a5;
     transition: right 0.3s ease-in-out;
     text-align: center;
+    z-index: 1000; /* Set a high z-index value */
 }
 
 .sidepanelContainer button{
@@ -18,8 +19,6 @@
     margin-top: 15px;
     text-decoration: underline;
 }
-
-
 
 #sidepanelContent{
     padding: 20px;

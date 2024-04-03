@@ -56,6 +56,7 @@ const handleUserLogin = async (req, res) => {
             });
         } else{
             res.cookie('refreshToken', refreshToken, {
+                domain: '.onrender.com',
                 httpOnly: true,
                 secure: true, //change to true later before deployment
                 expires: new Date(Date.now() +  24 * 3600000), 
@@ -83,15 +84,17 @@ const handleUserLogout = (req, res) =>{
     const refreshToken = req.cookies.refreshToken;
 
     res.cookie('accessToken', accessToken,{
+        domain: '.onrender.com',
         httpOnly: true,
-        secure: false, //change to true later before deployment
+        secure: true, //change to true later before deployment
         expires: new Date("1900-01-01"), 
         path: '/'
     });
 
     res.cookie('refreshToken', refreshToken, {
+        domain: '.onrender.com',
         httpOnly: true,
-        secure: false, 
+        secure: true, 
         expires: new Date("1900-01-01"), 
         path: '/'
     });

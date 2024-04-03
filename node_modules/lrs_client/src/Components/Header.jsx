@@ -27,8 +27,9 @@ export function Header(){
         });
         
         if (response.ok){
+            window.location.href = "http://localhost:5173/#/";
             setLoggedOut();
-            window.location.reload();
+            location.reload();
         }
         
     }

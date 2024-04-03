@@ -22,6 +22,8 @@ export function Book(){
 
     const [forms, setForms] = useState([]);
     const [matchingReservations, setMatchingReservations] = useState([]);
+    const [bookedUserIDs, setBookedUserIDs] = useState([]);
+    const [usernames, setUsernames] = useState([]);
     const [students, setStudents] = useState([]);
     const [selectedStudentID, setSelectedStudentID] = useState('');
 
@@ -57,7 +59,8 @@ export function Book(){
             day: '',
             timeStart: '',
             timeEnd: '',
-        }
+        },
+        anonymous: ''
     });
 
     const handleDayChange = (day) => {
@@ -180,12 +183,10 @@ export function Book(){
     useEffect(() => {  
         const fetchReservations = async () =>{
             try{
-                console.log(labMap[selectedLab].id);
               const reservations = await fetch(`http://localhost:3000/getReservations?labID=${labMap[selectedLab].id}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
               if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
-                console.log(data);
               }
             }catch(error){
               console.error('Error fetching reservations:', error);
@@ -196,19 +197,55 @@ export function Book(){
 
     const sampleTables = {};
 
+    useEffect(() => {
+        const fetchUsernames = async () => {
+            try {
+                const userIDs = matchingReservations.map(reservation => reservation.studentID);
+                const usernames = await Promise.all(userIDs.map(async (userID, index) => {
+                    try {
+                        const response = await fetch(`http://localhost:3000/search/findOne?userID=${userID}`);
+                        if (response.ok) {
+                            const userData = await response.json();
+                            // Get the reservation corresponding to this userID
+                            const reservation = matchingReservations[index];
+                            // Extract the anonymous property from the reservation
+                            const reservedAnon = reservation ? reservation.anonymous : false;
+                            return { 
+                                firstname: userData.firstname, 
+                                lastname: userData.lastname, 
+                                userID: userData.userID, 
+                                reservedAnon: reservedAnon 
+                            };
+                        } else {
+                            throw new Error('Failed to fetch user data');
+                        }
+                    } catch (error) {
+                        console.error('Error fetching user data:', error);
+                        return null;
+                    }
+                }));
+                setUsernames(usernames.filter(name => name !== null));
+            } catch (error) {
+                console.error('Error fetching usernames:', error);
+            }
+        };
+    
+        fetchUsernames();
+    }, [matchingReservations]);
+    
+    
     days.forEach(day => {
         timeSlots.forEach((timeSlot, index) => {
             const key = `${day}-${timeSlot}`;
-            const reservationKey = `D${days.indexOf(day)}T${index + 1}`;
             const table = (
                 <div key={key}>
                     {generateTable(
-                        reservationKey,
                         handleCellClick,
                         matchingReservations.map(reservation => reservation.labDetails.seatID),
                         labMap[selectedLab].emptyCells,
                         labMap[selectedLab].numRows,
-                        labMap[selectedLab].numCols
+                        labMap[selectedLab].numCols,
+                        usernames
                     )}
                 </div>
             );
@@ -223,7 +260,6 @@ export function Book(){
               if(students.ok){
                 const data = await students.json();
                 setStudents(data);
-                console.log(data);
               }
             }catch(error){
               console.error('Error fetching list of students:', error);
@@ -234,19 +270,17 @@ export function Book(){
 
     const handleStudentSelect = (event) => {
         const selectedID = event.target.value;
-        console.log('Selected Student ID:', selectedID);
         setSelectedStudentID(selectedID);
     };
 
     const handleSubmit = async (e) => {
-        console.log(user.userID);
         const reserveAnonCheckbox = document.getElementById('reserve-anon');
         e.preventDefault();
         if (user.role == 'Student'){
             if (reserveAnonCheckbox && reserveAnonCheckbox.checked) {
                 const updatedForms = forms.map(form => ({
                     ...form,
-                    studentID: 0
+                    anonymous: true
                 }));
                 setForms(updatedForms);
                 try {
@@ -283,7 +317,8 @@ export function Book(){
                                 day: '',
                                 timeStart: '',
                                 timeEnd: '',
-                            }
+                            },
+                            anonymous: ''
                         });
     
                         window.location.href = "http://localhost:5173/#";
@@ -333,7 +368,8 @@ export function Book(){
                                 day: '',
                                 timeStart: '',
                                 timeEnd: '',
-                            }
+                            },
+                            anonymous: ''
                         });
     
                         window.location.href = "http://localhost:5173/#";
@@ -384,7 +420,8 @@ export function Book(){
                                 day: '',
                                 timeStart: '',
                                 timeEnd: '',
-                            }
+                            },
+                            anonymous: ''
                         });
     
                         window.location.href = "http://localhost:5173/#";
@@ -396,8 +433,6 @@ export function Book(){
                 }
         }
     };
-    
-    
 
     return(
         <div className="bookBody">

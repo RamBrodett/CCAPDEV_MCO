@@ -1,7 +1,7 @@
 const Reservation = require('../model/Reservation');
 
 const reserveSeats = async (req, res) => {
-    const { studentID, labDetails, date, timeSlot } = req.body;
+    const { studentID, labDetails, date, timeSlot, anonymous } = req.body;
     try {
         const lastReservation = await Reservation.findOne({}, {}, { sort: { 'reservationID': -1 } }).exec();
         let newReservationID = 1;
@@ -23,7 +23,8 @@ const reserveSeats = async (req, res) => {
                 day: timeSlot.day,
                 timeStart: timeSlot.timeStart,
                 timeEnd: timeSlot.timeEnd,
-            }
+            },
+            anonymous: anonymous
         });
 
         res.status(201).json({ success: true, message: 'Reservation created successfully' });

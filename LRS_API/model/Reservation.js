@@ -12,8 +12,6 @@ const reservationSchema = new Schema({
     studentID:{
         type: Number,
         require: true,
-        default: 0
-        //if 0 it is anonymous @jpcarney 
     },
     labDetails:{
         labID: {
@@ -42,6 +40,12 @@ const reservationSchema = new Schema({
             type: String,
             required: true,
         }
+    },
+    anonymous:{
+        type: Boolean,
+        require: true,
+        default: false
+        //if true it is anonymous
     }
 });
 

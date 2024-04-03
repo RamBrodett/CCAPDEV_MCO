@@ -86,5 +86,23 @@ const deleteReservation = async (req, res) => {
     }
 }
 
+const deleteAllReservation = async (req, res) => {
+    const {userID} = req.body;
+    console.log(userID);
+    try{
+        const deletedReservations = await Reservation.deleteMany({studentID: userID});
+        if (deletedReservations.deletedCount > 0) {
+            console.log(deletedReservations.deletedCount)
+            res.status(200).json({ success: true, message: 'Reservations deleted successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'No reservations found for the user' });
+        }
 
-module.exports = { reserveSeats, updateReservation, deleteReservation };
+    }catch(error){
+        res.status(500).json({ success: false, message: 'Failed to delete reservations' });
+    }
+
+}
+
+
+module.exports = { reserveSeats, updateReservation, deleteReservation, deleteAllReservation };

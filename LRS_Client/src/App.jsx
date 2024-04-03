@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home } from './Pages/Home.jsx'
+import {About} from './Pages/about.jsx'
 import { Login } from './Pages/login.jsx'
 import { Register } from './Pages/register.jsx'
 import { Location } from './Pages/location.jsx'
@@ -53,6 +54,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/locations' element={<Location />} />
           <Route path='/guide' element={<Guide />} />
+          <Route path='/About' element={<About />} />
           <Route path='/labSelect' element={<LabSelect />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/book' element={<Book />} />

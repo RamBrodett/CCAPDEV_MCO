@@ -48,6 +48,7 @@ export function Header(){
             </div>
             <div className="NavMenu">
                 <Link className='NavElem' to='/'>Home</Link>
+                <Link className='NavElem' to='/About'>About</Link>
                 {user.isLoggedIn?(
                     <Link className='NavElem' to='/labSelect'>Book</Link>
                     ):(

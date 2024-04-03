@@ -54,12 +54,14 @@ export function Login(){
                     password: '',
                 });
 
+                setLoggedIn(result.userData);
+
                 setTimeout(() => {
                     window.location.href = "https://techquiverlabreservation.onrender.com/#/";
                     setSuccessMessage('');
                   }, 2500);
 
-                setLoggedIn(result.userData)
+                setLoggedIn(result.userData);
 
             }else{
                 const errorMessage = await response.json()

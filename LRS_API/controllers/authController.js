@@ -28,10 +28,9 @@ const handleUserLogin = async (req, res) => {
             return res.status(401).json({message: 'Invalid email or password'})
         }
        
-
         //it made it here, thus passwords are equal. Generate tokens 
         const {accessToken, refreshToken} = authMiddleware.generateCredentialToken(user,rememberMe); // error here
-        
+
         
         res.cookie('accessToken', accessToken,{
             httpOnly: true,
@@ -64,12 +63,6 @@ const handleUserLogin = async (req, res) => {
 
         }
 
-        const cookiesString = document.cookie;
-        const cookiesArray = cookiesString.split(';');
-        cookiesArray.forEach(cookie => {
-            const [name, value] = cookie.trim().split('=');
-            console.log(`Cookie Name: ${name}, Value: ${value}`);
-        });
 
         
 

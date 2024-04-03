@@ -15,7 +15,6 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
             profileKey: user.profile_info.profile_picture_url.split('.com/')[1],
             role: user.role
         }
-
         console.log(payload)
         const refreshPayload = {
             userId: user.userID,
@@ -24,7 +23,7 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
         
         //const accesTokenOptions = { expiresIn: '30m'};
         const accesTokenOptions = { expiresIn: '10s'};
-        const refreshTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1d'};
+        const refreshTokenOptions = { expiresIn: isRememberMeToggled ? '3w' : '1h'};
         const accessToken = jwt.sign(payload, secretKey, accesTokenOptions);
         
         const refreshToken = jwt.sign(refreshPayload, secretKey, refreshTokenOptions);

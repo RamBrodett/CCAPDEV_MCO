@@ -41,7 +41,6 @@ function App() {
     }, [setLoggedIn]);
   
     if (isLoading) {
-
       // loading indicator or spinner while checking login status
       return <div className='LoadingScreen'>Loading...</div>;
     }

@@ -54,7 +54,7 @@ export function Login(){
                 });
 
                 setTimeout(() => {
-                    window.location.href = "http://localhost:5173/#/";
+                    window.location.href = "https://techquiverlabreservation.onrender.com/#/";
                     setSuccessMessage('');
                   }, 2500);
 

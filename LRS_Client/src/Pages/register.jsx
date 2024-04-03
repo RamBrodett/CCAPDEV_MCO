@@ -82,7 +82,7 @@ export function Register(){
 
                 setSuccessMessage(result.success);
                 setTimeout(() => {
-                    window.location.href = "http://localhost:5173/#/login";
+                    window.location.href = "https://techquiverlabreservation.onrender.com/#/login";
                     setSuccessMessage('');
                   }, 2500);
                 

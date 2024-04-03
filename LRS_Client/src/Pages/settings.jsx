@@ -114,7 +114,7 @@ export function SettingsProfile( ) {
           });
 
           if (response2.ok) {
-              window.location.href = "http://localhost:5173/#/";
+              window.location.href = "https://techquiverlabreservation.onrender.com/#/";
               setLoggedOut();
               location.reload();
           } else {

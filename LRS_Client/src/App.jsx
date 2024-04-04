@@ -16,8 +16,35 @@ import { SettingsProfile } from './Pages/settings.jsx'
 import { useAuth } from './AuthContext.jsx'
 
 function App() {
-    const {setLoggedIn } = useAuth();
-    const [isLoading, setIsLoading] = useState(false);
+    const {user, setLoggedIn } = useAuth();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+      const checkAndLoginUser = async () => {
+        try {
+          const response = await fetch('https://techquiverlrs.onrender.com/auth/check', {
+            method: 'GET',
+            credentials: 'include',
+          });
+    
+          if (response.ok) {
+            const { userData } = await response.json();
+            setLoggedIn(userData);
+          }
+        } catch (error) {
+          console.error('Error checking login status: ', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+    
+      // Initial check
+      checkAndLoginUser();
+    
+      setInterval(checkAndLoginUser, 5 * 60 * 1000);
+    
+    }, [user]);
+
   
     if (isLoading) {
       // loading indicator or spinner while checking login status

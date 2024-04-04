@@ -64,9 +64,7 @@ const handleUserLogin = async (req, res) => {
         }
 
 
-        
-
-        res.status(200).json({success: 'Login successful, redirecting you now', userData : user.firstname});
+        res.status(200).json({success: 'Login successful, redirecting you now', userData : user});
 
     }catch (error){
 

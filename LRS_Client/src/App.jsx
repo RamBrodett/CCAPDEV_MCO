@@ -17,7 +17,7 @@ import { useAuth } from './AuthContext.jsx'
 
 function App() {
     const {setLoggedIn } = useAuth();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
   
     if (isLoading) {
       // loading indicator or spinner while checking login status

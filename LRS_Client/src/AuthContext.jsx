@@ -17,7 +17,7 @@ import { createContext, useContext, useState } from 'react';
   
     const setLoggedIn = (userData) => {
       setUser({
-        userID: userData.userId,
+        userID: userData.userID,
         firstname: userData.firstname,
         lastname: userData.lastname,
         profileKey: userData.profileKey,

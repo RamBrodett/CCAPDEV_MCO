@@ -8,7 +8,7 @@ const secretKey = process.env.JWT_SECRET_KEY;
 const generateCredentialToken = (user,isRememberMeToggled) =>{
     try{
         const payload = {
-            userId: user.userID,
+            userID: user.userID,
             email: user.email,
             firstname: user.firstname,
             lastname:  user.lastname,
@@ -17,7 +17,7 @@ const generateCredentialToken = (user,isRememberMeToggled) =>{
         }
         console.log(payload)
         const refreshPayload = {
-            userId: user.userID,
+            userID: user.userID,
             autoExtends: isRememberMeToggled ? 'true' : 'false'
         }
         
@@ -38,7 +38,7 @@ const generateNewToken = (user, option) => {
     //generetae refreshtoken that auto extends
     if (option === 1){
         const refreshPayload = {
-            userId: user.userID,
+            userID: user.userID,
             autoExtends: 'true'
         }
         const refreshTokenOptions = {expiresIn: '3w'}
@@ -48,7 +48,7 @@ const generateNewToken = (user, option) => {
 
     //else generate accesstoken
     const payload = {
-        userId: user.userID,
+        userID: user.userID,
         email: user.email,
         firstname: user.firstname,
         lastname:  user.lastname,
@@ -73,10 +73,10 @@ const verifyJWT = (token) => {
 };
 
 const getUserFromToken = async (decodedToken) => {
-    if (decodedToken && decodedToken.userId) {
-        const userId = decodedToken.userId;
+    if (decodedToken && decodedToken.userID) {
+        const userID = decodedToken.userID;
         try {
-            const user = await User.findOne({userID: userId});
+            const user = await User.findOne({userID: userID});
             return user;
         } catch (error) {
             console.error('Error fetching user from data store:', error);

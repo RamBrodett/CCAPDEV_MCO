@@ -342,7 +342,7 @@ export function Book(){
                             anonymous: ''
                         });
     
-                        window.location.href = "http://localhost:5173/#";
+                        window.location.href = "https://techquiverlabreservation.onrender.com/#/";
                     } else {
                         console.error('Some reservation requests failed');
                     }
@@ -393,7 +393,7 @@ export function Book(){
                             anonymous: ''
                         });
     
-                        window.location.href = "http://localhost:5173/#";
+                        window.location.href = "https://techquiverlabreservation.onrender.com/#/";
                     } else {
                         console.error('Some reservation requests failed');
                     }
@@ -445,7 +445,7 @@ export function Book(){
                             anonymous: ''
                         });
     
-                        window.location.href = "http://localhost:5173/#";
+                        window.location.href = "https://techquiverlabreservation.onrender.com/#/";
                     } else {
                         console.error('Some reservation requests failed');
                     }

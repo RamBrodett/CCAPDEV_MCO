@@ -40,7 +40,7 @@ function App() {
     
       checkAndLoginUser();
     
-    });
+    },[]);
 
   
     if (isLoading) {

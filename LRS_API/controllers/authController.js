@@ -83,6 +83,7 @@ const handleUserLogout = (req, res) =>{
 
     res.cookie('accessToken', accessToken,{
         httpOnly: true,
+        sameSite: 'none',
         secure: true, //change to true later before deployment
         expires: new Date("1900-01-01"), 
         path: '/'
@@ -90,6 +91,7 @@ const handleUserLogout = (req, res) =>{
 
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
+        sameSite: 'none',
         secure: true, 
         expires: new Date("1900-01-01"), 
         path: '/'

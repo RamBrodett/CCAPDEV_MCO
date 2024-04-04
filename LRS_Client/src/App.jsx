@@ -38,10 +38,7 @@ function App() {
         }
       };
     
-      // Initial check
       checkAndLoginUser();
-    
-      setInterval(checkAndLoginUser, 5 * 60 * 1000);
     
     }, [user]);
 

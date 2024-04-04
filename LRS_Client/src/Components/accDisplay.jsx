@@ -47,8 +47,8 @@ export function AccDisplay() {
 
     return (
         <div className="accDisp">
-            <img id='AccLogo' src={imageUrl} alt="User Profile" />
-            <span id='AccDisplayName'>{displayName}</span>
+            {imageUrl && <img id='AccLogo' src={imageUrl} alt="User Profile" />}
+            {displayName && <span id='AccDisplayName'>{displayName}</span>}
         </div>
     );
 }

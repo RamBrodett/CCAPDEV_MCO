@@ -27,8 +27,8 @@ export function Header(){
         });
         
         if (response.ok){
-            window.location.href = "https://techquiverlabreservation.onrender.com/#/";
             setLoggedOut();
+            window.location.href = "https://techquiverlabreservation.onrender.com/#/";
             location.reload();
         }
     }

@@ -114,8 +114,8 @@ export function SettingsProfile( ) {
           });
 
           if (response2.ok) {
-              window.location.href = "https://techquiverlabreservation.onrender.com/#/";
               setLoggedOut();
+              window.location.href = "https://techquiverlabreservation.onrender.com/#/";
               location.reload();
           } else {
               

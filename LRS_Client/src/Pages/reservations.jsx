@@ -15,9 +15,9 @@ export function Reservations() {
   const [editingSeatID, setEditingSeatID] = useState('');
   const [editingDay, setEditingDay] = useState('');
   const [editingTime, setEditingTime] = useState('');
+  const [editingTimeStart, setEditingTimeStart] = useState('');
+  const [editingTimeEnd, setEditingTimeEnd] = useState('');
 
-  const [selectedDay, setSelectedDay] = useState('Sun');
-  const [selectedTime, setSelectedTime] = useState('9:00');
   const [selectedLab, setSelectedLab] = useState([]);
   const timeSlots = ['9:00', '9:45', '10:30', '11:15', '12:00'];
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -147,6 +147,8 @@ export function Reservations() {
     setEditingSeatID(reservation.labDetails.seatID);
     setEditingDay(reservation.timeSlot.day);
     setEditingTime(reservation.timeSlot.timeStart + " - " + reservation.timeSlot.timeEnd);
+    setEditingTimeStart(reservation.timeSlot.timeStart);
+    setEditingTimeEnd(reservation.timeSlot.timeEnd);
 
     const fullRoomName = Object.keys(labMap).find(roomName => labMap[roomName].id === reservation.labDetails.labID);
 
@@ -192,7 +194,7 @@ export function Reservations() {
   useEffect(() => {  
         const fetchReservations = async () =>{
             try{
-            const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${editingLabID}&day=${selectedDay}&timeStart=${convertTo24Hour(selectedTime)}`)
+            const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${editingLabID}&day=${editingDay}&timeStart=${convertTo24Hour(editingTime)}`)
             if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
@@ -204,10 +206,7 @@ export function Reservations() {
         fetchReservations();
   }, [editingLabID, selectedDay, selectedTime]);
 
-  const handleConfirm = async (reservations, editingLabID, editingSeatID, editingDay, editingTime) => {
-    const [startTimeString, _] = editingTime.split('-');
-    const editingTimeStart = startTimeString.trim();
-    const editingTimeEnd = findEndTime(editingTimeStart);
+  const handleConfirm = async (reservations, editingLabID, editingSeatID, editingDay, editingTimeStart, editingTimeEnd) => {
 
     setFormData({
           reservationID: reservations.reservationID,
@@ -335,7 +334,7 @@ export function Reservations() {
                               )
                             ))}</>)}
                               <label htmlFor="labs-dropdown">Laboratory:</label>
-                              <select name="labs" id="labs-dropdown" onChange={(e) => {setEditingLabID(e.target.value); setEditingSeatID(""); console.log("yoo");}} defaultValue={editingLabID}>
+                              <select name="labs" id="labs-dropdown" onChange={(e) => setEditingLabID(e.target.value)} defaultValue={editingLabID}>
                                 {Object.values(labMap).map((lab) => (
                                   <option key={lab.id} value={lab.id}>
                                     {lab.id}  
@@ -356,7 +355,7 @@ export function Reservations() {
                               </select>
                                 <br></br>
                                 <label htmlFor="day-dropdown">Day:</label>
-                                <select onChange={(e) => {setEditingDay(e.target.value); setEditingSeatID("");}} defaultValue={editingDay}>
+                                <select onChange={(e) => setEditingDay(e.target.value)} defaultValue={editingDay}>
                                   {days.map((day, index) => (
                                     <option key={index} value={day}>
                                       {day}
@@ -364,7 +363,13 @@ export function Reservations() {
                                   ))}
                                 </select>| 
                                 <label htmlFor="timeSlot-dropdown">Time Slot:</label>
-                                <select onChange={(e) => {setEditingTime(e.target.value); setEditingSeatID("");}} defaultValue={editingTime} >
+                                <select onChange={(e) => {
+                                    setEditingTime(e.target.value);
+                                    const [startTimeString, _] = editingTime.split('-');
+                                    setEditingTimeStart(startTimeString.trim());
+                                    setEditingTimeEnd(findEndTime(editingTimeStart));
+                                    setEditingTime(editingTime);
+                                }} defaultValue={editingTime} >
                                   {timeSlots.map((timeStart, index) => {
                                     const timeEnd = findEndTime(timeStart);
                                     const timeSlotLabel = `${timeStart} - ${timeEnd}`;

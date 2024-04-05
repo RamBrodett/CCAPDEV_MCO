@@ -8,6 +8,7 @@ export function AccDisplay() {
     const [displayName, setDisplayName] = useState('');
 
     useEffect(() => {
+        console.log(1);
         const getImageUrl = async () => {
             try {
                 const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${user.profileKey}`);

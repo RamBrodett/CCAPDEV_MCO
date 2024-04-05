@@ -23,7 +23,7 @@ export function AccDisplay() {
             }
         };
         getImageUrl();
-    }, [user]);
+    }, [user.profileKey]);
 
     useEffect(() => {
         setDisplayName(`${user.firstname}`);

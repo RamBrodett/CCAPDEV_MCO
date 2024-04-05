@@ -7,7 +7,7 @@ import '../Styles/reservations.css'
 export function Reservations() {
   const { userCred } = useParams();
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [matchingUserReservations, setMatchingUserReservations] = useState([]);
   const [matchingReservations, setMatchingReservations] = useState([]);
   const [editingReservationID, setEditingReservationID] = useState(null);

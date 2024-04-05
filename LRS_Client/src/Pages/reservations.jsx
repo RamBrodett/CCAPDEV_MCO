@@ -251,7 +251,7 @@ export function Reservations() {
                 }
             });
 
-            location.reload();
+            window.location.reload();
         }
     } catch (error) {
         console.error('Error handling form submission:', error);

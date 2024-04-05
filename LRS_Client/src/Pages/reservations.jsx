@@ -194,7 +194,7 @@ export function Reservations() {
   useEffect(() => {  
         const fetchReservations = async () =>{
             try{
-            const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${editingLabID}&day=${editingDay}&timeStart=${convertTo24Hour(editingTime)}`)
+            const reservations = await fetch(`https://techquiverlrs.onrender.com/getReservations?labID=${editingLabID}&day=${editingDay}&timeStart=${convertTo24Hour(editingTimeStart)}`)
             if(reservations.ok){
                 const data = await reservations.json();
                 setMatchingReservations(data);
@@ -204,7 +204,7 @@ export function Reservations() {
             }
         }
         fetchReservations();
-  }, [editingLabID, selectedDay, selectedTime]);
+  }, [editingLabID, editingDay, editingTimeStart]);
 
   const handleConfirm = async (reservations, editingLabID, editingSeatID, editingDay, editingTimeStart, editingTimeEnd) => {
 

@@ -39,7 +39,6 @@ function App() {
       };
     
       checkAndLoginUser();
-      location.reload();
     },[]);
 
   

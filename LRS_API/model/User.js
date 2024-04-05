@@ -38,7 +38,7 @@ const userSchema = new Schema({
     profile_info:{
         profile_picture_url:{
             type: String,
-            default: 'https://lrs-dp-db.s3.ap-southeast-1.amazonaws.com/default.png'
+            default: 'https://lrs-img-db.s3.ap-southeast-1.amazonaws.com/default.png'
         },
         bio:{
             type: String,

@@ -14,7 +14,6 @@ export function AccDisplay() {
                 if (response.ok) {
                     const data = await response.json();
                     setImageUrl(data.imageUrl);
-                    location.reload();
                 } else {
                     console.error('Error fetching image URL:', response.statusText);
                 }

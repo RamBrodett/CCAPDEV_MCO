@@ -14,8 +14,6 @@ export function Reservations() {
   const [editingLabID, setEditingLabID] = useState('');
   const [editingSeatID, setEditingSeatID] = useState('');
   const [editingDay, setEditingDay] = useState('');
-  const [editingTimeStart, setEditingTimeStart] = useState('');
-  const [editingTimeEnd, setEditingTimeEnd] = useState('');
   const [editingTime, setEditingTime] = useState('');
 
   const [selectedDay, setSelectedDay] = useState('Sun');
@@ -148,8 +146,6 @@ export function Reservations() {
     setEditingLabID(reservation.labDetails.labID);
     setEditingSeatID(reservation.labDetails.seatID);
     setEditingDay(reservation.timeSlot.day);
-    setEditingTimeStart(reservation.timeSlot.timeStart);
-    setEditingTimeEnd(reservation.timeSlot.timeEnd);
     setEditingTime(reservation.timeSlot.timeStart + " - " + reservation.timeSlot.timeEnd);
 
     const fullRoomName = Object.keys(labMap).find(roomName => labMap[roomName].id === reservation.labDetails.labID);
@@ -208,7 +204,10 @@ export function Reservations() {
         fetchReservations();
   }, [editingLabID, selectedDay, selectedTime]);
 
-  const handleConfirm = async (reservations, editingLabID, editingSeatID, editingDay, editingTimeStart, editingTimeEnd) => {
+  const handleConfirm = async (reservations, editingLabID, editingSeatID, editingDay, editingTime) => {
+    const [startTimeString, _] = editingTime.split('-');
+    const editingTimeStart = startTimeString.trim();
+    const editingTimeEnd = findEndTime(editingTimeStart);
     setFormData({
         reservationID: reservations.reservationID,
         studentID: reservations.studentID,

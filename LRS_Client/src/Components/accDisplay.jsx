@@ -22,10 +22,7 @@ export function AccDisplay() {
                 console.error('Error fetching image URL:', error);
             }
         };
-
-        if (user.profileKey !== undefined){
-            getImageUrl();
-        }
+        getImageUrl();
     }, [user]);
 
     useEffect(() => {
@@ -38,8 +35,8 @@ export function AccDisplay() {
 
     return (
         <div className="accDisp">
-            {imageUrl && <img id='AccLogo' src={imageUrl} alt="User Profile" />}
-            {displayName && <span id='AccDisplayName'>{displayName}</span>}
+             <img id='AccLogo' src={imageUrl} alt="User Profile" />
+             <span id='AccDisplayName'>{displayName}</span>
         </div>
     );
 }

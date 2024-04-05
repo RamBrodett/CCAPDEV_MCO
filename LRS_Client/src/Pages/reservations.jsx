@@ -369,6 +369,7 @@ export function Reservations() {
                                     setEditingTimeStart(startTimeString.trim());
                                     setEditingTimeEnd(findEndTime(editingTimeStart));
                                     setEditingTime(editingTime);
+                                    console.log(matchingUserReservations);
                                 }} defaultValue={editingTime} >
                                   {timeSlots.map((timeStart, index) => {
                                     const timeEnd = findEndTime(timeStart);

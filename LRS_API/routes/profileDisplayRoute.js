@@ -18,7 +18,7 @@ router.post('/uploadNewImage', upload.single('image'), async(req, res)=> {
     try{
         const user = await User.findOne({userID: userId});
         const prevImageUrl = user.profile_info.profile_picture_url;
-        const defaulturl = "https://lrs-dp-db.s3.ap-southeast-1.amazonaws.com/default.png";
+        const defaulturl = "https://lrs-img-db.s3.ap-southeast-1.amazonaws.com/default.png";
 
         if(prevImageUrl !== defaulturl){
             const prevKey = prevImageUrl.split('.com/')[1];

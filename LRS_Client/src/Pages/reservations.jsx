@@ -270,7 +270,7 @@ export function Reservations() {
                 }
             });
 
-            window.location.href = "https://techquiverlabreservation.onrender.com/reservations/";
+            location.reload();
         }
     } catch (error) {
         console.error('Error handling form submission:', error);

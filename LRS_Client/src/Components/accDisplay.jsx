@@ -23,7 +23,9 @@ export function AccDisplay() {
             }
         };
 
-        getImageUrl();
+        if (user.profileKey !== undefined){
+            getImageUrl();
+        }
     }, [user]);
 
     useEffect(() => {

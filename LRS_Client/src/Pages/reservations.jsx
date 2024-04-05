@@ -335,7 +335,7 @@ export function Reservations() {
                               )
                             ))}</>)}
                               <label htmlFor="labs-dropdown">Laboratory:</label>
-                              <select name="labs" id="labs-dropdown" onChange={(e) => setEditingLabID(e.target.value)} defaultValue={editingLabID}>
+                              <select name="labs" id="labs-dropdown" onChange={(e) => {setEditingLabID(e.target.value); setEditingSeatID("");}} defaultValue={editingLabID}>
                                 {Object.values(labMap).map((lab) => (
                                   <option key={lab.id} value={lab.id}>
                                     {lab.id}  
@@ -356,7 +356,7 @@ export function Reservations() {
                               </select>
                                 <br></br>
                                 <label htmlFor="day-dropdown">Day:</label>
-                                <select onChange={(e) => setEditingDay(e.target.value)} defaultValue={editingDay}>
+                                <select onChange={(e) => {setEditingDay(e.target.value); setEditingSeatID("");}} defaultValue={editingDay}>
                                   {days.map((day, index) => (
                                     <option key={index} value={day}>
                                       {day}
@@ -364,7 +364,7 @@ export function Reservations() {
                                   ))}
                                 </select>| 
                                 <label htmlFor="timeSlot-dropdown">Time Slot:</label>
-                                <select onChange={(e) => setEditingTime(e.target.value)} defaultValue={editingTime} >
+                                <select onChange={(e) => {setEditingTime(e.target.value); setEditingSeatID("");}} defaultValue={editingTime} >
                                   {timeSlots.map((timeStart, index) => {
                                     const timeEnd = findEndTime(timeStart);
                                     const timeSlotLabel = `${timeStart} - ${timeEnd}`;

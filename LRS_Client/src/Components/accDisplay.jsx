@@ -8,12 +8,6 @@ export function AccDisplay() {
     const [displayName, setDisplayName] = useState('');
 
     useEffect(() => {
-        if (!user || !user.isLoggedIn) {
-            setImageUrl('');
-            setDisplayName('');
-            return;
-        }
-
         const getImageUrl = async () => {
             try {
                 const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${user.profileKey}`);
@@ -32,11 +26,6 @@ export function AccDisplay() {
     }, [user]);
 
     useEffect(() => {
-        if (!user || !user.isLoggedIn) {
-            setDisplayName('');
-            return;
-        }
-
         setDisplayName(`${user.firstname}`);
     }, [user]); 
 

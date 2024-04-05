@@ -376,7 +376,7 @@ export function Reservations() {
                                   })}
                                 </select>
                                 <button id="topRightReservationButton1" onClick={() => handleCancel(reservations.reservationID)}>CANCEL</button>
-                                <button id="topRightReservationButton2" onClick={() => handleConfirm(reservations, editingLabID, editingSeatID, editingDay, editingTimeStart, editingTimeEnd)}>CONFIRM</button>
+                                <button id="topRightReservationButton2" onClick={() => handleConfirm(reservations, editingLabID, editingSeatID, editingDay, editingTime)}>CONFIRM</button>
                               </>
                               ) : (
                                 <> 

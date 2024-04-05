@@ -8,7 +8,6 @@ export function Reservations() {
   const { userCred } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [imageUrl, setImageUrl] = useState('');
   const [matchingUserReservations, setMatchingUserReservations] = useState([]);
   const [matchingReservations, setMatchingReservations] = useState([]);
   const [editingReservationID, setEditingReservationID] = useState(null);
@@ -90,26 +89,8 @@ export function Reservations() {
         const user = await response.json();
         setUserData(user);
         fetchUserReservations(user);
-        fetchProfilePic(user);
       } catch (error) {
         console.error('Error fetching user data:', error);
-      }
-    };
-    
-    const fetchProfilePic = async (userData) => {
-      const imageKey = userData.profile_info.profile_picture_url.split('.com/')[1];
-      try {
-        const response = await fetch(`https://techquiverlrs.onrender.com/profileIMG/readImage?imgKey=${imageKey}`);
-        if (response.ok) {
-          const data = await response.json();
-          setImageUrl(data.imageUrl);
-        } else {
-          console.error('Error fetching image URL:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error fetching image URL:', error);
-      } finally {
-        setLoading(false);
       }
     };
 

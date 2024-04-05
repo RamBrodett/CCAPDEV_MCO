@@ -14,6 +14,7 @@ export function Home(){
     return(
         <>
                 <div className="Home_Container">
+                    {console.log("start")};
                     <Header/> 
                         <div className="Home_Body">
                             <div className="topContent">

@@ -208,54 +208,62 @@ export function Reservations() {
     const [startTimeString, _] = editingTime.split('-');
     const editingTimeStart = startTimeString.trim();
     const editingTimeEnd = findEndTime(editingTimeStart);
+
     setFormData({
-        reservationID: reservations.reservationID,
-        studentID: reservations.studentID,
-        labDetails: {
-            labID: editingLabID,
-            seatID: editingSeatID,
-        },
-        date: new Date('2024-03-22'),
-        timeSlot: {
-            day: editingDay,
-            timeStart: editingTimeStart,
-            timeEnd: editingTimeEnd,
-        }
-    });
-
-    try {
-        const response = await fetch('https://techquiverlrs.onrender.com/reserve/updateReservation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        if (!response.ok) {
-            console.error('Error updating reservation: ', response.statusText);
-        }
-        else {
-            setFormData({
-                reservationID: '',
-                studentID: '',
-                labDetails: {
-                    labID: '',
-                    seatID: '',
-                },
-                date: new Date('2024-03-22'),
-                timeSlot: {
-                    day: '',
-                    timeStart: '',
-                    timeEnd: '',
-                }
-            });
-
-            window.location.reload();
-        }
-    } catch (error) {
-        console.error('Error handling form submission:', error);
-    }
+          reservationID: reservations.reservationID,
+          studentID: reservations.studentID,
+          labDetails: {
+              labID: editingLabID,
+              seatID: editingSeatID,
+          },
+          date: new Date('2024-03-22'),
+          timeSlot: {
+              day: editingDay,
+              timeStart: editingTimeStart,
+              timeEnd: editingTimeEnd,
+          }
+      });
   };
+
+  useEffect(() => {
+      const updateReservation = async () => {
+          try {
+              const response = await fetch('https://techquiverlrs.onrender.com/reserve/updateReservation', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(formData),
+              });
+              if (!response.ok) {
+                  console.error('Error updating reservation: ', response.statusText);
+              } else {
+                  setFormData({
+                      reservationID: '',
+                      studentID: '',
+                      labDetails: {
+                          labID: '',
+                          seatID: '',
+                      },
+                      date: new Date('2024-03-22'),
+                      timeSlot: {
+                          day: '',
+                          timeStart: '',
+                          timeEnd: '',
+                      }
+                  });
+                  window.location.reload();
+              }
+          } catch (error) {
+              console.error('Error handling form submission:', error);
+          }
+      };
+
+      // Check if formData has changed, and if so, update the reservation
+      if (formData.reservationID !== '') {
+          updateReservation();
+      }
+  }, [formData]);
 
   const handleDelete = async (reservationID) => {
 

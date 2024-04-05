@@ -335,7 +335,7 @@ export function Reservations() {
                               )
                             ))}</>)}
                               <label htmlFor="labs-dropdown">Laboratory:</label>
-                              <select name="labs" id="labs-dropdown" onChange={(e) => {setEditingLabID(e.target.value); setEditingSeatID("");}} defaultValue={editingLabID}>
+                              <select name="labs" id="labs-dropdown" onChange={(e) => {setEditingLabID(e.target.value); setEditingSeatID(""); console.log("yoo");}} defaultValue={editingLabID}>
                                 {Object.values(labMap).map((lab) => (
                                   <option key={lab.id} value={lab.id}>
                                     {lab.id}  
